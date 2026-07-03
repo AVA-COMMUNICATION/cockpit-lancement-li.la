@@ -157,7 +157,8 @@ function load(){try{const s=JSON.parse(localStorage.getItem("lila-contenus-v2"))
   DATA=ANGLES.map(a=>({c:a[0],f:a[1],t:a[2],txt:"",link:"",s:"À écrire",okL:false,okA:false}));}
 function save(){try{localStorage.setItem("lila-contenus-v2",JSON.stringify(DATA));}catch(e){}pushContenus();}
 /* ---- Back-end partagé (même URL que le cockpit) ---- */
-function backendUrl(){try{return localStorage.getItem("lila-backend-url")||"";}catch(e){return "";}}
+var BACKEND_DEFAULT="https://script.google.com/macros/s/AKfycbyGPJFjP_c-B2JZ38R9yzm5kRAsoXcd_-aMyNhhyh2JgHsVv1dNu7WUAE6wrJq_IQTdDQ/exec";
+function backendUrl(){try{return localStorage.getItem("lila-backend-url")||BACKEND_DEFAULT;}catch(e){return BACKEND_DEFAULT;}}
 function setSyncBadge(state){var el=document.getElementById("kitSync");if(!el)return;
   el.textContent = state==="ok"?"— sauvegardé dans le Sheet":state==="err"?"— hors ligne (local)":"— local";}
 function toSheet(r,i){return {id:r.id,date:pieceDate(r.id,i),canal:r.c,format:r.f,titre:r.t,

@@ -401,7 +401,7 @@ body.sbopen .sbov{opacity:1;pointer-events:auto}
   </div>
 </header>
 
-<div class="banner" id="banner">
+<div class="banner" id="banner" style="display:none">
   <div class="bnrow">
     <div class="bntxt" id="bntxt"><b>Mode local</b> — progression enregistrée sur cet appareil. Colle l'URL du back-end (Apps Script) pour partager avec Linda en temps réel.</div>
     <div class="bnform">
@@ -455,7 +455,8 @@ body.sbopen .sbov{opacity:1;pointer-events:auto}
    "Application Web" (accès : tout le monde), puis colle ici
    l'URL qui finit par /exec.
 ======================================================= */
-let BACKEND_URL = (function(){try{return localStorage.getItem("lila-backend-url")||""}catch(e){return ""}})();
+var BACKEND_DEFAULT = "https://script.google.com/macros/s/AKfycbyGPJFjP_c-B2JZ38R9yzm5kRAsoXcd_-aMyNhhyh2JgHsVv1dNu7WUAE6wrJq_IQTdDQ/exec";
+let BACKEND_URL = (function(){try{return localStorage.getItem("lila-backend-url")||BACKEND_DEFAULT}catch(e){return BACKEND_DEFAULT}})();
 
 /* ====================== ANNEXES & LIENS ======================
    Complète les URL (laisse "#" si pas encore prêt).
@@ -1250,7 +1251,7 @@ async function refreshFromBackend(manual){
   const ok = !!BACKEND_URL;
   if(manual && btn) btn.classList.add("spin");
   STATE = await api.load();
-  if(ok){sync.className="sync ok";txt.textContent="Synchronisé";var _bt=document.getElementById("bntxt");if(_bt)_bt.innerHTML="<b>Back-end branché</b> — synchronisé avec le compte partagé. Tu peux changer l'URL ci-contre.";}
+  if(ok){sync.className="sync ok";txt.textContent="Synchronisé";var _bt=document.getElementById("bntxt");if(_bt)_bt.innerHTML="<b>Back-end branché</b> — synchronisé avec le compte partagé. ";}
   else{sync.className="sync local";txt.textContent="Local";}
   render();
   if(manual && btn){
@@ -1275,13 +1276,9 @@ refreshFromBackend(false);
 </script>
 <script>
 (function(){
-  var i=document.getElementById("beurl"), b=document.getElementById("besave");
-  if(i){try{i.value=localStorage.getItem("lila-backend-url")||"";}catch(e){}}
-  if(b)b.addEventListener("click",function(){
-    var v=(i&&i.value||"").trim();
-    try{ v?localStorage.setItem("lila-backend-url",v):localStorage.removeItem("lila-backend-url"); }catch(e){}
-    location.reload();
-  });
+  /* Back-end câblé en dur (BACKEND_DEFAULT). Bandeau masqué : rien à coller.
+     Pour changer l'URL (Laurence uniquement) : en console ->
+     localStorage.setItem("lila-backend-url","…/exec"); puis recharger. */
 })();
 </script>
 </body>

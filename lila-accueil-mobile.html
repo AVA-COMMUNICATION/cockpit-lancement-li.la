@@ -48,6 +48,7 @@ a{color:inherit;text-decoration:none}
 .pin .chev{color:#c9bcc4;font-size:18px;flex:none}
 .i-demo{background:linear-gradient(135deg,#C85E92,#E8863F)}
 .i-land{background:linear-gradient(135deg,#6E5C86,#A996B8)}
+.i-hub{background:linear-gradient(135deg,#0C2241,#9AAD8F)}
 .i-cock{background:var(--navy)}
 .i-com{background:var(--rose)}
 .i-kit{background:var(--lavande)}
@@ -111,6 +112,11 @@ a{color:inherit;text-decoration:none}
     <a class="pin" href="https://ava-communication.github.io/landing-page/" target="_blank" rel="noopener">
       <div class="ic i-land"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"/></svg></div>
       <div class="tx"><div class="t">Landing page Li·La</div><div class="s">La vitrine publique — à envoyer aux prospects</div></div>
+      <div class="chev">›</div>
+    </a>
+    <a class="pin" href="https://app-li-la.netlify.app/li.la-hub-ava/lila-by-la-maison-d-ava" target="_blank" rel="noopener">
+      <div class="ic i-hub"><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="2.4"/><circle cx="5" cy="18" r="2.4"/><circle cx="19" cy="18" r="2.4"/><path d="M10.6 6.6 6.4 15.6M13.4 6.6l4.2 9M7.4 18h9.2"/></svg></div>
+      <div class="tx"><div class="t">Hub immobilier AVA</div><div class="s">Li·La by La Maison d'AVA — le collectif</div></div>
       <div class="chev">›</div>
     </a>
     <a class="pin" href="index.html">
@@ -195,7 +201,8 @@ renderDemo();
 
 /* mes liens — local + back-end partagé (même URL que le cockpit) */
 var LKEY="lila-mobile-links";
-function backendUrl(){try{return localStorage.getItem("lila-backend-url")||"";}catch(e){return "";}}
+var BACKEND_DEFAULT="https://script.google.com/macros/s/AKfycbyGPJFjP_c-B2JZ38R9yzm5kRAsoXcd_-aMyNhhyh2JgHsVv1dNu7WUAE6wrJq_IQTdDQ/exec";
+function backendUrl(){try{return localStorage.getItem("lila-backend-url")||BACKEND_DEFAULT;}catch(e){return BACKEND_DEFAULT;}}
 function loadLinks(){try{return JSON.parse(localStorage.getItem(LKEY))||[];}catch(e){return [];}}
 function saveLinks(a){try{localStorage.setItem(LKEY,JSON.stringify(a));}catch(e){}}
 function esc(x){return (x||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/"/g,"&quot;");}
