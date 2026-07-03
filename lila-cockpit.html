@@ -1,0 +1,1285 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Li·La — Cockpit de pilotage</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#43303F;--orange:#F08247;--lavande:#A996B8;--sauge:#9AAD8F;
+  --creme:#FBF4EE;--gris:#626A73;--navy-2:#5A4152;--line:#6E5265;
+  --card:#fffdfa;--border:#ece4da;--alert:#B5462E;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',system-ui,sans-serif;color:var(--navy);background:var(--creme);line-height:1.5;-webkit-font-smoothing:antialiased}
+h1,h2,h3,.disp{font-family:'Poppins',system-ui,sans-serif}
+
+/* TOPBAR */
+.top{position:sticky;top:0;z-index:30;background:var(--navy);color:#fff;
+  display:flex;align-items:center;gap:20px;padding:14px 26px;flex-wrap:wrap}
+.top .logo{font-family:'Poppins';font-weight:700;font-size:24px;flex:none;display:flex;flex-direction:column;line-height:1.05}
+.top .logo .wm{white-space:nowrap}
+.top .logo .pt{color:var(--lavande)}
+.top .logo small{display:block;font-family:'Inter';font-weight:500;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#b3a6c4;margin-top:1px}
+.gprog{display:flex;align-items:center;gap:12px;margin-left:auto}
+.gbar{width:180px;height:9px;border-radius:99px;background:#6E5265;overflow:hidden}
+.gbar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--sauge),var(--orange));border-radius:99px;transition:width .5s}
+.gpct{font-family:'Poppins';font-weight:600;font-size:15px;min-width:42px}
+.sync{display:flex;align-items:center;gap:7px;font-size:12px;color:#ccc0d8;padding:5px 11px;border:1px solid var(--line);border-radius:99px}
+.sync .d{width:8px;height:8px;border-radius:50%;background:var(--gris)}
+.sync.ok .d{background:var(--sauge)}
+.sync.local .d{background:var(--orange)}
+
+/* CONTROLS */
+.controls{max-width:1080px;margin:0 auto;padding:22px 26px 8px;display:flex;gap:18px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+.tabs{display:flex;flex-wrap:wrap;gap:6px;background:#efe9e1;padding:4px;border-radius:12px}
+.tab{border:none;background:none;font:600 14px 'Inter';color:var(--gris);padding:8px 15px;border-radius:9px;cursor:pointer;transition:.15s}
+.tab.active{background:#fff;color:var(--navy);box-shadow:0 1px 3px rgba(12,34,65,.1)}
+.filters{display:flex;gap:6px;align-items:center}
+.filters .lbl{font-size:12px;color:var(--gris);margin-right:2px}
+.fbtn{border:1px solid var(--border);background:#fff;font:500 13px 'Inter';color:var(--gris);padding:7px 12px;border-radius:99px;cursor:pointer;transition:.15s}
+.fbtn.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+
+.legend{max-width:1080px;margin:0 auto;padding:8px 26px 4px;display:flex;gap:16px;flex-wrap:wrap;font-size:12px;color:var(--gris)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:11px;height:11px;border-radius:50%}
+.lg-av{background:#c4bcae}.lg-en{background:var(--orange)}.lg-fa{background:var(--sauge)}.lg-bl{background:var(--alert)}
+
+/* WRAP */
+.shell{max-width:1200px;margin:0 auto;padding:14px 26px 70px;display:grid;grid-template-columns:1fr;gap:22px}
+.rail{display:none}
+@media(min-width:1100px){
+  .shell{grid-template-columns:minmax(0,1fr) 252px}
+  .rail{display:block;align-self:start;position:sticky;top:18px}
+}
+.railbox{background:var(--navy);color:#f3e9f0;border-radius:16px;padding:18px}
+.railbox .rk{font:600 11px 'Inter';letter-spacing:.16em;text-transform:uppercase;color:#b3a6c4;margin-bottom:12px}
+.rcd{display:flex;align-items:baseline;gap:7px;padding-bottom:14px;border-bottom:1px solid var(--line);margin-bottom:12px}
+.rcd .rcdn{font:700 38px 'Poppins';color:var(--orange);line-height:1}
+.rcd small{font-size:12px;color:#b3a6c4}
+.rnext{display:block;background:var(--navy-2);border-radius:11px;padding:11px 13px;margin-bottom:14px;cursor:pointer;font-size:11.5px;color:#b3a6c4}
+.rnext:hover{outline:1px solid var(--orange)}
+.rnext b{display:block;color:#fff;font-size:13.5px;margin:3px 0 1px;font-family:'Inter'}
+.rnext span{font-size:11.5px;color:var(--orange);font-weight:600}
+.rjalons{display:flex;flex-direction:column;gap:10px;margin-bottom:14px}
+.rj{display:flex;align-items:center;gap:10px;cursor:pointer}
+.rj .rjd{width:10px;height:10px;border-radius:50%;flex:none}
+.rj.go .rjd{background:var(--sauge)}.rj.launch .rjd{background:var(--orange)}.rj.event .rjd{background:var(--lavande)}
+.rj .rjt{flex:1;font-size:12.5px;color:#d7e0ea;line-height:1.25}
+.rj .rjt span{display:block;font-size:11px;color:#b3a6c4}
+.rj .rjc{font:700 12px 'Poppins';color:#b3a6c4}
+.rprog{display:flex;align-items:center;gap:9px;font-size:11.5px;color:#b3a6c4}
+.rprog .rbar{flex:1;height:7px;border-radius:99px;background:var(--line);overflow:hidden}
+.rprog .rbar i{display:block;height:100%;background:linear-gradient(90deg,var(--sauge),var(--orange));border-radius:99px}
+.rprog b{font-family:'Poppins';color:#fff}
+.volet{margin-top:18px}
+.volet>h2{font-size:15px;font-weight:600;color:var(--gris);text-transform:uppercase;letter-spacing:.1em;margin:18px 0 12px;display:flex;align-items:center;gap:10px}
+.volet>h2 .vo{font-size:11px;font-weight:600;color:var(--lavande);background:#f1eef4;padding:3px 9px;border-radius:99px;text-transform:none;letter-spacing:0}
+.volet>h2 .voldoc{margin-left:auto;font:600 11px 'Inter';color:#fff;background:var(--orange);padding:5px 12px;border-radius:99px;text-transform:none;letter-spacing:0;text-decoration:none}
+.volet>h2 .voldoc:hover{background:#e06f33}
+
+/* MODULE CARD */
+.mod{background:var(--card);border:1px solid var(--border);border-radius:14px;margin-bottom:12px;overflow:hidden;box-shadow:0 1px 2px rgba(12,34,65,.05)}
+.mhead{display:flex;align-items:center;gap:14px;padding:15px 18px;cursor:pointer;user-select:none}
+.mhead:hover{background:#fcf8f3}
+.mchev{width:18px;height:18px;flex:none;color:var(--gris);transition:transform .2s}
+.mod.open .mchev{transform:rotate(90deg)}
+.mtitle{flex:1;min-width:0}
+.mtitle h3{font-size:16px;font-weight:600;display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.mtitle .code{font-family:'Poppins';font-size:12px;font-weight:600;color:var(--lavande)}
+.mtitle .sub{font-size:12px;color:var(--gris);margin-top:2px}
+.mmini{display:flex;align-items:center;gap:10px;flex:none}
+.mbar{width:90px;height:7px;border-radius:99px;background:#eee5d9;overflow:hidden}
+.mbar i{display:block;height:100%;width:0;background:var(--sauge);border-radius:99px;transition:width .4s}
+.mcount{font-size:12px;color:var(--gris);min-width:34px;text-align:right;font-variant-numeric:tabular-nums}
+.mbody{display:none;padding:4px 18px 16px;border-top:1px solid #f1ebe2}
+.mod.open .mbody{display:block}
+.grp{margin-top:12px}
+.grp .gt{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--gris);margin-bottom:6px;display:flex;align-items:center;gap:7px}
+.grp .gt .ic{width:14px;height:14px}
+.gt.dev{color:#bd6a36}.gt.chk{color:#5c7350}
+
+/* ITEM ROW */
+.item{display:flex;align-items:flex-start;gap:11px;padding:7px 4px;border-radius:8px;cursor:pointer;transition:background .12s}
+.item:hover{background:#faf5ee}
+.dot{width:18px;height:18px;border-radius:50%;flex:none;margin-top:1px;border:2px solid #cabfae;background:#fff;display:flex;align-items:center;justify-content:center;transition:.2s}
+.dot svg{width:11px;height:11px;opacity:0;transition:.15s}
+.item.encours .dot{background:var(--orange);border-color:var(--orange);box-shadow:0 0 0 3px rgba(240,130,71,.18)}
+.item.fait .dot{background:var(--sauge);border-color:var(--sauge)}
+.item.fait .dot svg{opacity:1}
+.item.bloque .dot{background:var(--alert);border-color:var(--alert)}
+.item.bloque .dot svg{opacity:1}
+.item .tx{flex:1;font-size:14px;color:#2b3a4d}
+.item.fait .tx{color:var(--gris)}
+.rbadge{flex:none;font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:99px;margin-top:1px;white-space:nowrap}
+.r-L{background:#fdeee4;color:#bd6a36}
+.r-Li{background:#f1eef4;color:#7a6790}
+.r-2{background:#eaf0e6;color:#5c7350}
+
+.foot{max-width:1080px;margin:0 auto;padding:0 26px;color:var(--gris);font-size:12px}
+.banner{background:#fff7f1;border:1px solid #f6d3bb;border-radius:12px;padding:13px 16px;margin:16px 26px 0;max-width:1080px;font-size:13px;color:#8a4a28}
+.banner b{color:var(--navy)}
+.banner.hide{display:none}
+
+/* DASHBOARD */
+.dash{padding-top:4px}
+.hero2{display:flex;align-items:center;justify-content:space-between;gap:18px;background:var(--navy);color:#fff;border-radius:16px;padding:22px 26px;flex-wrap:wrap}
+.h2k{font:600 12px 'Inter';letter-spacing:.14em;text-transform:uppercase;color:#b3a6c4}
+.h2t{font:600 23px 'Poppins';margin-top:4px}
+.h2cd{display:flex;align-items:center;gap:12px;text-align:right;font-size:12px;color:#ccc0d8;line-height:1.3}
+.h2cd .big{font:700 42px 'Poppins';color:var(--orange);line-height:1}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:14px 0}
+.stat{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;box-shadow:0 1px 2px rgba(12,34,65,.05)}
+.stat.go{cursor:pointer}.stat.go:hover{border-color:var(--orange)}
+.stat.alert{border-color:#e7b9ac;background:#fdf3f0}
+.sv{font:700 30px 'Poppins';color:var(--navy)}
+.sv small{font-size:17px;color:var(--gris)}
+.sv.sm{font-size:15px;line-height:1.25}
+.sl{font-size:12.5px;color:var(--gris);margin-top:4px}
+.stat .sbar{height:6px;border-radius:99px;background:#eee5d9;margin-top:9px;overflow:hidden}
+.stat .sbar i{display:block;height:100%;background:linear-gradient(90deg,var(--sauge),var(--orange));border-radius:99px;transition:width .5s}
+.dgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.panel{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px 18px;box-shadow:0 1px 2px rgba(12,34,65,.05)}
+.panel h3{font:600 14px 'Poppins';margin-bottom:10px}
+.jcard{display:flex;align-items:center;gap:11px;padding:9px 6px;border-radius:9px;cursor:pointer}
+.jcard:hover{background:#faf5ee}
+.jdot{width:11px;height:11px;border-radius:50%;flex:none}
+.jcard.go .jdot{background:var(--sauge)}.jcard.mid .jdot{background:var(--lavande)}.jcard.launch .jdot{background:var(--orange)}
+.jtx{flex:1}.jtx b{display:block;font-size:14px}.jtx span{font-size:12px;color:var(--gris)}
+.jcd{font:700 13px 'Poppins';color:var(--gris)}
+.pbrow{display:flex;align-items:center;gap:10px;margin:8px 0}
+[data-jump].pbrow{cursor:pointer}
+.pbl{flex:1;font-size:13px}
+.pbbar{width:120px;height:7px;border-radius:99px;background:#eee5d9;overflow:hidden;flex:none}
+.pbbar i{display:block;height:100%;background:var(--sauge);border-radius:99px;transition:width .5s}
+.pbbar i.build{background:var(--orange)}.pbbar i.beta{background:var(--sauge)}.pbbar i.launch{background:var(--lavande)}
+.pbv{font:600 12px 'Poppins';color:var(--gris);min-width:34px;text-align:right}
+.brief{margin-top:12px}
+.doctiles{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.doctile{display:flex;align-items:center;gap:12px;background:#faf6ef;border:1px solid var(--border);border-radius:12px;padding:13px 15px;text-decoration:none;transition:border-color .15s,transform .15s}
+.doctile:hover{border-color:var(--orange);transform:translateY(-1px)}
+.dt-ico{font-size:20px;flex:none}
+.dt-b{flex:1;min-width:0}
+.dt-b b{display:block;font:600 14px 'Poppins';color:var(--navy)}
+.dt-b span{display:block;font-size:12px;color:var(--gris);margin-top:2px;line-height:1.4}
+.dt-go{flex:none;font:600 12px 'Inter';color:var(--orange)}
+/* REPERES */
+.rep section{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px 18px;margin-bottom:12px;box-shadow:0 1px 2px rgba(12,34,65,.05)}
+.rep h3{font:600 16px 'Poppins';margin-bottom:8px}
+.rep p{font-size:14px;color:#574a58;max-width:760px}
+.repmods{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px}
+.rm{border:1px solid var(--border);border-radius:11px;padding:12px 13px;position:relative}
+.rm b{font-size:14px}.rm span{display:block;font-size:12.5px;color:var(--gris);margin-top:3px;padding-right:70px}
+.rm i{position:absolute;top:11px;right:11px;font-size:10px;font-weight:600;padding:3px 8px;border-radius:99px;font-style:normal}
+.rm.now i{background:var(--sauge);color:#fff}.rm.later i{background:#efe9f1;color:#7a6790}
+.rm.later{opacity:.82}
+.mdue{font-size:11px;font-weight:600;color:var(--gris);background:#f3eee6;padding:3px 9px;border-radius:99px;white-space:nowrap}
+.mest{font-size:11px;font-weight:700;color:#3f6650;background:#e9f0e9;padding:3px 9px;border-radius:99px;white-space:nowrap}
+.mdet{font:600 11px 'Inter';color:var(--orange);background:#fdeee4;border:none;border-radius:99px;padding:3px 10px;cursor:pointer;margin-left:6px;vertical-align:middle}
+.mdet:hover{background:var(--orange);color:#fff}
+/* PANNEAU DÉTAIL */
+.drawer-ov{position:fixed;inset:0;background:rgba(12,34,65,.42);opacity:0;pointer-events:none;transition:opacity .25s;z-index:60}
+.drawer-ov.open{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:0;right:0;height:100%;width:min(460px,92vw);background:var(--creme);box-shadow:-10px 0 40px rgba(12,34,65,.2);transform:translateX(102%);transition:transform .28s cubic-bezier(.2,.7,.2,1);z-index:61;overflow-y:auto}
+.drawer.open{transform:translateX(0)}
+.dwh{background:var(--navy);color:#fff;padding:22px 24px 20px;position:relative}
+.dwclose{position:absolute;top:14px;right:16px;background:transparent;border:none;color:#b3a6c4;font-size:26px;line-height:1;cursor:pointer}
+.dwclose:hover{color:#fff}
+.dwcode{font:600 11px 'Inter';letter-spacing:.1em;text-transform:uppercase;color:#b3a6c4}
+.dwh h2{font:600 21px 'Poppins';margin:5px 0 9px}
+.dwmeta{font-size:12.5px;color:#ccc0d8}
+.dwest{font:700 13px 'Poppins';color:var(--orange);background:rgba(240,130,71,.14);padding:3px 10px;border-radius:99px}
+.dwbody{padding:20px 24px 40px}
+.dwbut{font-size:14.5px;color:var(--navy);font-weight:500;margin-bottom:16px}
+.dwsec{margin-bottom:18px}
+.dwsec h4{font:600 12px 'Inter';letter-spacing:.08em;text-transform:uppercase;color:var(--gris);margin-bottom:8px}
+.dwsec p{font-size:14px;color:#574a58;line-height:1.6}
+.dwsec.livr{background:#e9f0e9;border-radius:11px;padding:13px 15px}
+.dwsteps{list-style:none;display:flex;flex-direction:column;gap:9px}
+.dwsteps li{display:flex;align-items:flex-start;gap:10px;font-size:13.5px;color:var(--navy)}
+.dwsteps .dn{flex:none;width:21px;height:21px;border-radius:50%;background:var(--navy);color:#fff;font:700 11px 'Poppins';display:flex;align-items:center;justify-content:center;margin-top:1px}
+.dwsteps .dt{flex:1}
+.dwchk{list-style:none;display:flex;flex-direction:column;gap:7px}
+.dwchk li{display:flex;align-items:flex-start;gap:9px;font-size:13.5px;color:#574a58}
+.dwchk .ck{color:var(--sauge);font-weight:800;flex:none}
+.dwsteps .rbadge,.dwchk .rbadge{flex:none}
+.dwgoto{margin-top:8px;width:100%;background:var(--navy);color:#fff;border:none;border-radius:11px;padding:12px;font:600 13px 'Inter';cursor:pointer}
+.dwgoto:hover{background:var(--orange)}
+.dwguide{display:block;text-align:center;background:#fdeee4;color:#bd5a2c;font:600 13px 'Inter';border-radius:11px;padding:11px;margin-bottom:16px;text-decoration:none}
+.dwguide:hover{background:var(--orange);color:#fff}
+.links{list-style:none;display:flex;flex-direction:column;gap:7px}
+.links li{display:flex;align-items:center;gap:10px}
+.links a{font-size:14px;font-weight:500;color:var(--navy);border-bottom:1px solid var(--lavande);padding-bottom:1px}
+.links a.todo{color:var(--gris);border-bottom-style:dashed;pointer-events:none}
+.tag-todo{font-size:10.5px;font-weight:600;color:#bd6a36;background:#fdeee4;padding:2px 8px;border-radius:99px}
+.jcard.event .jdot{background:var(--orange)}
+.milestone.event{background:#fdeee4;color:#bd5a2c}
+.period.event{border-color:var(--orange)}
+.period.post{border-color:var(--gris)}
+
+/* PLANNING */
+.plan{padding-top:4px}
+.period{font:600 16px 'Poppins';margin:24px 0 12px;padding-left:12px;border-left:4px solid var(--gris)}
+.period.build{border-color:var(--orange)}
+.period.beta{border-color:var(--sauge)}
+.period.launch{border-color:var(--lavande)}
+.week{background:var(--card);border:1px solid var(--border);border-radius:13px;padding:12px 14px;margin-bottom:10px;box-shadow:0 1px 2px rgba(12,34,65,.05)}
+.whead{display:flex;align-items:center;gap:10px;margin-bottom:6px;flex-wrap:wrap}
+.wsem{font:700 12px 'Poppins';color:#fff;background:var(--navy);padding:3px 9px;border-radius:7px}
+.wlbl{font-weight:600;font-size:13.5px}
+.wdue{margin-left:auto;font-size:12px;color:var(--gris)}
+.wload{font-size:11px;font-weight:700;color:#3f6650;background:#e9f0e9;padding:2px 9px;border-radius:99px}
+.wabs{font-size:12px;font-weight:600;color:#9a5fb0;background:#f3edf6;border-radius:8px;padding:6px 11px;margin:2px 0 6px;display:inline-block}
+.wnote{font-size:12.5px;color:var(--gris);font-style:italic;margin:2px 0 4px}
+.pmod{display:flex;align-items:center;gap:11px;padding:9px 10px;border-radius:9px;cursor:pointer;transition:background .12s}
+.pmod+.pmod{margin-top:2px}
+.pmod:hover{background:#faf5ee}
+.pdot{width:11px;height:11px;border-radius:50%;flex:none;background:#cabfae}
+.pmod.encours .pdot{background:var(--orange)}
+.pmod.fait .pdot{background:var(--sauge)}
+.pmtitle{flex:1;min-width:0;font-size:14px}
+.pmtitle b{font-family:'Poppins';color:var(--lavande);font-size:12.5px;margin-right:4px}
+.pbar{width:80px;height:6px;border-radius:99px;background:#eee5d9;overflow:hidden;flex:none}
+.pbar i{display:block;height:100%;background:var(--sauge);border-radius:99px;transition:width .4s}
+.pcount{font-size:11.5px;color:var(--gris);min-width:30px;text-align:right;font-variant-numeric:tabular-nums;flex:none}
+.pdue{font-size:11px;font-weight:600;padding:3px 9px;border-radius:99px;background:#f1eee9;color:var(--gris);white-space:nowrap;flex:none}
+.pdue.soon{background:#fdeee4;color:#bd6a36}
+.pdue.late{background:#f6ddd6;color:var(--alert)}
+.pdue.done{background:#eaf0e6;color:#5c7350}
+.milestone{margin:6px 0 20px;padding:12px 16px;border-radius:11px;font:600 14px 'Poppins';display:flex;align-items:center;gap:9px}
+.milestone::before{content:"";width:9px;height:9px;border-radius:50%;background:currentColor;flex:none}
+.milestone.go{background:#eaf0e6;color:#4f6745}
+.milestone.mid{background:#f1eef4;color:#6b5a7d}
+.milestone.launch{background:#fdeee4;color:#bd5a2c}
+.mod.flash{animation:flash 1.6s ease}
+@keyframes flash{0%,100%{box-shadow:0 1px 2px rgba(12,34,65,.05)}25%,55%{box-shadow:0 0 0 3px var(--orange)}}
+
+@media(max-width:720px){
+  .gprog{margin-left:0;width:100%}
+  .gbar{flex:1;width:auto}
+  .controls{flex-direction:column;align-items:stretch}
+  .tabs{justify-content:center}
+  .filters{flex-wrap:wrap}
+  .mmini .mbar{width:60px}
+  .stats{grid-template-columns:1fr 1fr}
+  .dgrid{grid-template-columns:1fr}
+  .repmods{grid-template-columns:1fr}
+  .doctiles{grid-template-columns:1fr}
+  .hero2{flex-direction:column;align-items:flex-start}
+  .h2cd{text-align:left}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+:focus-visible{outline:2px solid var(--orange);outline-offset:2px;border-radius:6px}
+/* ====================== SIDEBAR DOSSIERS ====================== */
+:root{--sbw:248px}
+.sidebar{position:fixed;top:0;left:0;height:100%;width:var(--sbw);z-index:50;
+  background:var(--navy);color:#f3e9f0;display:flex;flex-direction:column;
+  border-right:1px solid var(--line);overflow-y:auto}
+.sbhead{padding:18px 20px 15px;border-bottom:1px solid var(--line);flex:none}
+.sbhead .lg{font:700 23px 'Poppins';display:flex;flex-direction:column;line-height:1.05}
+.sbhead .lg .pt{color:var(--lavande)}
+.sbhead .lg small{font:500 10.5px 'Inter';letter-spacing:.14em;text-transform:uppercase;color:#b3a6c4;margin-top:3px}
+.sbnav{padding:14px 12px 24px;display:flex;flex-direction:column;gap:2px}
+.sbk{font:600 10px 'Inter';letter-spacing:.16em;text-transform:uppercase;color:#8da0b6;padding:14px 12px 7px}
+.sbnav a{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:10px;
+  color:#d3deea;text-decoration:none;font:500 13.5px 'Inter';transition:background .15s,color .15s}
+.sbnav a:hover{background:var(--navy-2);color:#fff}
+.sbnav a.active{background:var(--orange);color:#fff;font-weight:600}
+.sbnav a .si{width:18px;height:18px;flex:none;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;opacity:.92}
+.sbnav a.active .si{opacity:1}
+.sbnav a .sx{font:600 10px 'Inter';margin-left:auto;color:#8da0b6;background:rgba(255,255,255,.06);padding:2px 7px;border-radius:99px}
+.sbnav a:hover .sx,.sbnav a.active .sx{color:inherit}
+.sbfoot{margin-top:auto;padding:16px 20px;border-top:1px solid var(--line);font:500 11px 'Inter';color:#8da0b6;line-height:1.5}
+
+/* décalage du contenu (desktop) */
+body{padding-left:var(--sbw)}
+
+/* burger (mobile) + overlay sidebar */
+.sbtgl{display:none;align-items:center;justify-content:center;width:38px;height:38px;flex:none;
+  background:var(--navy-2);border:1px solid var(--line);border-radius:10px;cursor:pointer;padding:0}
+.sbtgl span{position:relative;width:17px;height:1.8px;background:#fff;border-radius:2px;display:block}
+.sbtgl span::before,.sbtgl span::after{content:"";position:absolute;left:0;width:17px;height:1.8px;background:#fff;border-radius:2px}
+.sbtgl span::before{top:-5.5px}.sbtgl span::after{top:5.5px}
+.sbov{position:fixed;inset:0;background:rgba(12,34,65,.45);opacity:0;pointer-events:none;transition:opacity .25s;z-index:49}
+body.sbopen .sbov{opacity:1;pointer-events:auto}
+
+@media(max-width:1024px){
+  body{padding-left:0}
+  .sidebar{transform:translateX(-102%);transition:transform .28s cubic-bezier(.2,.7,.2,1);box-shadow:6px 0 32px rgba(12,34,65,.28)}
+  body.sbopen .sidebar{transform:none}
+  .sbtgl{display:inline-flex}
+}
+
+/* ============ FEEDBACK LUDIQUE ============ */
+.freeorder{background:#f2ecfa;color:#6E5265;border:1px solid #e2d7f0;border-radius:99px;padding:5px 12px;font:600 11.5px 'Inter'}
+.toast{position:fixed;left:50%;bottom:26px;transform:translate(-50%,22px);z-index:80;background:var(--navy);color:#fff;
+  font:600 13.5px 'Inter';padding:12px 18px;border-radius:14px;box-shadow:0 14px 36px rgba(58,44,82,.34);
+  opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;display:flex;align-items:center;gap:10px;max-width:88vw}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.toast.good{background:linear-gradient(90deg,var(--navy-2),var(--navy))}
+.toast.party{background:var(--orange);box-shadow:0 14px 42px rgba(240,130,71,.44)}
+.toast .tk{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:rgba(255,255,255,.22);font-weight:800;font-size:12px;flex:none}
+#gpct.bump{animation:gpbump .5s ease}
+@keyframes gpbump{0%{transform:scale(1)}35%{transform:scale(1.28);color:var(--orange)}100%{transform:scale(1)}}
+.confetti{position:fixed;left:0;right:0;bottom:60px;height:0;z-index:79;pointer-events:none}
+.confetti i{position:absolute;bottom:0;width:9px;height:9px;border-radius:2px;opacity:0;transform:rotate(var(--r));animation:cfy 1.15s cubic-bezier(.2,.7,.3,1) forwards}
+@keyframes cfy{0%{opacity:1;transform:translateY(0) rotate(var(--r)) scale(.6)}20%{opacity:1}100%{opacity:0;transform:translateY(-190px) rotate(calc(var(--r) + 220deg)) scale(1)}}
+
+/* ==== BACKEND FIELD ==== */
+.banner .bnrow{display:flex;gap:14px;align-items:center;flex-wrap:wrap;justify-content:space-between}
+.banner .bntxt{font-size:13px;color:#7a5a3a;flex:1;min-width:220px}
+.bnform{display:flex;gap:8px;align-items:center}
+#beurl{font:500 12.5px 'Inter';padding:8px 11px;border:1px solid #f0c9ad;border-radius:9px;width:min(340px,60vw);background:#fff;color:var(--navy)}
+.bebtn{font:600 12.5px 'Inter';padding:8px 15px;border:none;border-radius:9px;background:var(--orange);color:#fff;cursor:pointer}
+.bebtn:hover{filter:brightness(1.05)}
+
+/* ===== PALETTE v2 — sidebar crème-lavande + hero multicolore ===== */
+.sidebar{background:#F4ECF3;border-right:1px solid #EAD9E6}
+.sidebar .sbhead{border-bottom:1px solid #EAD9E6}
+.sidebar .sbhead .lg{color:#43303F}
+.sidebar .sbhead .lg .pt{color:#E07AA6}
+.sidebar .sbhead .lg small{color:#9a8aa2}
+.sbk{color:#a292ab}
+.sbnav a{color:#5A4152}
+.sbnav a:hover{background:#ECE0EB;color:#43303F}
+.sbnav a.active{background:var(--orange);color:#fff}
+.sbnav a.active .sx{background:rgba(255,255,255,.22);color:#fff}
+.sbnav a .sx{background:#e9dce8;color:#8a7a92}
+.sbfoot{border-top:1px solid #EAD9E6;color:#9a8aa2}
+.hero2{background:linear-gradient(135deg,#6E5C86 0%,#C85E92 50%,#E8863F 100%)!important;border:none!important}
+/* touche multicolore : logo topbar */
+.logo .wm .pt,.top .logo .pt{color:#E07AA6}
+
+/* ==== REFRESH BTN ==== */
+.rfbtn{display:none;align-items:center;justify-content:center;width:30px;height:30px;
+  border-radius:9px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.08);
+  color:#fff;cursor:pointer;margin-left:6px;padding:0}
+.rfbtn svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.rfbtn:hover{background:rgba(255,255,255,.16)}
+.rfbtn.spin svg{animation:rfspin .7s linear infinite}
+.sync.ok ~ .rfbtn, .sync.ok + .rfbtn{display:inline-flex}
+@keyframes rfspin{to{transform:rotate(360deg)}}
+
+.sbhead .lgimg{height:30px;width:auto;display:block;margin:0 0 2px}
+
+</style>
+</head>
+<body>
+
+<aside class="sidebar" id="sidebar">
+  <div class="sbhead">
+    <div class="lg"><img class="lgimg" src="./lila-logo.png" alt="Li·La"><small>Pilotage projet</small></div>
+  </div>
+  <nav class="sbnav">
+    <div class="sbk">Accueil</div>
+    <a href="lila-cockpit.html" class="active"><svg class="si" viewBox="0 0 24 24"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M9 20v-6h6v6"/></svg><span>Cockpit de pilotage</span></a>
+
+    <div class="sbk">Dossiers du projet</div>
+    <a href="lila-plan-route-developpement.html"><svg class="si" viewBox="0 0 24 24"><circle cx="6" cy="19" r="2.4"/><circle cx="18" cy="5" r="2.4"/><path d="M8 19h6a3 3 0 0 0 3-3V8M16 5h-6a3 3 0 0 0-3 3v6"/></svg><span>Plan de route — dev</span><span class="sx">10 modules</span></a>
+    <a href="lila-business-plan.html"><svg class="si" viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><span>Business plan</span></a>
+    <a href="lila-veille-prospection.html"><svg class="si" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg><span>Veille &amp; prospection</span></a>
+    <a href="lila-plan-communication.html"><svg class="si" viewBox="0 0 24 24"><path d="M3 11v2a1 1 0 0 0 1 1h3l5 4V6L7 10H4a1 1 0 0 0-1 1z"/><path d="M16 9a4 4 0 0 1 0 6"/></svg><span>Plan de communication</span><span class="sx">29 posts</span></a>
+    <a href="lila-contenus.html"><svg class="si" viewBox="0 0 24 24"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/></svg><span>Kit de contenus</span><span class="sx">8 posts</span></a>
+    <a href="lila-charges.html"><svg class="si" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M14.5 9.4a3 3 0 0 0-4 .2M9.5 11h4M9.5 13.2h4"/></svg><span>Charges &amp; économie</span><span class="sx">à remplir</span></a>
+  </nav>
+  <div class="sbfoot"><a href="index.html" style="color:inherit;text-decoration:underline">Version mobile ↗</a><br>Lancement 18 août · Événement 17 sept. 2026</div>
+</aside>
+<div class="sbov" id="sbov"></div>
+<div id="toast" class="toast"></div>
+
+<header class="top">
+  <button class="sbtgl" id="sbtgl" aria-label="Ouvrir le menu"><span></span></button>
+  <div class="logo"><span class="wm">Li<span class="pt">·</span>La</span><small>Cockpit de pilotage</small></div>
+  <div class="gprog">
+    <div class="gbar"><i id="gfill"></i></div>
+    <div class="gpct" id="gpct">0%</div>
+    <div class="sync local" id="sync"><span class="d"></span><span id="syncTxt">Local</span></div>
+    <button class="rfbtn" id="rfbtn" title="Rafraîchir depuis le back-end"><svg viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg></button>
+  </div>
+</header>
+
+<div class="banner" id="banner" style="display:none">
+  <div class="bnrow">
+    <div class="bntxt" id="bntxt"><b>Mode local</b> — progression enregistrée sur cet appareil. Colle l'URL du back-end (Apps Script) pour partager avec Linda en temps réel.</div>
+    <div class="bnform">
+      <input id="beurl" type="url" placeholder="https://script.google.com/macros/s/…/exec" autocomplete="off">
+      <button id="besave" class="bebtn">Brancher</button>
+    </div>
+  </div>
+</div>
+
+<div class="controls">
+  <div class="tabs" id="tabs">
+    <button class="tab active" data-v="dash">Vue d'ensemble</button>
+    <button class="tab" data-v="planning">Planning</button>
+    <button class="tab" data-v="technique">Développement</button>
+    <button class="tab" data-v="plan">Business plan</button>
+    <button class="tab" data-v="business">Prospection &amp; veille</button>
+    <button class="tab" data-v="com">Plan de com</button>
+    <button class="tab" data-v="reperes">Repères</button>
+  </div>
+  <div class="filters" id="filters">
+    <span class="lbl">Qui :</span>
+    <button class="fbtn active" data-r="all">Tout le monde</button>
+    <button class="fbtn" data-r="L">Laurence</button>
+    <button class="fbtn" data-r="Li">Linda</button>
+    <button class="fbtn" data-r="2">À deux</button>
+  </div>
+</div>
+
+<div class="legend">
+  <span class="freeorder">Ordre libre — avance dans le module que tu veux, seul l'avancement avant le 18 août compte</span>
+  <span><i class="lg-av"></i> À venir</span>
+  <span><i class="lg-en"></i> En cours</span>
+  <span><i class="lg-fa"></i> Terminé</span>
+  <span><i class="lg-bl"></i> Bloqué</span>
+  <span style="margin-left:auto">Clique un point pour changer le statut</span>
+</div>
+
+<div class="shell">
+  <main id="app"></main>
+  <aside class="rail" id="rail"></aside>
+</div>
+<div class="foot">Li·La · Cockpit interne — Laurence &amp; Linda · Google Sheets → Supabase · lancement commercial 18 août · événement 17 sept. 2026</div>
+
+<div class="drawer-ov" id="drawerOv"></div>
+<aside class="drawer" id="drawer"></aside>
+
+<script>
+/* ====================== BACK-END ======================
+   Laisse vide pour un suivi LOCAL (cet appareil).
+   Pour partager avec Linda : déploie le Code.gs fourni en
+   "Application Web" (accès : tout le monde), puis colle ici
+   l'URL qui finit par /exec.
+======================================================= */
+var BACKEND_DEFAULT = "https://script.google.com/macros/s/AKfycbyGPJFjP_c-B2JZ38R9yzm5kRAsoXcd_-aMyNhhyh2JgHsVv1dNu7WUAE6wrJq_IQTdDQ/exec";
+let BACKEND_URL = (function(){try{return localStorage.getItem("lila-backend-url")||BACKEND_DEFAULT}catch(e){return BACKEND_DEFAULT}})();
+
+/* ====================== ANNEXES & LIENS ======================
+   Complète les URL (laisse "#" si pas encore prêt).
+   Elles apparaissent dans l'onglet « Repères ».
+============================================================= */
+const GUIDE_URL = "lila-plan-route-developpement.html"; // place les fichiers au même endroit
+const VOLDOC = {
+  technique:"lila-plan-route-developpement.html",
+  plan:"lila-business-plan.html",
+  business:"lila-veille-prospection.html",
+  com:"lila-plan-communication.html",
+  contenus:"lila-contenus.html"
+};
+const ANNEXES = [
+  {nom:"Plan de route du développement (guide pas à pas)", url:VOLDOC.technique},
+  {nom:"Plan de communication (détaillé)", url:VOLDOC.com},
+  {nom:"Kit de contenus (posts & visuels)", url:VOLDOC.contenus},
+  {nom:"Business plan (détaillé)", url:VOLDOC.plan},
+  {nom:"Veille & prospection (détaillé)", url:VOLDOC.business},
+  {nom:"Landing page Li·La", url:"#"},
+  {nom:"Accord de partenariat 50/50", url:"#"}
+];
+function fillAnnexes(){
+  const ul=document.getElementById("annexes");if(!ul)return;
+  ul.innerHTML=ANNEXES.map(a=>{
+    const ready=a.url&&a.url!=="#";
+    return `<li><a href="${a.url}" target="_blank" rel="noopener" class="${ready?'':'todo'}">${a.nom}</a>${ready?'':'<span class="tag-todo">à compléter</span>'}</li>`;
+  }).join("");
+}
+
+/* persistance locale défensive (miroir + mode hors back-end) */
+const store={get(k){try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}},
+             set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+
+const api={
+  async load(){
+    if(!BACKEND_URL) return store.get('lila-cockpit')||{};
+    try{const r=await fetch(BACKEND_URL+'?action=load');const j=await r.json();
+        const s=j.statuts||{};store.set('lila-cockpit',s);return s;}
+    catch(e){console.warn('Back-end injoignable, mode local',e);return store.get('lila-cockpit')||{};}
+  },
+  async save(id,statut,full){
+    store.set('lila-cockpit',full);
+    if(!BACKEND_URL) return; // les statuts sous-tâches restent locaux
+  },
+  async saveModule(mid,statut){
+    if(!BACKEND_URL) return;
+    try{await fetch(BACKEND_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},
+        body:JSON.stringify({id:mid,statut:statut})});}
+    catch(e){console.warn('Sauvegarde module échouée',e);}
+  }
+};
+
+/* ====================== LE PLAN ====================== */
+const PLAN={
+  technique:{label:"Développement technique",owner:"Laurence",modules:[
+    {id:"c1",nom:"Socle données",code:"C1",sub:"Google Sheets (< 100 adhérents) → Supabase ensuite",
+     dev:[
+       {t:"Structurer les onglets (membres, contacts, notes, contenus, quotas)",r:"L"},
+       {t:"Schéma + IDs de liaison entre les onglets",r:"L"},
+       {t:"Fonctions de lecture/écriture (Apps Script) + LockService",r:"L"},
+       {t:"Préparer la migration Supabase (au-delà de 100 adhérents)",r:"L"}],
+     check:[
+       {t:"Écriture/lecture testée dans chaque onglet",r:"L"},
+       {t:"Sauvegarde de la base en place",r:"L"}]},
+
+    {id:"c2",nom:"Proxy IA + quotas",code:"C2",sub:"Apps Script : clé serveur, routage, décompte, plafond",
+     dev:[
+       {t:"doPost routeur ?type= (mail, note, contenu, image…)",r:"L"},
+       {t:"Authentification membre + identification par mail",r:"L"},
+       {t:"Table Quotas + décompte des tokens par membre",r:"L"},
+       {t:"Clé Anthropic en Script Properties (jamais dans le front)",r:"L"},
+       {t:"Plafond global + reset mensuel (trigger) + gestion d'erreurs",r:"L"}],
+     check:[
+       {t:"Un appel renvoie une réponse IA",r:"L"},
+       {t:"Le quota se décrémente après appel",r:"L"},
+       {t:"Quota épuisé → blocage propre",r:"L"},
+       {t:"Clé absente du front (inspecteur réseau)",r:"L"}]},
+
+    {id:"c3",nom:"Identification & Freemium",code:"C3",sub:"Accès par mail, interface verrouillée, vitrines factices",
+     dev:[
+       {t:"Identification par adresse mail",r:"L"},
+       {t:"Interface verrouillée pour les non-abonnés",r:"L"},
+       {t:"Vitrines « factices » des offres non souscrites",r:"L"},
+       {t:"Déblocage conditionnel selon l'offre du membre",r:"L"}],
+     check:[
+       {t:"Un non-abonné voit la vitrine sans accéder au contenu",r:"L"},
+       {t:"Le déblocage suit bien l'offre payée",r:"L"}]},
+
+    {id:"c4",nom:"Lila Office",code:"C4",sub:"Boîte mail + CRM (offre 19€)",
+     dev:[
+       {t:"Connexion boîte mail + tri/priorités",r:"L"},
+       {t:"CRM : contacts, suivi, notes vers CRM",r:"L"},
+       {t:"Assistant de rédaction de mail via le proxy IA",r:"L"}],
+     check:[
+       {t:"Mail relié + priorités fonctionnelles",r:"L"},
+       {t:"Une note remonte dans le CRM",r:"L"}]},
+
+    {id:"c5",nom:"Lila Carnet",code:"C5",sub:"Notes + mémo vocal (offre 19€ / base)",
+     dev:[
+       {t:"Capture note + mémo vocal (Web Speech API + fallback texte)",r:"L"},
+       {t:"Structuration IA de la note (contact / rappel / note)",r:"L"},
+       {t:"Rattachement de la note au bon contact/dossier",r:"L"},
+       {t:"Validation avant enregistrement (« Li·La propose, tu valides »)",r:"L"}],
+     check:[
+       {t:"Dictée → proposition structurée correcte",r:"L"},
+       {t:"Fallback texte fonctionne sur iOS",r:"L"},
+       {t:"Rien enregistré sans validation",r:"L"}]},
+
+    {id:"c6",nom:"Li·La Com'",code:"C6",sub:"Création de contenu réseaux sociaux (offre 39€)",
+     dev:[
+       {t:"Génération de posts / contenus réseaux sociaux",r:"L"},
+       {t:"Déclinaison par canal (LinkedIn, Instagram…)",r:"L"},
+       {t:"Bibliothèque de gabarits / angles immo",r:"L"}],
+     check:[
+       {t:"Un post généré est exploitable directement",r:"L"}]},
+
+    {id:"c7",nom:"Li·La Com'+",code:"C7",sub:"Image avancée, prompts archi/BTP",
+     dev:[
+       {t:"Traitement d'image avancé (valorisation visuelle)",r:"L"},
+       {t:"Bibliothèque de prompts architecte / BTP (IP invisible)",r:"L"},
+       {t:"Quota image serré (poste coûteux)",r:"L"}],
+     check:[
+       {t:"Un visuel produit est exploitable",r:"L"},
+       {t:"Le quota image protège la marge",r:"L"}]},
+
+    {id:"c8",nom:"Offre Ava (base)",code:"C8",sub:"Gratuit — veille, mémo vocal, questions IA, formations",
+     dev:[
+       {t:"Veille (flux / sélection)",r:"L"},
+       {t:"Accès mémo vocal + quelques questions IA",r:"L"},
+       {t:"Accès aux formations",r:"L"}],
+     check:[
+       {t:"L'offre gratuite fonctionne sans paiement",r:"L"}]},
+
+    {id:"c9",nom:"Paiement",code:"C9",sub:"Stripe (19 / 39€), bascule anciens adhérents — prêt le 18 août",
+     dev:[
+       {t:"Produits Stripe (Office+Carnet 19€, Com' 39€) + SEPA",r:"L"},
+       {t:"Page de souscription + déblocage à l'achat",r:"L"},
+       {t:"Webhook → activation de l'offre + quota",r:"L"},
+       {t:"Bascule des anciens adhérents Ava à leur date anniversaire",r:"2"}],
+     check:[
+       {t:"Un encaissement test réel passe",r:"L"},
+       {t:"L'offre + le quota s'activent automatiquement",r:"L"}]},
+
+    {id:"c10",nom:"PWA / Landing / Domaine / RGPD",code:"C10",sub:"Coque, page web, déploiement, conformité",
+     dev:[
+       {t:"Coque Li·La réunissant les pôles",r:"L"},
+       {t:"PWA (manifest, sw, bannière d'installation)",r:"L"},
+       {t:"Landing page + réservation de démos live",r:"L"},
+       {t:"Acheter / configurer le nom de domaine",r:"L"},
+       {t:"Déploiement Netlify + RGPD (mentions, CGV, registre)",r:"L"}],
+     check:[
+       {t:"Installable sur mobile + hors-ligne basique",r:"L"},
+       {t:"Landing en ligne + prise de démo fonctionnelle",r:"L"},
+       {t:"Documents RGPD en ligne",r:"L"}]}
+  ]},
+
+  plan:{label:"Business plan & cadre",owner:"Linda + Laurence",modules:[
+    {id:"b1",nom:"Offres & tarifs",code:"B1",sub:"Gratuit / 19€ / 39€ + Com'+",
+     dev:[
+       {t:"Structurer les 4 pôles + l'offre Ava base",r:"2"},
+       {t:"Tarifs actés — 19 / 39 / 59 (lancement) → 39 / 59 / 79 (après événement)",r:"1"},
+       {t:"Fixer les règles du freemium (ce qui est verrouillé)",r:"2"},
+       {t:"Conditions de bascule des anciens adhérents Ava",r:"2"}],
+     check:[
+       {t:"Grille tarifaire validée à deux",r:"2"}]},
+
+    {id:"b2",nom:"Coûts & répartition 50/50",code:"B2",sub:"Charges communes + clé de répartition",
+     dev:[
+       {t:"Lister les charges communes (IA, outils tiers)",r:"2"},
+       {t:"Définir la clé de répartition des coûts",r:"2"},
+       {t:"Modèle de reversement entre les deux",r:"2"}],
+     check:[
+       {t:"Tableau des coûts validé à deux",r:"2"}]},
+
+    {id:"b3",nom:"Encaissement (Stripe)",code:"B3",sub:"Compte dédié, une entité encaisse et reverse",
+     dev:[
+       {t:"Paramétrer le compte Stripe dédié",r:"2"},
+       {t:"Définir l'entité qui encaisse",r:"2"},
+       {t:"Mettre en place le flux de reversement",r:"L"}],
+     check:[
+       {t:"Stripe opérationnel avant le 18 août",r:"L"}]},
+
+    {id:"b4",nom:"Cadre juridique",code:"B4",sub:"Accord 50/50 écrit, pas d'entité dédiée",
+     dev:[
+       {t:"Rédiger l'accord de partenariat 50/50 (IP + revenus)",r:"2"},
+       {t:"Valider sans frais d'avocat (pas d'entité dédiée pour l'instant)",r:"2"}],
+     check:[
+       {t:"Accord signé par les deux",r:"2"}]},
+
+    {id:"b5",nom:"Plan de tests internes",code:"B5",sub:"Linda + Laurence — tout doit tourner au 18 août",
+     dev:[
+       {t:"Écrire la checklist de recette (chaque module, chaque parcours)",r:"2"},
+       {t:"Préparer des jeux de données réels (vrais dossiers de Linda)",r:"Li"},
+       {t:"Définir le critère « prêt » : zéro bloquant au 18 août",r:"2"}],
+     check:[
+       {t:"Checklist de recette validée",r:"2"},
+       {t:"Recette passée sans bloquant",r:"2"}]}
+  ]},
+
+  business:{label:"Prospection & veille",owner:"Linda + Laurence",modules:[
+    {id:"p1",nom:"Cibler & qualifier les prospects",code:"P1",sub:"Définir qui on vise et construire la liste",
+     dev:[
+       {t:"Définir le profil cible (type d'agent/agence, secteur, maturité IA)",r:"2"},
+       {t:"Construire la liste des cibles prioritaires",r:"Li"},
+       {t:"Qualifier chaque cible (taille, secteur, besoin)",r:"Li"},
+       {t:"Scorer et prioriser",r:"2"}],
+     check:[
+       {t:"Liste de prospects qualifiés disponible",r:"Li"},
+       {t:"Base dédoublonnée",r:"L"}]},
+
+    {id:"p2",nom:"Sourcing & collecte",code:"P2",sub:"Scraping de données publiques B2B, encadré RGPD",
+     dev:[
+       {t:"Identifier les sources publiques (annuaires d'agences, annonces, réseaux pro)",r:"2"},
+       {t:"Mettre en place la collecte (Make / scraper) sur données publiques B2B",r:"L"},
+       {t:"Nettoyer / normaliser / dédoublonner la base",r:"L"},
+       {t:"Encadrement RGPD : base légale (intérêt légitime B2B), mention d'information, opt-out",r:"L"}],
+     check:[
+       {t:"Conformité RGPD validée avant tout usage",r:"L"},
+       {t:"Base propre et exploitable",r:"L"}]},
+
+    {id:"p3",nom:"Veille concurrentielle",code:"P3",sub:"Berthoud, Limova et autres",
+     dev:[
+       {t:"Suivre l'offre Berthoud (prix, prompts, positionnement)",r:"2"},
+       {t:"Suivre Limova.ai et les IA généralistes",r:"L"},
+       {t:"Benchmark fonctionnalités vs Li·La",r:"2"},
+       {t:"Mettre à jour l'argumentaire différenciant",r:"2"}],
+     check:[
+       {t:"Tableau comparatif à jour",r:"2"}]},
+
+    {id:"p4",nom:"Veille marché & outils",code:"P4",sub:"IA immo, ALUR, outils",
+     dev:[
+       {t:"Veille IA immobilier (nouveautés, modèles, prix API)",r:"L"},
+       {t:"Veille ALUR / réglementaire",r:"2"},
+       {t:"Veille outils (Make, Notion, etc.)",r:"L"}],
+     check:[
+       {t:"Note de veille tenue à jour",r:"L"}]},
+
+    {id:"p5",nom:"Démos prospects (façon Limova)",code:"P5",sub:"Démos live pilotées — le prospect regarde",
+     dev:[
+       {t:"Bouton « Réserver une démo » sur la landing (Tally / Calendly)",r:"L"},
+       {t:"Écrire le scénario de démo (20 min, 1 cas réel)",r:"2"},
+       {t:"Répéter la démo à deux",r:"2"},
+       {t:"Caler un agenda de créneaux de démo",r:"Li"}],
+     check:[
+       {t:"Prise de RDV démo fonctionnelle",r:"L"},
+       {t:"Démo répétée et fluide",r:"2"}]},
+
+    {id:"p6",nom:"Préparation de l'after-work",code:"P6",sub:"La soirée de lancement du 17 sept.",
+     dev:[
+       {t:"Choisir le lieu + confirmer le soir (jeudi 17 sept.)",r:"Li"},
+       {t:"Définir le format et le déroulé de la soirée",r:"2"},
+       {t:"Liste d'invités + invitations",r:"Li"},
+       {t:"Communication : visuels, save-the-date",r:"2"},
+       {t:"Préparer la démo live + témoignages des testeurs",r:"2"}],
+     check:[
+       {t:"Lieu réservé",r:"Li"},
+       {t:"Invitations envoyées",r:"Li"},
+       {t:"Démo répétée",r:"2"}]}
+  ]},
+
+  com:{label:"Plan de communication",owner:"Linda + Laurence",modules:[
+    {id:"k1",nom:"Identité & landing",code:"COM1",sub:"Juillet — marque, message clé, page web",
+     dev:[
+       {t:"Finaliser le kit de marque Li·La (logo, couleurs, ton)",r:"L"},
+       {t:"Message clé + 3 bénéfices (immo vs IA généraliste type Limova)",r:"2"},
+       {t:"Landing page + réservation de démos live",r:"L"},
+       {t:"Nom de domaine en ligne",r:"L"}],
+     check:[
+       {t:"Landing + prise de démo en ligne",r:"L"},
+       {t:"Message clé validé à deux",r:"2"}]},
+
+    {id:"k2",nom:"Pré-lancement (mi-août)",code:"COM2",sub:"Ouverture des pré-inscriptions",
+     dev:[
+       {t:"Annonce de pré-lancement (réseau AVA + LinkedIn)",r:"2"},
+       {t:"Ouvrir les pré-inscriptions (Tally)",r:"Li"},
+       {t:"Inviter les bêta-testeurs",r:"2"},
+       {t:"Séquence d'accueil (MailerLite : confirmation + accès)",r:"L"}],
+     check:[
+       {t:"Pré-inscriptions ouvertes et suivies",r:"Li"},
+       {t:"Séquence MailerLite active",r:"L"}]},
+
+    {id:"k3",nom:"Preuve sociale",code:"COM3",sub:"Début août — faire parler les testeurs",
+     dev:[
+       {t:"Recueillir les verbatims / témoignages des testeurs",r:"Li"},
+       {t:"Posts « ils testent Li·La » (avant/après, cas d'usage)",r:"2"},
+       {t:"Stories / coulisses",r:"Li"}],
+     check:[
+       {t:"Au moins 3 témoignages exploitables",r:"Li"}]},
+
+    {id:"k4",nom:"Lancement commercial (18 août)",code:"COM4",sub:"Ouverture des abonnements",
+     dev:[
+       {t:"Post de lancement commercial (LinkedIn + réseau)",r:"2"},
+       {t:"Ouverture des abonnements + bascule pré-inscrits",r:"L"},
+       {t:"Séquence de conversion MailerLite",r:"L"},
+       {t:"Relances des indécis",r:"Li"}],
+     check:[
+       {t:"Lancement annoncé le 18 août",r:"2"},
+       {t:"Premiers abonnements encaissés",r:"L"}]},
+
+    {id:"k5",nom:"Événement (17 sept.)",code:"COM5",sub:"Soirée officielle de présentation",
+     dev:[
+       {t:"Save-the-date + invitation officielle (RSVP Tally)",r:"Li"},
+       {t:"Teasing rentrée + compte à rebours sur les réseaux",r:"2"},
+       {t:"Couverture de la soirée (photos / vidéo / verbatims)",r:"2"},
+       {t:"Relance inscriptions post-événement",r:"L"}],
+     check:[
+       {t:"Invitations envoyées et RSVP suivis",r:"Li"},
+       {t:"Couverture diffusée après la soirée",r:"2"}]}
+  ]}
+};
+
+/* ====================== CHARGE & MÉTHODE ======================
+   EST = charge estimée par module, en jours de travail (hypothèses
+   à ajuster). METHODE = fiche détaillée qui s'ouvre au clic.
+============================================================== */
+const EST={
+  c1:3, c2:3, c3:2, c4:4, c5:3, c6:3, c7:2, c8:1, c9:2, c10:2,
+  b1:0.5, b2:0.5, b3:1, b4:1, b5:1,
+  p1:1, p2:1.5, p3:0.5, p4:0.5, p5:1, p6:1.5,
+  k1:2, k2:1, k3:1, k4:1, k5:1.5
+};
+const METHODE={
+  c1:{but:"Une base Google Sheets propre, prête à porter l'app, et migrable vers Supabase plus tard.",
+      comment:"Un onglet par entité (membres, contacts, notes, contenus, quotas) + une colonne ID unique par ligne. Fonctions Apps Script lire/écrire protégées par LockService. On documente le schéma dès maintenant pour que la bascule Supabase soit mécanique.",
+      livrable:"Classeur structuré + fonctions d'accès testées + schéma documenté."},
+  c2:{but:"La clé IA reste côté serveur, chaque membre a un quota, le coût global est plafonné.",
+      comment:"Un seul point d'entrée (doPost) qui route selon le type de demande. Clé dans les propriétés du script, jamais dans la page. Chaque appel décrémente le quota du membre ; au plafond, blocage propre. Reset mensuel automatique.",
+      livrable:"Proxy en ligne, quota qui se décrémente, clé invisible côté navigateur."},
+  c3:{but:"Un non-abonné voit l'app mais ne touche au contenu qu'après identification et selon son offre.",
+      comment:"Identification par mail. Les pôles non souscrits affichent une vitrine (factice) qui donne envie, sans accès réel. Le déblocage suit l'offre payée. C'est le cœur du modèle freemium.",
+      livrable:"Parcours verrouillé → identifié → débloqué selon l'offre."},
+  c4:{but:"Le pôle qui justifie l'abonnement à 19€ : mail + CRM.",
+      comment:"Connexion à la boîte mail, tri/priorités, contacts et suivi. L'assistant de rédaction passe par le proxy IA. Le tri déterministe (labels, filtres) ne coûte rien en IA — l'IA n'intervient que sur la rédaction.",
+      livrable:"Mail trié + CRM alimenté + brouillons générés."},
+  c5:{but:"Capturer une info en déplacement et la ranger au bon endroit, sans rien perdre.",
+      comment:"Bouton de capture vocal + texte (avec repli texte obligatoire sur iOS). L'IA propose une structuration (contact / rappel / note) que l'agent valide avant enregistrement. Rattachement au bon contact/dossier.",
+      livrable:"Dictée → proposition structurée → validée → rangée."},
+  c6:{but:"Produire du contenu réseaux sociaux prêt à publier (offre 39€).",
+      comment:"Génération de posts à partir d'un brief court, déclinés par canal. Une bibliothèque d'angles immo (IP invisible) guide la qualité sans être exposée.",
+      livrable:"Un post exploitable directement, par canal."},
+  c7:{but:"Le haut de gamme visuel : image avancée + prompts archi/BTP.",
+      comment:"Traitement d'image et valorisation visuelle. Le quota image est serré car c'est le poste le plus coûteux — il protège la marge.",
+      livrable:"Visuel exploitable + quota qui borne le coût."},
+  c8:{but:"L'offre gratuite qui fait entrer dans l'écosystème.",
+      comment:"Veille, mémo vocal et quelques questions IA, plus l'accès aux formations. Volontairement limité pour donner envie de passer payant.",
+      livrable:"Offre gratuite fonctionnelle, sans paiement."},
+  c9:{but:"Encaisser proprement dès le 18 août.",
+      comment:"Produits Stripe (19 / 39€) + SEPA. À l'achat, l'offre et le quota s'activent via webhook. Les anciens adhérents Ava basculent à leur date anniversaire.",
+      livrable:"Un paiement test réel passe et active l'offre."},
+  c10:{but:"Rendre Li·La installable, visible et conforme.",
+      comment:"Coque PWA (installable mobile), landing simple avec réservation de démo, nom de domaine, déploiement Netlify, documents RGPD.",
+      livrable:"App installable + landing en ligne + RGPD publié."},
+  k1:{but:"Une identité claire et une page qui donne envie de réserver une démo.",
+      comment:"Kit de marque (logo, couleurs, ton) finalisé. Message clé : Li·La = IA métier immo, pas une IA généraliste. Landing en une page : promesse + 3 bénéfices + 2 boutons (démo / pré-inscription).",
+      livrable:"Kit figé + landing en ligne + message validé à deux."}
+};
+function fmtEst(j){if(j==null)return "—";if(j===0.5)return "½ j";return (Number.isInteger(j)?j:j)+" j";}
+function weekLoad(mids){let s=0;mids.forEach(id=>{if(EST[id]!=null)s+=EST[id];});return s;}
+
+/* ====================== ÉTAT & RENDU ====================== */
+const ORDER=["avenir","encours","fait","bloque"];
+const W={avenir:0,encours:.5,fait:1,bloque:0};
+const RLBL={L:"Laurence",Li:"Linda","2":"À deux"};
+const check='<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>';
+const chev='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>';
+let STATE={}, VIEW="dash", RFILTER="all";
+
+// index tous les items avec un id stable
+const ITEMS=[]; const MODVOL={}; const MODBYID={}; const MODDUE={}; const MODPHASE={}; const MODRANGE={};
+function buildIndex(){
+  Object.entries(PLAN).forEach(([vol,v])=>v.modules.forEach(m=>{
+    MODVOL[m.id]=vol; MODBYID[m.id]=m;
+    m.dev.forEach((it,i)=>{it._id=`${m.id}-d-${i}`;ITEMS.push({id:it._id,r:it.r,mid:m.id,vol});});
+    m.check.forEach((it,i)=>{it._id=`${m.id}-c-${i}`;ITEMS.push({id:it._id,r:it.r,mid:m.id,vol});});
+  }));
+  PLANNING.forEach(per=>per.semaines.forEach(w=>w.mids.forEach(mid=>{MODDUE[mid]=w.due;MODPHASE[mid]=per.phase;MODRANGE[mid]=w.lbl;})));
+}
+const st=id=>STATE[id]||"avenir";
+
+function modProgress(m){
+  const ids=[...m.dev,...m.check].map(x=>x._id);
+  const s=ids.reduce((a,id)=>a+W[st(id)],0);
+  return {pct:Math.round(s/ids.length*100),done:ids.filter(id=>st(id)==="fait").length,total:ids.length};
+}
+function globalProgress(){
+  const s=ITEMS.reduce((a,it)=>a+W[st(it.id)],0);
+  return Math.round(s/ITEMS.length*100);
+}
+
+/* ====================== PLANNING DATÉ ====================== */
+const PLANNING=[
+  {periode:"Juillet — Build (dispo technique au 31 juillet)",phase:"build",semaines:[
+    {sem:"S27",lbl:"30 juin → 5 juil.",due:"2026-07-05",mids:["c1"]},
+    {sem:"S28",lbl:"6 → 12 juil.",due:"2026-07-12",mids:["c2","c3"]},
+    {sem:"S29",lbl:"13 → 19 juil.",due:"2026-07-19",mids:["c4","c5","b1","k1","p1"],abs:"Linda indisponible — week-end du 14 juillet"},
+    {sem:"S30",lbl:"20 → 26 juil.",due:"2026-07-26",mids:["c6","c8","b2","b4","p2"]},
+    {sem:"S31",lbl:"27 → 31 juil.",due:"2026-07-31",mids:["c7","c10","p5"]}
+  ],jalon:{t:"Dispo technique — vendredi 31 juillet",kind:"go"}},
+
+  {periode:"Août — Pré-lancement & lancement commercial",phase:"beta",semaines:[
+    {sem:"S32",lbl:"3 → 9 août",due:"2026-08-09",mids:["c9","b3","b5","k2"]},
+    {sem:"S33",lbl:"10 → 16 août",due:"2026-08-16",mids:["k3"],abs:"Linda indisponible — week-end du 15 août",
+     note:"Tests internes (Linda + Laurence) en conditions réelles + ouverture des pré-inscriptions (mi-août) + correctifs."}
+  ],jalon:{t:"Lancement commercial — mardi 18 août",kind:"launch"}},
+
+  {periode:"Du lancement à l'événement",phase:"launch",semaines:[
+    {sem:"S34-35",lbl:"18 → 30 août",due:"2026-08-30",mids:["k4","p3","p4"],
+     note:"Ouverture des abonnements, montée en charge, suivi des premiers membres."},
+    {sem:"S36-37",lbl:"31 août → 13 sept.",due:"2026-09-13",mids:["p6"],
+     note:"Préparation de l'événement officiel (lieu, déroulé, invitations)."},
+    {sem:"S38",lbl:"14 → 17 sept.",due:"2026-09-17",mids:["k5"],
+     note:"Répétition de la présentation. Soirée le jeudi 17 septembre."}
+  ],jalon:{t:"Événement officiel — jeudi 17 septembre",kind:"event"}},
+
+  {periode:"Après le lancement",phase:"post",semaines:[
+    {sem:"Post",lbl:"au-delà de 100 adhérents",due:"2026-12-31",mids:[],
+     note:"Migration de la base vers Supabase quand le réseau dépasse 100 adhérents."}
+  ]}
+];
+const MOIS=["janv.","févr.","mars","avr.","mai","juin","juil.","août","sept.","oct.","nov.","déc."];
+function fmtDate(iso){const d=new Date(iso+"T00:00:00");return d.getDate()+" "+MOIS[d.getMonth()];}
+function dueBadge(due,pct){
+  if(pct===100) return `<span class="pdue done">Terminé</span>`;
+  const d=new Date(due+"T00:00:00"),n=new Date();n.setHours(0,0,0,0);
+  const diff=Math.round((d-n)/86400000);
+  if(diff<0) return `<span class="pdue late">En retard</span>`;
+  if(diff===0) return `<span class="pdue soon">aujourd'hui</span>`;
+  return `<span class="pdue ${diff<=7?'soon':''}">dans ${diff} j</span>`;
+}
+function pmodRow(mid){
+  const m=MODBYID[mid];if(!m)return"";
+  const p=modProgress(m);
+  const state=p.pct===100?"fait":(p.pct>0?"encours":"avenir");
+  return `<div class="pmod ${state}" data-goto="${mid}" role="button" tabindex="0" title="Ouvrir les tâches de ${m.nom}">
+    <span class="pdot"></span>
+    <span class="pmtitle"><b>${m.code}</b> ${m.nom}</span>
+    <span class="pbar"><i style="width:${p.pct}%"></i></span>
+    <span class="pcount">${p.done}/${p.total}</span>
+    ${dueBadge(MODDUE[mid]||"2026-12-31",p.pct)}
+  </div>`;
+}
+function renderPlanning(){
+  let h=`<div class="plan">`;
+  PLANNING.forEach(per=>{
+    h+=`<div class="period ${per.phase}">${per.periode}</div>`;
+    per.semaines.forEach(w=>{
+      const load=weekLoad(w.mids);
+      h+=`<div class="week"><div class="whead"><span class="wsem">${w.sem}</span><span class="wlbl">${w.lbl}</span>${load>0?`<span class="wload">≈ ${fmtEst(load)} de travail</span>`:""}<span class="wdue">échéance ${fmtDate(w.due)}</span></div>`;
+      if(w.abs)h+=`<div class="wabs">${w.abs}</div>`;
+      if(w.note)h+=`<div class="wnote">${w.note}</div>`;
+      w.mids.forEach(mid=>h+=pmodRow(mid));
+      h+=`</div>`;
+    });
+    if(per.jalon)h+=`<div class="milestone ${per.jalon.kind}">${per.jalon.t}</div>`;
+  });
+  return h+`</div>`;
+}
+function bindPlanning(){
+  document.querySelectorAll("[data-goto]").forEach(el=>{
+    const go=()=>gotoModule(el.dataset.goto);
+    el.onclick=go;
+    el.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();go();}};
+  });
+}
+function gotoModule(mid){
+  const vol=MODVOL[mid];
+  VIEW=vol;
+  document.querySelectorAll(".tab").forEach(t=>t.classList.toggle("active",t.dataset.v===VIEW));
+  RFILTER="all";
+  document.querySelectorAll(".fbtn").forEach(t=>t.classList.toggle("active",t.dataset.r==="all"));
+  render();
+  setTimeout(()=>{
+    const el=document.querySelector(`.mod[data-mid="${mid}"]`);
+    if(el){el.classList.add("open","flash");el.scrollIntoView({behavior:"smooth",block:"center"});
+      setTimeout(()=>el.classList.remove("flash"),1600);}
+  },60);
+}
+
+/* ====================== VUE D'ENSEMBLE & REPÈRES ====================== */
+function daysTo(iso){const d=new Date(iso+"T00:00:00"),n=new Date();n.setHours(0,0,0,0);return Math.max(0,Math.round((d-n)/86400000));}
+function modulesStats(){
+  let total=0,done=0,late=0,next=null;
+  const t=new Date();t.setHours(0,0,0,0);
+  Object.values(PLAN).forEach(v=>v.modules.forEach(m=>{
+    total++;const p=modProgress(m);if(p.pct===100)done++;
+    const due=MODDUE[m.id];
+    if(due){const d=new Date(due+"T00:00:00");
+      if(p.pct<100&&d<t)late++;
+      if(p.pct<100&&d>=t&&(!next||d<next.d))next={d,m,due};}
+  }));
+  return {total,done,late,next};
+}
+function phaseProgress(ph){let s=0,n=0;Object.values(PLAN).forEach(v=>v.modules.forEach(m=>{if(MODPHASE[m.id]===ph){s+=modProgress(m).pct;n++;}}));return n?Math.round(s/n):0;}
+function voletProgress(vol){const ms=PLAN[vol].modules;let s=0;ms.forEach(m=>s+=modProgress(m).pct);return ms.length?Math.round(s/ms.length):0;}
+
+function jalonCard(t,date,iso,kind){const j=daysTo(iso);return `<div class="jcard ${kind}" data-jump="planning"><span class="jdot"></span><span class="jtx"><b>${t}</b><span>${date}</span></span><span class="jcd">J−${j}</span></div>`;}
+function phaseBar(lbl,ph){const p=phaseProgress(ph);return `<div class="pbrow"><span class="pbl">${lbl}</span><span class="pbbar"><i class="${ph}" style="width:${p}%"></i></span><span class="pbv">${p}%</span></div>`;}
+function voletBar(lbl,vol){const p=voletProgress(vol);return `<div class="pbrow" data-jump="${vol}"><span class="pbl">${lbl}</span><span class="pbbar"><i style="width:${p}%"></i></span><span class="pbv">${p}%</span></div>`;}
+
+function renderDashboard(){
+  const g=globalProgress(),s=modulesStats(),cd=daysTo("2026-08-18");
+  const nx=s.next?`${s.next.m.code} · ${s.next.m.nom}`:"Tout est fait";
+  const nd=s.next?fmtDate(s.next.due):"";
+  return `<div class="dash">
+    <div class="hero2">
+      <div><div class="h2k">Pilotage projet — Laurence &amp; Linda</div><div class="h2t">Li·La, du build au lancement commercial &amp; à l'événement</div></div>
+      <div class="h2cd"><span class="big">${cd}</span><span>jours avant le lancement<br>commercial · mardi 18 août</span></div>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="sv">${g}%</div><div class="sl">Progression globale</div><div class="sbar"><i style="width:${g}%"></i></div></div>
+      <div class="stat"><div class="sv">${s.done}<small>/${s.total}</small></div><div class="sl">Modules terminés</div></div>
+      <div class="stat go" data-jump="planning"><div class="sv sm">${nx}</div><div class="sl">Prochaine échéance${nd?` · ${nd}`:""}</div></div>
+      <div class="stat ${s.late?'alert':''}"><div class="sv">${s.late}</div><div class="sl">${s.late?'Module(s) en retard':'Aucun retard'}</div></div>
+    </div>
+    <div class="dgrid">
+      <div class="panel"><h3>Les jalons clés</h3>
+        ${jalonCard("Dispo technique","vendredi 31 juillet","2026-07-31","go")}
+        ${jalonCard("Lancement commercial","mardi 18 août","2026-08-18","launch")}
+        ${jalonCard("Événement officiel","jeudi 17 septembre","2026-09-17","event")}
+      </div>
+      <div class="panel"><h3>Avancement par phase</h3>
+        ${phaseBar("Juillet · Build","build")}
+        ${phaseBar("Août · Pré-lancement","beta")}
+        ${phaseBar("Vers l'événement","launch")}
+        <h3 style="margin-top:16px">Par volet</h3>
+        ${voletBar("Développement technique","technique")}
+        ${voletBar("Business plan &amp; cadre","plan")}
+        ${voletBar("Prospection &amp; veille","business")}
+        ${voletBar("Plan de communication","com")}
+      </div>
+    </div>
+    <div class="panel brief"><h3>Le projet en bref</h3>
+      <ul class="points">
+        <li><span class="b">·</span><span><b>Li·La</b> = assistant IA métier immo. 4 pôles : Office (mail+CRM), Carnet (notes+mémo), Com' (réseaux), Com'+ (image) + offre Ava base.</span></li>
+        <li><span class="b">·</span><span><b>Freemium</b> : interface verrouillée, vitrines factices, déblocage par mail. Gratuit / 19€ / 39€.</span></li>
+        <li><span class="b">·</span><span><b>Clé IA chez Laurence</b>, jamais dans le front : proxy à quotas par membre.</span></li>
+        <li><span class="b">·</span><span><b>Données</b> : Google Sheets jusqu'à 100 adhérents, puis Supabase.</span></li>
+        <li><span class="b">·</span><span><b>31 juil.</b> dispo technique · <b>18 août</b> lancement commercial · <b>17 sept.</b> événement officiel.</span></li>
+      </ul>
+    </div>
+    <div class="panel"><h3>Les dossiers du projet</h3>
+      <div class="doctiles">
+        ${docTile("technique","Plan de route du développement","Le guide pas à pas technique : étapes, compétences, coûts.")}
+        ${docTile("com","Plan de communication","Messages, calendrier éditorial, posts modèles, séquences email.")}
+        ${docTile("contenus","Kit de contenus","Posts complets prêts à publier + briefs visuels et prompts d'image.")}
+        ${docTile("plan","Business plan","Offres, coûts, répartition 50/50, scénarios de revenus.")}
+        ${docTile("business","Veille & prospection","Cibles, méthode, concurrence, démos.")}
+      </div>
+    </div>
+  </div>`;
+}
+function docTile(vol,titre,desc){
+  const ico={technique:"",plan:"",business:"",com:"",contenus:""}[vol]||"";
+  const url=VOLDOC[vol]||"#";
+  return `<a class="doctile" href="${url}" target="_blank" rel="noopener"><span class="dt-ico">${ico}</span><span class="dt-b"><b>${titre}</b><span>${desc}</span></span><span class="dt-go">Ouvrir →</span></a>`;
+}
+function bindDashboard(){
+  document.querySelectorAll("[data-jump]").forEach(el=>el.onclick=()=>{
+    const v=el.dataset.jump;const tb=document.querySelector(`.tab[data-v="${v}"]`);if(tb)tb.click();
+  });
+}
+function railJalon(t,date,iso,kind){const j=daysTo(iso);return `<div class="rj ${kind}" data-jump="planning"><span class="rjd"></span><span class="rjt">${t}<span>${date}</span></span><span class="rjc">J−${j}</span></div>`;}
+function renderRail(){
+  const g=globalProgress(),s=modulesStats(),cd=daysTo("2026-08-18");
+  const nx=s.next?`${s.next.m.code} · ${s.next.m.nom}`:"Tout est fait";
+  const nd=s.next?fmtDate(s.next.due):"";
+  return `<div class="railbox">
+    <div class="rk">Pilotage</div>
+    <div class="rcd"><span class="rcdn">${cd}</span><small>jours avant le<br>lancement · 18 août</small></div>
+    <div class="rnext" data-jump="planning">Prochaine échéance<b>${nx}</b><span>${nd||""}</span></div>
+    <div class="rjalons">
+      ${railJalon("Dispo technique","31 juil.","2026-07-31","go")}
+      ${railJalon("Lancement commercial","18 août","2026-08-18","launch")}
+      ${railJalon("Événement officiel","17 sept.","2026-09-17","event")}
+    </div>
+    <div class="rprog"><span>Global</span><span class="rbar"><i style="width:${g}%"></i></span><b>${g}%</b></div>
+  </div>`;
+}
+function bindRail(){
+  document.querySelectorAll("#rail [data-jump]").forEach(el=>el.onclick=()=>{
+    const v=el.dataset.jump;const tb=document.querySelector(`.tab[data-v="${v}"]`);if(tb)tb.click();
+  });
+}
+
+function renderReperes(){
+  return `<div class="rep">
+    <section><h3>Ce qu'est Li·La</h3><p>Un assistant IA spécialisé pour les agents immobiliers, co-créé par Linda (réseau, terrain, vente) et Laurence (technique, IA, bibliothèque de prompts). Objectif : faire gagner du temps, organiser le quotidien et garantir la confidentialité des données clients (souveraineté).</p></section>
+    <section><h3>Les offres</h3>
+      <div class="repmods">
+        <div class="rm now"><b>Offre Ava — base</b><span>Veille, mémo vocal, quelques questions IA, accès formations</span><i>Gratuit</i></div>
+        <div class="rm now"><b>Li·La Office + Carnet</b><span>Boîte mail, CRM, priorités, notes vers CRM</span><i>19€/mois</i></div>
+        <div class="rm now"><b>Li·La Com'</b><span>Création de contenu, réseaux sociaux</span><i>39€/mois</i></div>
+        <div class="rm later"><b>Li·La Com'+</b><span>Image avancée, prompts immo/BTP, valorisation visuelle</span><i>59€/mois</i></div>
+      </div></section>
+    <section><h3>Architecture & données</h3>
+      <ul class="points">
+        <li><span class="b">1</span><span><b>Freemium</b> : interface verrouillée pour les non-abonnés, vitrines factices, déblocage par identification mail.</span></li>
+        <li><span class="b">2</span><span><b>Proxy IA à quotas</b> (Apps Script) : la clé reste côté serveur, jamais dans le front ; décompte par membre + plafond global.</span></li>
+        <li><span class="b">3</span><span><b>Base</b> : Google Sheets jusqu'à 100 adhérents, puis migration Supabase.</span></li>
+      </ul></section>
+    <section><h3>Décisions & cadre</h3>
+      <ul class="points">
+        <li><span class="b">·</span><span>Binôme <b>Laurence / Linda 50/50</b>, formalisé par écrit (IP + revenus).</span></li>
+        <li><span class="b">·</span><span>Pas d'entité juridique dédiée pour l'instant (éviter les frais d'avocat).</span></li>
+        <li><span class="b">·</span><span>Une entité existante encaisse (Stripe) et reverse à l'autre. Gestion commune des charges.</span></li>
+        <li><span class="b">·</span><span>Lancement progressif avec 50–100 bêta-testeurs.</span></li>
+      </ul></section>
+    <section><h3>Calendrier</h3>
+      <ul class="points">
+        <li><span class="b">·</span><span><b>31 juillet</b> : disponibilité technique potentielle.</span></li>
+        <li><span class="b">·</span><span><b>Mi-août</b> : pré-lancement + ouverture des pré-inscriptions.</span></li>
+        <li><span class="b">·</span><span><b>18 août</b> : lancement commercial (ouverture des abonnements).</span></li>
+        <li><span class="b">·</span><span><b>17 septembre</b> : événement officiel de présentation.</span></li>
+        <li><span class="b">·</span><span><b>Après</b> : migration Supabase au-delà de 100 adhérents.</span></li>
+      </ul></section>
+    <section><h3>Annexes &amp; liens</h3>
+      <p style="margin-bottom:10px">À compléter avec les vrais liens (édite la section <code>ANNEXES</code> du fichier).</p>
+      <ul class="links" id="annexes"></ul>
+    </section>
+  </div>`;
+}
+
+function itemRow(it){
+  if(RFILTER!=="all" && it.r!==RFILTER) return "";
+  const s=st(it._id);
+  return `<div class="item ${s}" data-id="${it._id}" role="button" tabindex="0">
+    <span class="dot">${check}</span>
+    <span class="tx">${it.t}</span>
+    <span class="rbadge r-${it.r}">${RLBL[it.r]}</span>
+  </div>`;
+}
+function moduleCard(m,vol){
+  const p=modProgress(m);
+  const dev=m.dev.map(itemRow).join("");
+  const chk=m.check.map(itemRow).join("");
+  const empty=(dev.trim()===""&&chk.trim()==="");
+  if(empty&&RFILTER!=="all") return "";
+  const due=MODDUE[m.id];
+  const datechip=due?`<span class="mdue">${MODRANGE[m.id]||fmtDate(due)}</span>${dueBadge(due,p.pct)}`:"";
+  const estchip=EST[m.id]!=null?`<span class="mest">≈ ${fmtEst(EST[m.id])}</span>`:"";
+  const L=vol==="technique"?["Phases de développement","Vérification technique"]:["Actions","Points de contrôle"];
+  return `<div class="mod" data-mid="${m.id}">
+    <div class="mhead" data-toggle>
+      <span class="mchev">${chev}</span>
+      <div class="mtitle"><h3><span class="code">${m.code}</span> ${m.nom} <button class="mdet" data-det="${m.id}">détail</button></h3><div class="sub">${m.sub}</div></div>
+      <div class="mmini">${estchip}${datechip}<div class="mbar"><i style="width:${p.pct}%"></i></div><span class="mcount">${p.done}/${p.total}</span></div>
+    </div>
+    <div class="mbody">
+      ${dev.trim()?`<div class="grp"><div class="gt dev">${L[0]}</div>${dev}</div>`:""}
+      ${chk.trim()?`<div class="grp"><div class="gt chk">${L[1]}</div>${chk}</div>`:""}
+    </div>
+  </div>`;
+}
+function voletBlock(vol){
+  const v=PLAN[vol];
+  const ico={technique:"",plan:"",business:"",com:""}[vol]||"";
+  const doc=VOLDOC[vol]?`<a class="voldoc" href="${VOLDOC[vol]}" target="_blank" rel="noopener">Document détaillé →</a>`:"";
+  const cards=v.modules.map(m=>moduleCard(m,vol)).join("");
+  if(cards.trim()==="") return "";
+  return `<section class="volet"><h2>${ico} ${v.label}<span class="vo">${v.owner}</span>${doc}</h2>${cards}</section>`;
+}
+function render(){
+  const app=document.getElementById("app");
+  const filt=document.getElementById("filters");
+  const detail=(VIEW==="technique"||VIEW==="plan"||VIEW==="business"||VIEW==="com");
+  filt.style.visibility=detail?"visible":"hidden";
+  let html="";
+  if(VIEW==="dash")html=renderDashboard();
+  else if(VIEW==="planning")html=renderPlanning();
+  else if(VIEW==="reperes")html=renderReperes();
+  else html=voletBlock(VIEW);
+  app.innerHTML=html||`<p style="color:var(--gris);padding:30px 0">Rien à afficher pour ce filtre.</p>`;
+  if(VIEW==="reperes")fillAnnexes();
+  if(detail) app.querySelectorAll(".mod").forEach(el=>el.classList.add("open"));
+  const g=globalProgress();
+  document.getElementById("gfill").style.width=g+"%";
+  document.getElementById("gpct").textContent=g+"%";
+  const rail=document.getElementById("rail");
+  if(rail){rail.innerHTML=renderRail();bindRail();}
+  if(VIEW==="dash")bindDashboard();
+  else if(VIEW==="planning")bindPlanning();
+  else if(detail)bindRows();
+}
+function openModule(mid){
+  const m=MODBYID[mid], vol=MODVOL[mid], meth=METHODE[mid], due=MODDUE[mid], rng=MODRANGE[mid];
+  const steps=m.dev.map((it,i)=>`<li><span class="dn">${i+1}</span><span class="dt">${it.t}</span><span class="rbadge r-${it.r}">${RLBL[it.r]}</span></li>`).join("");
+  const checks=m.check.map(it=>`<li><span class="ck">✓</span><span>${it.t}</span><span class="rbadge r-${it.r}">${RLBL[it.r]}</span></li>`).join("");
+  const guide=(vol==="technique")?`<a class="dwguide" href="${GUIDE_URL}" target="_blank" rel="noopener">Guide pas à pas, compétences &amp; coûts →</a>`:"";
+  const d=document.getElementById("drawer");
+  d.innerHTML=`
+    <div class="dwh">
+      <button class="dwclose" id="dwclose" aria-label="Fermer">×</button>
+      <div class="dwcode">${m.code}${rng?` · ${rng}`:(due?` · échéance ${fmtDate(due)}`:"")}</div>
+      <h2>${m.nom}</h2>
+      <div class="dwmeta"><span class="dwest">≈ ${fmtEst(EST[mid])}</span> de travail estimé${rng?` · à faire ${rng}`:""}</div>
+    </div>
+    <div class="dwbody">
+      <p class="dwbut">${meth?meth.but:m.sub}</p>
+      ${guide}
+      ${meth&&meth.comment?`<div class="dwsec"><h4>Comment s'y prendre</h4><p>${meth.comment}</p></div>`:""}
+      <div class="dwsec"><h4>${vol==="technique"?"Étapes de développement":"Actions"}</h4><ol class="dwsteps">${steps}</ol></div>
+      <div class="dwsec"><h4>${vol==="technique"?"Vérification":"Points de contrôle"}</h4><ul class="dwchk">${checks}</ul></div>
+      ${meth&&meth.livrable?`<div class="dwsec livr"><h4>Livrable</h4><p>${meth.livrable}</p></div>`:""}
+      <button class="dwgoto" data-goto="${mid}">Aller cocher ce module →</button>
+    </div>`;
+  document.getElementById("drawerOv").classList.add("open");
+  d.classList.add("open");
+  document.getElementById("dwclose").onclick=closeDrawer;
+  d.querySelector(".dwgoto").onclick=()=>{closeDrawer();gotoModule(mid);};
+}
+function closeDrawer(){document.getElementById("drawer").classList.remove("open");document.getElementById("drawerOv").classList.remove("open");}
+function bindRows(){
+  document.querySelectorAll("[data-toggle]").forEach(h=>h.onclick=()=>h.parentElement.classList.toggle("open"));
+  document.querySelectorAll(".mdet").forEach(b=>b.onclick=e=>{e.stopPropagation();openModule(b.dataset.det);});
+  document.querySelectorAll(".item").forEach(row=>{
+    const go=()=>cycle(row.dataset.id);
+    row.onclick=go;
+    row.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();go();}};
+  });
+}
+const ENCO=["En route","Ça avance","Nickel","Un de plus","Ça pousse","Au taquet"];
+function cycle(id){
+  const item=ITEMS.find(x=>x.id===id), mid=item&&item.mid;
+  const before=globalProgress();
+  const modBefore=mid?modProgress(MODBYID[mid]).pct:0;
+  const wasFait=st(id)==="fait";
+  STATE[id]=ORDER[(ORDER.indexOf(st(id))+1)%4];
+  const nowFait=STATE[id]==="fait";
+  api.save(id,STATE[id],STATE);
+  if(mid){
+    const pct=modProgress(MODBYID[mid]).pct;
+    const anyBlocked=[...MODBYID[mid].dev,...MODBYID[mid].check].some(x=>st(x._id)==="bloque");
+    const modStatut=anyBlocked?"bloque":pct===100?"fait":pct>0?"encours":"avenir";
+    api.saveModule(mid,modStatut);
+  }
+  render();
+  const after=globalProgress();
+  const modAfter=mid?modProgress(MODBYID[mid]).pct:0;
+  const mods=Object.values(MODBYID), doneM=mods.filter(m=>modProgress(m).pct===100).length;
+  if(mid && modBefore<100 && modAfter===100){
+    celebrate(`Module bouclé : ${MODBYID[mid].t} — ${after}% · ${doneM}/${mods.length} modules`);
+  } else if(nowFait && !wasFait){
+    toast(`${ENCO[Math.floor(Math.random()*ENCO.length)]} · +1 fait — ${after}% au global`, true);
+  } else if(after<before){
+    toast(`${after}% au global`, false);
+  }
+  if(after>before){const gp=document.getElementById("gpct");if(gp){gp.classList.remove("bump");void gp.offsetWidth;gp.classList.add("bump");}}
+}
+let _toastT;
+function toast(msg,good){
+  const el=document.getElementById("toast");if(!el)return;
+  el.innerHTML=msg;el.className="toast show"+(good?" good":"");
+  clearTimeout(_toastT);_toastT=setTimeout(()=>el.className="toast",2200);
+}
+function celebrate(msg){
+  const el=document.getElementById("toast");if(!el)return;
+  el.innerHTML='<span class="tk">\u2713</span>'+msg;el.className="toast show party";
+  clearTimeout(_toastT);_toastT=setTimeout(()=>el.className="toast",3400);
+  burst();
+}
+function burst(){
+  const colors=["#F08247","#A996B8","#9AAD8F","#5A4152"];
+  const box=document.createElement("div");box.className="confetti";
+  for(let i=0;i<18;i++){const s=document.createElement("i");
+    s.style.background=colors[i%colors.length];
+    s.style.left=(50+(Math.random()*44-22))+"%";
+    s.style.setProperty("--r",(Math.random()*360)+"deg");
+    s.style.animationDelay=(Math.random()*.12)+"s";
+    box.appendChild(s);}
+  document.body.appendChild(box);setTimeout(()=>box.remove(),1400);
+}
+
+/* tabs + filtres */
+document.getElementById("tabs").addEventListener("click",e=>{
+  const b=e.target.closest(".tab");if(!b)return;
+  document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
+  b.classList.add("active");VIEW=b.dataset.v;render();
+});
+document.getElementById("filters").addEventListener("click",e=>{
+  const b=e.target.closest(".fbtn");if(!b)return;
+  document.querySelectorAll(".fbtn").forEach(t=>t.classList.remove("active"));
+  b.classList.add("active");RFILTER=b.dataset.r;render();
+});
+
+/* init */
+buildIndex();
+document.getElementById("drawerOv").onclick=closeDrawer;
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeDrawer();});
+async function refreshFromBackend(manual){
+  const btn=document.getElementById("rfbtn"), sync=document.getElementById("sync"), txt=document.getElementById("syncTxt");
+  const ok = !!BACKEND_URL;
+  if(manual && btn) btn.classList.add("spin");
+  STATE = await api.load();
+  if(ok){sync.className="sync ok";txt.textContent="Synchronisé";var _bt=document.getElementById("bntxt");if(_bt)_bt.innerHTML="<b>Back-end branché</b> — synchronisé avec le compte partagé. ";}
+  else{sync.className="sync local";txt.textContent="Local";}
+  render();
+  if(manual && btn){
+    txt.textContent="Actualisé";
+    setTimeout(()=>{btn.classList.remove("spin");if(ok)txt.textContent="Synchronisé";},650);
+  }
+}
+document.getElementById("rfbtn").addEventListener("click",()=>refreshFromBackend(true));
+refreshFromBackend(false);
+</script>
+
+<script>
+(function(){
+  var b=document.getElementById('sbtgl'),ov=document.getElementById('sbov'),body=document.body;
+  function open(){body.classList.add('sbopen');}
+  function close(){body.classList.remove('sbopen');}
+  if(b)b.addEventListener('click',function(){body.classList.toggle('sbopen');});
+  if(ov)ov.addEventListener('click',close);
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
+  document.querySelectorAll('.sbnav a').forEach(function(a){a.addEventListener('click',close);});
+})();
+</script>
+<script>
+(function(){
+  /* Back-end câblé en dur (BACKEND_DEFAULT). Bandeau masqué : rien à coller.
+     Pour changer l'URL (Laurence uniquement) : en console ->
+     localStorage.setItem("lila-backend-url","…/exec"); puis recharger. */
+})();
+</script>
+</body>
+</html>

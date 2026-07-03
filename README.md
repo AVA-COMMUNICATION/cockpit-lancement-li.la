@@ -7,8 +7,8 @@ Outils internes de Linda & Laurence pour piloter le BUILD de Li·La.
 
 | Fichier | Rôle | Déployé où |
 |---|---|---|
-| index.html | Cockpit de pilotage — 26 modules, avancement | Netlify (racine) |
-| lila-accueil-mobile.html | Hub mobile — démo, landing, cockpit, liens | Netlify |
+| index.html | **Accueil (porte d'entrée)** — démo, hub AVA, landing, cockpit, liens | Netlify (racine) |
+| lila-cockpit.html | Cockpit de pilotage — 26 modules, avancement | Netlify |
 | lila-contenus.html | Kit de contenus — les posts | Netlify |
 | lila-plan-communication.html | Calendrier daté des posts | Netlify |
 | lila-business-plan.html | Business plan | Netlify |
