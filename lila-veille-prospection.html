@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Li·La — Veille & prospection</title><style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600&display=swap');
+:root{--navy:#43303F;--orange:#F08247;--lavande:#A996B8;--sauge:#9AAD8F;--creme:#FBF4EE;--gris:#626A73;--navy-2:#5A4152;--line:#e7ddd0;--card:#fff;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',system-ui,sans-serif;color:var(--navy);background:var(--creme);line-height:1.6;-webkit-font-smoothing:antialiased}
+.shell{display:grid;grid-template-columns:1fr;max-width:1180px;margin:0 auto}
+@media(min-width:1000px){.shell{grid-template-columns:236px 1fr}}
+nav{background:var(--navy);color:#cdd8e4;padding:22px 18px;display:none}
+@media(min-width:1000px){nav{display:block;position:sticky;top:0;height:100vh;overflow-y:auto}}
+nav .logo{display:block;font:700 22px 'Poppins';color:#fff;letter-spacing:-.5px;margin-bottom:2px;text-decoration:none}
+nav .logo b{color:var(--orange)}
+nav .sub{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#7d92aa;margin-bottom:20px}
+nav a.lnk{display:block;color:#cdd8e4;text-decoration:none;font-size:13.5px;padding:7px 10px;border-radius:8px;margin-bottom:2px}
+nav a.lnk:hover{background:var(--navy-2);color:#fff}
+nav a.head{display:block;font:600 11px 'Inter';letter-spacing:.1em;text-transform:uppercase;color:#7d92aa;margin:16px 0 4px;padding-left:10px;text-decoration:none;pointer-events:none}
+nav .back{display:flex;align-items:center;justify-content:center;gap:6px;background:var(--orange);color:#fff;font:600 13px 'Inter';text-decoration:none;padding:10px 12px;border-radius:9px;margin-bottom:18px}
+nav .back:hover{background:#e06f33}
+.backfab{display:none}
+@media(max-width:999px){.backfab{display:inline-flex;align-items:center;gap:5px;position:sticky;top:10px;z-index:40;background:var(--navy);color:#fff;font:600 13px 'Inter';text-decoration:none;padding:9px 14px;border-radius:99px;box-shadow:0 3px 12px rgba(12,34,65,.25);margin-bottom:10px}}
+main{padding:34px 30px 80px;max-width:840px}
+.h1{font:700 30px 'Poppins';letter-spacing:-.5px;line-height:1.15}
+.lead{font-size:15px;color:#574a58;margin:12px 0 4px;max-width:700px}
+.tagline{display:inline-block;font-size:12px;font-weight:600;color:var(--orange);background:#fdeee4;padding:5px 12px;border-radius:99px;margin-bottom:18px}
+h2.sec{font:600 13px 'Inter';letter-spacing:.12em;text-transform:uppercase;color:var(--gris);margin:38px 0 14px;padding-bottom:8px;border-bottom:1px solid var(--line);scroll-margin-top:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin-bottom:14px;box-shadow:0 1px 2px rgba(12,34,65,.04)}
+.card p{font-size:14.5px;color:#574a58}
+.card p+p{margin-top:8px}
+.card h4{font:600 11.5px 'Inter';letter-spacing:.09em;text-transform:uppercase;color:var(--gris);margin:14px 0 8px}
+.card h4:first-child{margin-top:0}
+ul.bul{list-style:none;margin-top:8px}
+ul.bul li{position:relative;padding-left:18px;font-size:14.5px;color:#574a58;margin-bottom:5px}
+ul.bul li:before{content:"·";position:absolute;left:4px;color:var(--orange);font-weight:700}
+table{width:100%;border-collapse:collapse;font-size:13.5px;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-bottom:14px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:#f4eee5;font:600 12px 'Inter';color:var(--navy)}
+tr:last-child td{border-bottom:none}
+.tag{display:inline-block;font-size:11px;font-weight:600;padding:2px 8px;border-radius:99px;white-space:nowrap}
+.t-j{background:#fdeee4;color:#bd6a36}.t-a{background:#e9f0e9;color:#3f6650}.t-s{background:#efe9f1;color:#7a6790}.t-n{background:#f3e9f0;color:#3a5071}
+.mod{background:var(--card);border:1px solid var(--line);border-radius:16px;margin-bottom:22px;overflow:hidden;box-shadow:0 1px 3px rgba(12,34,65,.05);scroll-margin-top:14px}
+.mod .top{background:var(--navy);color:#fff;padding:18px 22px}
+.mod .code{font:600 11px 'Inter';letter-spacing:.12em;text-transform:uppercase;color:#9fb0c4}
+.mod .top h3{font:600 20px 'Poppins';margin:3px 0 0}
+.mod .meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:11px}
+.mchip{font-size:11.5px;font-weight:600;padding:4px 10px;border-radius:99px;background:rgba(255,255,255,.1);color:#dbe4ee}
+.mchip.a{background:rgba(154,173,143,.2);color:#bcccb2}.mchip.o{background:rgba(240,130,71,.18);color:#f3a877}.mchip.l{background:rgba(169,150,184,.22);color:#cdbcd8}
+.mbody{padding:18px 22px 20px}
+.mbody h4{font:600 11.5px 'Inter';letter-spacing:.09em;text-transform:uppercase;color:var(--gris);margin:16px 0 8px}
+.mbody h4:first-child{margin-top:0}
+.mbody p{font-size:14px;color:#574a58}
+ol.steps{list-style:none;counter-reset:s;margin-top:4px}
+ol.steps li{position:relative;padding-left:34px;margin-bottom:10px;font-size:14px;color:var(--navy)}
+ol.steps li:before{counter-increment:s;content:counter(s);position:absolute;left:0;top:-1px;width:23px;height:23px;border-radius:50%;background:var(--navy);color:#fff;font:700 12px 'Poppins';display:flex;align-items:center;justify-content:center}
+.grid2{display:grid;gap:14px}
+@media(min-width:620px){.grid2{grid-template-columns:1fr 1fr}}
+.box{background:#faf6ef;border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.box .lbl{font:600 10.5px 'Inter';letter-spacing:.08em;text-transform:uppercase;color:var(--gris);margin-bottom:5px}
+.box p,.box ul{font-size:13px;color:#574a58}
+.box ul{list-style:none}
+.box ul li{position:relative;padding-left:14px;margin-bottom:3px}
+.box ul li:before{content:"\203A";position:absolute;left:0;color:var(--sauge);font-weight:700}
+.vigi{background:#fdf3ef;border-left:3px solid var(--orange);border-radius:0 8px 8px 0;padding:11px 14px;font-size:13.5px;color:#7a4327;margin-top:6px}
+.valid{background:#eef4ee;border-left:3px solid var(--sauge);border-radius:0 8px 8px 0;padding:11px 14px;font-size:13.5px;color:#3f5a47;margin-top:6px}
+.livr{font-size:13.5px;color:var(--navy);font-weight:500;margin-top:6px}
+.note{background:#eef1f5;border-radius:10px;padding:13px 16px;font-size:13.5px;color:#574a58;margin-top:10px}
+.note b{color:var(--navy)}
+.ex{background:#fff;border:1px dashed var(--lavande);border-radius:11px;padding:14px 16px;margin-bottom:12px}
+.ex .xh{font:600 11px 'Inter';letter-spacing:.08em;text-transform:uppercase;color:#7a6790;margin-bottom:7px}
+.ex p{font-size:14px;color:#33415a;white-space:pre-line}
+.foot{font-size:12px;color:var(--gris);padding:24px 0 0;border-top:1px solid var(--line);margin-top:30px}
+code{font-family:ui-monospace,Menlo,Consolas,monospace;background:#eef2f6;border-radius:5px;padding:1px 6px;font-size:12.5px;color:#1d3a5c}
+@media print{nav{display:none}.shell{display:block}main{max-width:none}.mod,.card{break-inside:avoid}}
+</style></head>
+<body><div class="shell">
+<nav>
+  <a class="back" href="index.html">&larr; Retour &agrave; l'accueil</a>
+  <a class="logo" href="#top">Li<b>&middot;</b>La</a>
+  <div class="sub">Veille & prospection</div>
+  <a class="lnk" href="#intro">Comment l'utiliser</a><a class="lnk" href="#cibles">Cibles</a><a class="lnk" href="#quali">Qualification & scoring</a><a class="lnk" href="#sourcing">Sourcing & RGPD</a><a class="lnk" href="#concurrence">Veille concurrentielle</a><a class="lnk" href="#marche">Veille marché & outils</a><a class="lnk" href="#demos">Démos prospects</a><a class="lnk" href="#cadence">Cadence de veille</a>
+</nav>
+<main>
+  <a id="top"></a>
+  <a class="backfab" href="index.html">&larr; Accueil</a>
+  
+<span class="tagline">Document de travail — Laurence & Linda</span>
+<div class="h1">Veille & prospection</div>
+<p class="lead">Qui on vise, comment on les trouve et les qualifie, ce qu'on surveille chez la concurrence et sur le marché, et comment on convertit en démo.</p>
+
+<h2 class="sec" id="intro">Comment l'utiliser</h2>
+<div class="card">
+  <p>Ce document cadre la <b>prospection</b> (trouver et convertir) et la <b>veille</b> (rester informé). Le cockpit suit l'avancement (volet « Prospection &amp; veille ») ; ici, c'est la méthode.</p>
+</div>
+
+<h2 class="sec" id="cibles">Cibles</h2>
+<div class="card">
+  <h4>Profil prioritaire</h4>
+  <ul class="bul">
+    <li>Agents et petites agences immo, plutôt <b>indépendants ou réseaux</b>.</li>
+    <li>Déjà sensibles au gain de temps / à l'image, <b>curieux d'IA</b> mais pas experts.</li>
+    <li>Premier cercle : le <b>réseau AVA</b> (chaleur, confiance, bouche-à-oreille).</li>
+  </ul>
+  <h4>Cercles d'expansion</h4>
+  <ul class="bul">
+    <li>Cercle 1 : réseau AVA + recommandations.</li>
+    <li>Cercle 2 : agents croisés en démo / événement.</li>
+    <li>Cercle 3 : prospection externe qualifiée (sources publiques B2B).</li>
+  </ul>
+</div>
+
+<h2 class="sec" id="quali">Qualification & scoring</h2>
+<div class="mod" id="quali-m">
+  <div class="top"><div class="code">Méthode</div><h3>Trier avant de contacter</h3></div>
+  <div class="mbody">
+    <p>On ne contacte pas tout le monde pareil. On score, on priorise, on adapte le message.</p>
+    <h4>Critères de score</h4>
+    <ul class="bul">
+      <li>Proximité réseau (AVA = chaud)</li>
+      <li>Taille / activité (assez de volume pour que l'IA serve)</li>
+      <li>Maturité IA (curieux &gt; réfractaire)</li>
+      <li>Accessibilité (un contact, une intro possible)</li>
+    </ul>
+    <h4>3 niveaux</h4>
+    <table style="margin-top:8px">
+      <tr><th>Niveau</th><th>Qui</th><th>Action</th></tr>
+      <tr><td><span class="tag t-a">Chaud</span></td><td>Réseau AVA, recommandés</td><td>Invitation directe à une démo</td></tr>
+      <tr><td><span class="tag t-n">Tiède</span></td><td>Croisés, intéressés</td><td>Nurturing (contenu) puis démo</td></tr>
+      <tr><td><span class="tag t-s">Froid</span></td><td>Sourcing externe</td><td>Approche douce, contenu d'abord</td></tr>
+    </table>
+  </div>
+</div>
+
+<h2 class="sec" id="sourcing">Sourcing & RGPD</h2>
+<div class="card">
+  <h4>Sources publiques B2B</h4>
+  <ul class="bul">
+    <li>Annuaires d'agences, annonces immobilières, réseaux professionnels.</li>
+    <li>Recommandations du réseau (la meilleure source).</li>
+  </ul>
+  <h4>Méthode</h4>
+  <ol class="steps">
+    <li>Identifier les sources publiques pertinentes.</li>
+    <li>Collecter (manuel ou Make) des données <b>professionnelles publiques</b>.</li>
+    <li>Nettoyer, normaliser, <b>dédoublonner</b>.</li>
+    <li>Qualifier et scorer avant tout contact.</li>
+  </ol>
+  <div class="vigi">RGPD : base légale = intérêt légitime B2B, information des personnes, opt-out simple. On valide la conformité <b>avant</b> tout usage. Pas de données personnelles sensibles, pas de scraping agressif.</div>
+</div>
+
+<h2 class="sec" id="concurrence">Veille concurrentielle</h2>
+<div class="mod" id="conc-m">
+  <div class="top"><div class="code">À surveiller</div><h3>Qui fait quoi, et notre différence</h3></div>
+  <div class="mbody">
+    <table>
+      <tr><th>Acteur</th><th>Ce qu'il fait</th><th>Notre différence</th></tr>
+      <tr><td><b>Berthoud</b> (Squad IMMO)</td><td>Vend des prompts configurables ; l'agent garde sa clé, pas de réseau</td><td>Li·La vend <b>le lieu où les prompts tournent</b> + le réseau + la persistance</td></tr>
+      <tr><td><b>Limova</b></td><td>IA généraliste, large base clients</td><td>Li·La = <b>100 % métier immo</b> (ALUR, mandats, ton agent) + données chez l'agent</td></tr>
+      <tr><td>IA généralistes (ChatGPT…)</td><td>Répondent à tout, sans contexte métier</td><td>Li·La connaît le métier et garde la confidentialité</td></tr>
+    </table>
+    <h4>Argumentaire différenciant (le réflexe)</h4>
+    <p>« Une IA généraliste ne connaît ni l'ALUR, ni un mandat, ni le ton d'un agent. Li·La, si — et vos données restent chez vous. »</p>
+    <div class="note">À suivre : leurs prix, leurs nouveautés, leur discours. Mettre à jour le tableau comparatif à chaque changement.</div>
+  </div>
+</div>
+
+<h2 class="sec" id="marche">Veille marché & outils</h2>
+<div class="grid2">
+  <div class="box"><div class="lbl">IA & immobilier</div><ul><li>Nouveaux modèles, évolutions de prix API</li><li>Usages IA dans l'immo</li></ul></div>
+  <div class="box"><div class="lbl">Réglementaire</div><ul><li>ALUR, RGPD, évolutions légales</li><li>Impacts sur le produit / le discours</li></ul></div>
+  <div class="box"><div class="lbl">Outils</div><ul><li>Make, Notion, MailerLite, Stripe, Supabase</li><li>Nouveautés utiles au build</li></ul></div>
+  <div class="box"><div class="lbl">Sortie</div><ul><li>Une note de veille courte, tenue à jour</li><li>Alimente l'argumentaire + le build</li></ul></div>
+</div>
+
+<h2 class="sec" id="demos">Démos prospects (façon Limova)</h2>
+<div class="card">
+  <p>La démo live est notre meilleur convertisseur. On <b>pilote</b>, le prospect regarde.</p>
+  <ol class="steps">
+    <li>Bouton « Réserver une démo » sur la landing (Tally / Calendly).</li>
+    <li>Scénario de 20 min sur un cas réel (note vocale → fiche, mail → brouillon, confidentialité).</li>
+    <li>Répétition à deux avant les premières démos.</li>
+    <li>Agenda de créneaux réguliers.</li>
+  </ol>
+  <div class="note">Détail du scénario : voir le Plan de communication.</div>
+</div>
+
+<h2 class="sec" id="cadence">Cadence de veille</h2>
+<table>
+  <tr><th>Quoi</th><th>Qui</th><th>Fréquence</th></tr>
+  <tr><td>Concurrence (Berthoud, Limova)</td><td>2 à deux</td><td>Mensuelle + à chaque mouvement</td></tr>
+  <tr><td>Marché IA / prix API</td><td>Laurence</td><td>Continue (au fil de l'eau)</td></tr>
+  <tr><td>ALUR / réglementaire</td><td>2 à deux</td><td>Trimestrielle</td></tr>
+  <tr><td>Prospects chauds</td><td>Linda</td><td>Hebdomadaire</td></tr>
+</table>
+<div class="foot">Li·La · Veille &amp; prospection · document de travail — Laurence &amp; Linda.</div>
+
+</main>
+</div></body></html>

@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#43303F">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Li·La">
+<meta name="mobile-web-app-capable" content="yes">
+<title>Li·La — Accueil</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#43303F;--navy-2:#5A4152;--line:#6E5265;
+  --orange:#F08247;--lavande:#A996B8;--sauge:#9AAD8F;--rose:#E07AA6;
+  --creme:#FBF4EE;--gris:#8A7E85;--card:#FFFDFB;--border:#EBDFD6;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--creme);color:#3E2F44;font-family:'Inter',system-ui,sans-serif;
+  -webkit-user-select:none;user-select:none}
+body{padding-bottom:calc(28px + env(safe-area-inset-bottom))}
+a{color:inherit;text-decoration:none}
+
+.hero{background:linear-gradient(135deg,#6E5C86 0%,#C85E92 55%,#E8863F 100%);
+  padding:calc(22px + env(safe-area-inset-top)) 20px 26px;color:#fff;border-radius:0 0 26px 26px}
+.hero .wm{font:700 26px 'Poppins'}
+.hero .wm .pt{color:#fff}
+.hero .sub{font:500 12.5px 'Inter';opacity:.92;margin-top:3px}
+.hero .cd{margin-top:16px;background:rgba(255,255,255,.16);border-radius:14px;padding:12px 14px;
+  display:flex;justify-content:space-between;align-items:center;font:600 13px 'Inter'}
+.hero .cd b{font:700 20px 'Poppins'}
+
+.wrap{padding:18px 16px 10px;max-width:520px;margin:0 auto}
+.sec{margin-bottom:20px}
+.sec h2{font:600 11px 'Inter';letter-spacing:.1em;text-transform:uppercase;color:var(--gris);margin:0 0 9px;padding:0 2px}
+
+.pin{display:block;background:var(--card);border:1px solid var(--border);border-radius:16px;
+  padding:16px;margin-bottom:10px;display:flex;align-items:center;gap:13px;
+  box-shadow:0 2px 10px rgba(67,48,63,.05)}
+.pin:active{transform:scale(.98)}
+.pin .ic{width:44px;height:44px;border-radius:13px;display:flex;align-items:center;justify-content:center;flex:none}
+.pin .ic svg{width:22px;height:22px;stroke:#fff;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.pin .tx{flex:1;min-width:0}
+.pin .tx .t{font:600 14.5px 'Poppins';color:var(--navy)}
+.pin .tx .s{font:500 12px 'Inter';color:var(--gris);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pin .chev{color:#c9bcc4;font-size:18px;flex:none}
+.i-demo{background:linear-gradient(135deg,#C85E92,#E8863F)}
+.i-land{background:linear-gradient(135deg,#6E5C86,#A996B8)}
+.i-cock{background:var(--navy)}
+.i-com{background:var(--rose)}
+.i-kit{background:var(--lavande)}
+.i-charge{background:var(--sauge)}
+.i-biz{background:#c56a35}
+.i-route{background:#7a6790}
+.i-veille{background:#5f7a52}
+.i-link{background:#b3a6c4}
+
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.tile{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:13px;display:flex;flex-direction:column;gap:8px}
+.tile:active{transform:scale(.98)}
+.tile .ic{width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center}
+.tile .ic svg{width:17px;height:17px;stroke:#fff;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.tile .t{font:600 13px 'Poppins';color:var(--navy);line-height:1.25}
+
+.linkrow{background:var(--card);border:1px solid var(--border);border-radius:14px;
+  padding:13px 14px;margin-bottom:8px;display:flex;align-items:center;gap:11px}
+.linkrow .dot{width:8px;height:8px;border-radius:50%;background:var(--orange);flex:none}
+.linkrow .tx{flex:1;min-width:0}
+.linkrow .tx .t{font:600 13.5px 'Inter';color:var(--navy);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.linkrow .tx .u{font:400 11px 'Inter';color:var(--gris);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.linkrow .rm{border:none;background:transparent;color:#cabbc4;font-size:17px;padding:4px 6px;flex:none}
+
+.addbox{background:var(--card);border:1px dashed var(--line);border-radius:14px;padding:13px}
+.addbox.open{border-style:solid}
+.addbtn{width:100%;background:transparent;border:none;color:var(--navy);font:600 13.5px 'Inter';
+  display:flex;align-items:center;gap:8px;padding:2px}
+.addbtn .plus{width:22px;height:22px;border-radius:50%;background:var(--navy);color:#fff;
+  display:flex;align-items:center;justify-content:center;font-size:15px;flex:none}
+.form{display:none;flex-direction:column;gap:8px;margin-top:11px}
+.addbox.open .form{display:flex}
+.form input{border:1px solid var(--border);border-radius:9px;padding:10px 12px;font:500 13.5px 'Inter';background:#fff;color:#3E2F44}
+.form .save{background:var(--orange);color:#fff;border:none;border-radius:9px;padding:11px;font:600 13.5px 'Inter'}
+
+.foot{text-align:center;color:var(--gris);font:500 11px 'Inter';padding:14px 20px 4px}
+.empty{color:var(--gris);font:500 12.5px 'Inter';text-align:center;padding:8px 4px 2px}
+.hero .lgchip{background:#fff;display:inline-block;padding:10px 16px 7px;border-radius:14px;
+  box-shadow:0 6px 18px rgba(0,0,0,.14)}
+.hero .lgchip img{height:28px;display:block}
+
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="lgchip"><img src="./lila-logo.png" alt="Li·La"></div>
+  <div class="sub" style="margin-top:10px">Accueil — tout au même endroit</div>
+  <div class="cd" id="cdBox"><span>Lancement commercial</span><b id="cdN">—</b></div>
+</div>
+
+<div class="wrap">
+
+  <div class="sec">
+    <h2>Épinglé</h2>
+    <a class="pin" id="demoPin" href="#">
+      <div class="ic i-demo"><svg viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20 6 4"/></svg></div>
+      <div class="tx"><div class="t">Démo Li·La</div><div class="s" id="demoSub">Appuyer pour ajouter le lien</div></div>
+      <div class="chev">›</div>
+    </a>
+    <a class="pin" href="https://ava-communication.github.io/landing-page/" target="_blank" rel="noopener">
+      <div class="ic i-land"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"/></svg></div>
+      <div class="tx"><div class="t">Landing page Li·La</div><div class="s">La vitrine publique — à envoyer aux prospects</div></div>
+      <div class="chev">›</div>
+    </a>
+    <a class="pin" href="index.html">
+      <div class="ic i-cock"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg></div>
+      <div class="tx"><div class="t">Cockpit de pilotage</div><div class="s">Planning, progression, jalons</div></div>
+      <div class="chev">›</div>
+    </a>
+    <a class="pin" href="lila-plan-communication.html">
+      <div class="ic i-com"><svg viewBox="0 0 24 24"><path d="M3 11v2a1 1 0 0 0 1 1h3l5 4V6L7 10H4a1 1 0 0 0-1 1z"/><path d="M16 9a4 4 0 0 1 0 6"/></svg></div>
+      <div class="tx"><div class="t">Plan de communication</div><div class="s">Calendrier daté, mi-juillet → 17 sept.</div></div>
+      <div class="chev">›</div>
+    </a>
+  </div>
+
+  <div class="sec">
+    <h2>Dossiers du projet</h2>
+    <div class="grid2">
+      <a class="tile" href="lila-contenus.html">
+        <div class="ic i-kit"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/></svg></div>
+        <div class="t">Kit de contenus</div>
+      </a>
+      <a class="tile" href="lila-charges.html">
+        <div class="ic i-charge"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M14.5 9.4a3 3 0 0 0-4 .2M9.5 11h4M9.5 13.2h4"/></svg></div>
+        <div class="t">Charges &amp; économie</div>
+      </a>
+      <a class="tile" href="lila-business-plan.html">
+        <div class="ic i-biz"><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></div>
+        <div class="t">Business plan</div>
+      </a>
+      <a class="tile" href="lila-plan-route-developpement.html">
+        <div class="ic i-route"><svg viewBox="0 0 24 24"><circle cx="6" cy="19" r="2.4"/><circle cx="18" cy="5" r="2.4"/><path d="M8 19h6a3 3 0 0 0 3-3V8"/></svg></div>
+        <div class="t">Plan de route — dev</div>
+      </a>
+      <a class="tile" href="lila-veille-prospection.html" style="grid-column:1/-1">
+        <div class="ic i-veille"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg></div>
+        <div class="t">Veille &amp; prospection</div>
+      </a>
+    </div>
+  </div>
+
+  <div class="sec">
+    <h2>Mes liens <span id="lkSync" style="font-weight:600;color:var(--gris);text-transform:none;letter-spacing:0">— local</span></h2>
+    <div id="linksList"></div>
+    <div class="addbox" id="addBox">
+      <button class="addbtn" id="addToggle"><span class="plus">+</span> Ajouter un lien</button>
+      <div class="form" id="addForm">
+        <input id="lTitle" placeholder="Titre (ex. Devis Linda, Réunion 7 juillet…)">
+        <input id="lUrl" placeholder="Lien (https://…)" inputmode="url">
+        <button class="save" id="lSave">Enregistrer</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot">Lancement 18 août 2026 · Événement 17 sept. 2026</div>
+</div>
+
+<script>
+/* compte à rebours */
+(function(){
+  var d=new Date("2026-08-18T00:00:00");
+  var days=Math.max(0,Math.ceil((d-new Date())/86400000));
+  document.getElementById("cdN").textContent=days+"j";
+})();
+
+/* démo pin — lien éditable */
+var DEMO_DEFAULT="https://app-li-la.netlify.app/";
+function loadDemo(){try{return localStorage.getItem("lila-demo-url")||DEMO_DEFAULT;}catch(e){return DEMO_DEFAULT;}}
+function saveDemo(u){try{localStorage.setItem("lila-demo-url",u);}catch(e){}}
+function renderDemo(){
+  var u=loadDemo(), pin=document.getElementById("demoPin"), sub=document.getElementById("demoSub");
+  if(u){pin.href=u;pin.target="_blank";pin.rel="noopener";sub.textContent=u.replace(/^https?:\/\//,"");}
+  else{pin.removeAttribute("target");sub.textContent="Appuyer pour ajouter le lien";}
+}
+document.getElementById("demoPin").addEventListener("click",function(e){
+  if(!loadDemo()){
+    e.preventDefault();
+    var u=prompt("Colle le lien de la démo Li·La :");
+    if(u){saveDemo(u.trim());renderDemo();}
+  }
+});
+renderDemo();
+
+/* mes liens — local + back-end partagé (même URL que le cockpit) */
+var LKEY="lila-mobile-links";
+function backendUrl(){try{return localStorage.getItem("lila-backend-url")||"";}catch(e){return "";}}
+function loadLinks(){try{return JSON.parse(localStorage.getItem(LKEY))||[];}catch(e){return [];}}
+function saveLinks(a){try{localStorage.setItem(LKEY,JSON.stringify(a));}catch(e){}}
+function esc(x){return (x||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/"/g,"&quot;");}
+function setSync(state){
+  var el=document.getElementById("lkSync");if(!el)return;
+  if(state==="ok")el.textContent="— synchronisé";
+  else if(state==="err")el.textContent="— local (back-end injoignable)";
+  else el.textContent="— local";
+}
+function renderLinks(){
+  var a=loadLinks(), host=document.getElementById("linksList");
+  if(!a.length){host.innerHTML='<div class="empty">Aucun lien pour l\'instant — ajoute ceux que tu veux garder sous la main.</div>';return;}
+  host.innerHTML="";
+  a.forEach(function(l,i){
+    var row=document.createElement("a");
+    row.className="linkrow";row.href=l.u;row.target="_blank";row.rel="noopener";
+    row.innerHTML='<span class="dot"></span><div class="tx"><div class="t">'+esc(l.t)+'</div><div class="u">'+esc(l.u.replace(/^https?:\/\//,""))+'</div></div><button class="rm" data-i="'+i+'">×</button>';
+    host.appendChild(row);
+  });
+  host.querySelectorAll(".rm").forEach(function(b){
+    b.addEventListener("click",function(e){
+      e.preventDefault();e.stopPropagation();
+      var a=loadLinks();a.splice(+b.dataset.i,1);saveLinks(a);renderLinks();
+    });
+  });
+}
+async function syncLinksFromBackend(){
+  var url=backendUrl();
+  if(!url){setSync("local");return;}
+  try{
+    var r=await fetch(url+"?action=liens");
+    var j=await r.json();
+    var remote=(j&&j.liens)||[];
+    if(remote.length){saveLinks(remote.map(function(x){return{t:x.titre,u:x.url};}));renderLinks();}
+    setSync("ok");
+  }catch(e){setSync("err");}
+}
+async function pushLinkToBackend(t,u){
+  var url=backendUrl();
+  if(!url)return;
+  try{
+    await fetch(url,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},
+      body:JSON.stringify({type:"lien",titre:t,url:u})});
+    setSync("ok");
+  }catch(e){setSync("err");}
+}
+document.getElementById("addToggle").addEventListener("click",function(){
+  document.getElementById("addBox").classList.toggle("open");
+});
+document.getElementById("lSave").addEventListener("click",function(){
+  var t=document.getElementById("lTitle").value.trim();
+  var u=document.getElementById("lUrl").value.trim();
+  if(!t||!u)return;
+  if(!/^https?:\/\//i.test(u))u="https://"+u;
+  var a=loadLinks();a.unshift({t:t,u:u});saveLinks(a);
+  document.getElementById("lTitle").value="";document.getElementById("lUrl").value="";
+  document.getElementById("addBox").classList.remove("open");
+  renderLinks();
+  pushLinkToBackend(t,u);
+});
+renderLinks();
+setSync(backendUrl()?"ok":"local");
+syncLinksFromBackend();
+</script>
+</body>
+</html>

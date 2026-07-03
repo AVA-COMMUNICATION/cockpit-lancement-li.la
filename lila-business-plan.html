@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Li·La — Business plan</title><style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600&display=swap');
+:root{--navy:#43303F;--orange:#F08247;--lavande:#A996B8;--sauge:#9AAD8F;--creme:#FBF4EE;--gris:#626A73;--navy-2:#5A4152;--line:#e7ddd0;--card:#fff;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',system-ui,sans-serif;color:var(--navy);background:var(--creme);line-height:1.6;-webkit-font-smoothing:antialiased}
+.shell{display:grid;grid-template-columns:1fr;max-width:1180px;margin:0 auto}
+@media(min-width:1000px){.shell{grid-template-columns:236px 1fr}}
+nav{background:var(--navy);color:#cdd8e4;padding:22px 18px;display:none}
+@media(min-width:1000px){nav{display:block;position:sticky;top:0;height:100vh;overflow-y:auto}}
+nav .logo{display:block;font:700 22px 'Poppins';color:#fff;letter-spacing:-.5px;margin-bottom:2px;text-decoration:none}
+nav .logo b{color:var(--orange)}
+nav .sub{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#7d92aa;margin-bottom:20px}
+nav a.lnk{display:block;color:#cdd8e4;text-decoration:none;font-size:13.5px;padding:7px 10px;border-radius:8px;margin-bottom:2px}
+nav a.lnk:hover{background:var(--navy-2);color:#fff}
+nav a.head{display:block;font:600 11px 'Inter';letter-spacing:.1em;text-transform:uppercase;color:#7d92aa;margin:16px 0 4px;padding-left:10px;text-decoration:none;pointer-events:none}
+nav .back{display:flex;align-items:center;justify-content:center;gap:6px;background:var(--orange);color:#fff;font:600 13px 'Inter';text-decoration:none;padding:10px 12px;border-radius:9px;margin-bottom:18px}
+nav .back:hover{background:#e06f33}
+.backfab{display:none}
+@media(max-width:999px){.backfab{display:inline-flex;align-items:center;gap:5px;position:sticky;top:10px;z-index:40;background:var(--navy);color:#fff;font:600 13px 'Inter';text-decoration:none;padding:9px 14px;border-radius:99px;box-shadow:0 3px 12px rgba(12,34,65,.25);margin-bottom:10px}}
+main{padding:34px 30px 80px;max-width:840px}
+.h1{font:700 30px 'Poppins';letter-spacing:-.5px;line-height:1.15}
+.lead{font-size:15px;color:#574a58;margin:12px 0 4px;max-width:700px}
+.tagline{display:inline-block;font-size:12px;font-weight:600;color:var(--orange);background:#fdeee4;padding:5px 12px;border-radius:99px;margin-bottom:18px}
+h2.sec{font:600 13px 'Inter';letter-spacing:.12em;text-transform:uppercase;color:var(--gris);margin:38px 0 14px;padding-bottom:8px;border-bottom:1px solid var(--line);scroll-margin-top:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin-bottom:14px;box-shadow:0 1px 2px rgba(12,34,65,.04)}
+.card p{font-size:14.5px;color:#574a58}
+.card p+p{margin-top:8px}
+.card h4{font:600 11.5px 'Inter';letter-spacing:.09em;text-transform:uppercase;color:var(--gris);margin:14px 0 8px}
+.card h4:first-child{margin-top:0}
+ul.bul{list-style:none;margin-top:8px}
+ul.bul li{position:relative;padding-left:18px;font-size:14.5px;color:#574a58;margin-bottom:5px}
+ul.bul li:before{content:"·";position:absolute;left:4px;color:var(--orange);font-weight:700}
+table{width:100%;border-collapse:collapse;font-size:13.5px;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-bottom:14px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:#f4eee5;font:600 12px 'Inter';color:var(--navy)}
+tr:last-child td{border-bottom:none}
+.tag{display:inline-block;font-size:11px;font-weight:600;padding:2px 8px;border-radius:99px;white-space:nowrap}
+.t-j{background:#fdeee4;color:#bd6a36}.t-a{background:#e9f0e9;color:#3f6650}.t-s{background:#efe9f1;color:#7a6790}.t-n{background:#f3e9f0;color:#3a5071}
+.mod{background:var(--card);border:1px solid var(--line);border-radius:16px;margin-bottom:22px;overflow:hidden;box-shadow:0 1px 3px rgba(12,34,65,.05);scroll-margin-top:14px}
+.mod .top{background:var(--navy);color:#fff;padding:18px 22px}
+.mod .code{font:600 11px 'Inter';letter-spacing:.12em;text-transform:uppercase;color:#9fb0c4}
+.mod .top h3{font:600 20px 'Poppins';margin:3px 0 0}
+.mod .meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:11px}
+.mchip{font-size:11.5px;font-weight:600;padding:4px 10px;border-radius:99px;background:rgba(255,255,255,.1);color:#dbe4ee}
+.mchip.a{background:rgba(154,173,143,.2);color:#bcccb2}.mchip.o{background:rgba(240,130,71,.18);color:#f3a877}.mchip.l{background:rgba(169,150,184,.22);color:#cdbcd8}
+.mbody{padding:18px 22px 20px}
+.mbody h4{font:600 11.5px 'Inter';letter-spacing:.09em;text-transform:uppercase;color:var(--gris);margin:16px 0 8px}
+.mbody h4:first-child{margin-top:0}
+.mbody p{font-size:14px;color:#574a58}
+ol.steps{list-style:none;counter-reset:s;margin-top:4px}
+ol.steps li{position:relative;padding-left:34px;margin-bottom:10px;font-size:14px;color:var(--navy)}
+ol.steps li:before{counter-increment:s;content:counter(s);position:absolute;left:0;top:-1px;width:23px;height:23px;border-radius:50%;background:var(--navy);color:#fff;font:700 12px 'Poppins';display:flex;align-items:center;justify-content:center}
+.grid2{display:grid;gap:14px}
+@media(min-width:620px){.grid2{grid-template-columns:1fr 1fr}}
+.box{background:#faf6ef;border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.box .lbl{font:600 10.5px 'Inter';letter-spacing:.08em;text-transform:uppercase;color:var(--gris);margin-bottom:5px}
+.box p,.box ul{font-size:13px;color:#574a58}
+.box ul{list-style:none}
+.box ul li{position:relative;padding-left:14px;margin-bottom:3px}
+.box ul li:before{content:"\203A";position:absolute;left:0;color:var(--sauge);font-weight:700}
+.vigi{background:#fdf3ef;border-left:3px solid var(--orange);border-radius:0 8px 8px 0;padding:11px 14px;font-size:13.5px;color:#7a4327;margin-top:6px}
+.valid{background:#eef4ee;border-left:3px solid var(--sauge);border-radius:0 8px 8px 0;padding:11px 14px;font-size:13.5px;color:#3f5a47;margin-top:6px}
+.livr{font-size:13.5px;color:var(--navy);font-weight:500;margin-top:6px}
+.note{background:#eef1f5;border-radius:10px;padding:13px 16px;font-size:13.5px;color:#574a58;margin-top:10px}
+.note b{color:var(--navy)}
+.ex{background:#fff;border:1px dashed var(--lavande);border-radius:11px;padding:14px 16px;margin-bottom:12px}
+.ex .xh{font:600 11px 'Inter';letter-spacing:.08em;text-transform:uppercase;color:#7a6790;margin-bottom:7px}
+.ex p{font-size:14px;color:#33415a;white-space:pre-line}
+.foot{font-size:12px;color:var(--gris);padding:24px 0 0;border-top:1px solid var(--line);margin-top:30px}
+code{font-family:ui-monospace,Menlo,Consolas,monospace;background:#eef2f6;border-radius:5px;padding:1px 6px;font-size:12.5px;color:#1d3a5c}
+@media print{nav{display:none}.shell{display:block}main{max-width:none}.mod,.card{break-inside:avoid}}
+</style></head>
+<body><div class="shell">
+<nav>
+  <a class="back" href="index.html">&larr; Retour &agrave; l'accueil</a>
+  <a class="logo" href="#top">Li<b>&middot;</b>La</a>
+  <div class="sub">Business plan</div>
+  <a class="lnk" href="#intro">Comment l'utiliser</a><a class="lnk" href="#modele">Le modèle en bref</a><a class="lnk" href="#offres">Offres & tarifs</a><a class="lnk" href="#freemium">Logique freemium</a><a class="lnk" href="#couts">Coûts</a><a class="lnk" href="#repartition">Répartition 50/50</a><a class="lnk" href="#encaissement">Encaissement</a><a class="lnk" href="#juridique">Cadre juridique</a><a class="lnk" href="#revenus">Scénarios de revenus</a><a class="lnk" href="#decisions">Décisions à prendre</a>
+</nav>
+<main>
+  <a id="top"></a>
+  <a class="backfab" href="index.html">&larr; Accueil</a>
+  
+<span class="tagline">Document de travail — Laurence & Linda</span>
+<div class="h1">Business plan</div>
+<p class="lead">Le modèle économique de Li·La : ce qu'on vend, à qui, comment on encaisse, ce que ça coûte, et comment on partage. Chiffres en hypothèses, à valider à deux.</p>
+
+<h2 class="sec" id="intro">Comment l'utiliser</h2>
+<div class="card">
+  <p>Document partagé Laurence + Linda. Il pose le cadre 50/50, les offres, les coûts et des scénarios de revenus. Les montants sont des <b>hypothèses</b> de travail — aucune promesse de vente, juste de quoi décider.</p>
+</div>
+
+<h2 class="sec" id="modele">Le modèle en bref</h2>
+<div class="card">
+  <ul class="bul">
+    <li><b>Quoi</b> : un assistant IA métier immobilier, à modules.</li>
+    <li><b>À qui</b> : agents immobiliers (réseau AVA d'abord, puis au-delà).</li>
+    <li><b>Comment on gagne</b> : abonnements mensuels (freemium → payant), via Stripe.</li>
+    <li><b>Qui porte quoi</b> : Laurence (technique, IA, IP des prompts) · Linda (réseau, terrain, vente). 50/50.</li>
+    <li><b>Données</b> : Google Sheets jusqu'à 100 adhérents, puis Supabase.</li>
+  </ul>
+</div>
+
+<h2 class="sec" id="offres">Offres & tarifs</h2>
+<table>
+  <tr><th>Offre</th><th>Contenu</th><th>Prix</th></tr>
+  <tr><td><b>Offre Ava</b> (base)</td><td>Veille, mémo vocal, quelques questions IA, accès formations</td><td><span class="tag t-a">Gratuit</span></td></tr>
+  <tr><td><b>Li·La Office + Carnet</b></td><td>Boîte mail, CRM, priorités, notes + mémo vocal</td><td><span class="tag t-n">19 €/mois</span></td></tr>
+  <tr><td><b>Li·La Com'</b></td><td>Création de contenu réseaux sociaux</td><td><span class="tag t-n">39 €/mois</span></td></tr>
+  <tr><td><b>Li·La Com'+</b></td><td>Image avancée, prompts immo/BTP, valorisation visuelle</td><td><span class="tag t-n">59 €/mois</span></td></tr>
+</table>
+<div class="note"><b>Anciens adhérents AVA</b> : ils conservent leur tarif jusqu'à leur date anniversaire, puis basculent sur les nouveaux tarifs. Tarifs de lancement : <b>19 / 39 / 59 €</b>. Après l'événement du 17 sept. : <b>39 / 59 / 79 €</b> (nouveaux abonnés).</div>
+
+<h2 class="sec" id="freemium">Logique freemium</h2>
+<div class="card">
+  <p>La gratuité (Offre Ava) sert d'aimant : elle fait entrer l'agent dans l'écosystème, lui montre la valeur, puis l'amène vers le payant.</p>
+  <ol class="steps">
+    <li>L'agent arrive via le réseau ou une démo → crée son accès (gratuit).</li>
+    <li>Il utilise la base + voit les <b>vitrines</b> des pôles payants (verrouillées).</li>
+    <li>Quand il bute sur une limite (quota, pôle fermé) → il passe à 19€ puis 39€.</li>
+  </ol>
+  <div class="note">Le gratuit a un coût (API) : il reste <b>volontairement bridé</b> (quota bas) pour ne pas peser sur la marge.</div>
+</div>
+
+<h2 class="sec" id="couts">Coûts</h2>
+<div class="card">
+  <h4>Coût de développement</h4>
+  <p>C'est surtout du <b>temps</b> (Laurence). Le détail des charges par module est dans le Plan de route du développement.</p>
+  <h4>Coûts d'exploitation</h4>
+  <table style="margin-top:8px">
+    <tr><th>Poste</th><th>Type</th><th>Ordre de grandeur</th></tr>
+    <tr><td>Google Sheets / Apps Script</td><td>Inclus</td><td>Gratuit (Workspace)</td></tr>
+    <tr><td>API IA (texte)</td><td>À l'usage</td><td>Au token — borné par les quotas</td></tr>
+    <tr><td>API image (Com'+)</td><td>À l'usage</td><td>Plus cher — quota strict</td></tr>
+    <tr><td>Netlify</td><td>Abonnement</td><td>Gratuit au départ</td></tr>
+    <tr><td>Nom de domaine</td><td>Annuel</td><td>≈ 12–15 €/an</td></tr>
+    <tr><td>Stripe</td><td>Par transaction</td><td>≈ 1,5 % + frais fixe (carte) · SEPA moins cher</td></tr>
+    <tr><td>Tally / MailerLite</td><td>Abonnement</td><td>Gratuit au départ, payant à l'échelle</td></tr>
+  </table>
+  <div class="vigi">Le poste IA grandit avec l'usage et l'historique des conversations. Quotas par membre + offres gratuites bridées = la marge tient. À surveiller en continu.</div>
+</div>
+
+<h2 class="sec" id="repartition">Répartition 50/50</h2>
+<div class="card">
+  <ul class="bul">
+    <li>Partenariat <b>50/50</b> sur l'IP et les revenus, formalisé par écrit.</li>
+    <li><b>Charges communes</b> (IA, outils tiers) : à lister et à répartir selon une clé à définir ensemble.</li>
+    <li>Apport de chacune : Laurence = technique + IA + bibliothèque de prompts (IP) · Linda = réseau + terrain + vente.</li>
+  </ul>
+  <div class="note"><b>À faire ensemble</b> : lister précisément les charges communes et fixer la clé de répartition (volet B2 du cockpit).</div>
+</div>
+
+<h2 class="sec" id="encaissement">Encaissement</h2>
+<div class="card">
+  <ul class="bul">
+    <li>Compte <b>Stripe dédié</b> pour centraliser les paiements.</li>
+    <li>Une <b>entité existante encaisse</b> et reverse à l'autre (pas d'entité dédiée pour l'instant).</li>
+    <li>Récurrent en SEPA quand c'est possible (moins cher que la carte).</li>
+  </ul>
+</div>
+
+<h2 class="sec" id="juridique">Cadre juridique</h2>
+<div class="card">
+  <ul class="bul">
+    <li>Pas de création d'entité juridique propre à Li·La pour l'instant (éviter les frais d'avocat).</li>
+    <li>Accord de partenariat <b>50/50 écrit</b> pour sécuriser l'IP et les revenus de chacune.</li>
+    <li>RGPD côté produit : mentions, CGV, registre, « données chez l'agent ».</li>
+  </ul>
+</div>
+
+<h2 class="sec" id="revenus">Scénarios de revenus (hypothèses)</h2>
+<div class="card">
+  <p>Pour fixer les idées — <b>pas une promesse</b>. À toi de poser tes propres hypothèses d'abonnés.</p>
+  <table style="margin-top:8px">
+    <tr><th>Scénario</th><th>Office+Carnet (19€)</th><th>Com' (39€)</th><th>Revenu mensuel brut</th></tr>
+    <tr><td>Prudent</td><td>20</td><td>5</td><td>≈ 575 €</td></tr>
+    <tr><td>Médian</td><td>50</td><td>15</td><td>≈ 1 535 €</td></tr>
+    <tr><td>Volontaire</td><td>100</td><td>30</td><td>≈ 3 070 €</td></tr>
+  </table>
+  <div class="note">Brut, avant coûts d'exploitation (API, outils, Stripe) et avant répartition 50/50. Le seuil des 100 adhérents déclenche la bascule Supabase.</div>
+</div>
+
+<h2 class="sec" id="decisions">Décisions à prendre</h2>
+<div class="card">
+  <ul class="bul">
+    <li>Tarifs actés : <b>19 / 39 / 59 €</b> (lancement) → <b>39 / 59 / 79 €</b> (après événement).</li>
+    <li>Lister les <b>charges communes</b> + la <b>clé de répartition</b>.</li>
+    <li>Choisir l'<b>entité qui encaisse</b> et le mode de reversement.</li>
+    <li>Signer l'<b>accord 50/50</b>.</li>
+    <li>Décider les conditions des <b>tests internes</b> et de la bascule des anciens adhérents.</li>
+  </ul>
+</div>
+<div class="foot">Li·La · Business plan · document de travail — Laurence &amp; Linda · chiffres en hypothèses, à valider.</div>
+
+</main>
+</div></body></html>

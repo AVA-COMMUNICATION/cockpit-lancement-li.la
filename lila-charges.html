@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Li·La — Charges & économie</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#43303F;--navy-2:#5A4152;--line:#6E5265;
+  --orange:#F08247;--lavande:#A996B8;--sauge:#9AAD8F;
+  --creme:#FBF4EE;--gris:#626A73;--card:#fffdfa;--border:#ece4da;--alert:#B5462E;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--creme);color:#3E2F44;font-family:'Inter',system-ui,sans-serif}
+a{color:inherit}
+.top{position:sticky;top:0;z-index:20;background:var(--navy);color:#fff;padding:16px 26px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.top .logo{font:700 22px 'Poppins';display:flex;flex-direction:column;line-height:1.05}
+.top .logo .pt{color:var(--lavande)}
+.top .logo small{font:500 10px 'Inter';letter-spacing:.14em;text-transform:uppercase;color:#b7c0d4;margin-top:2px}
+.top h1{font:600 16px 'Poppins';margin:0;flex:1;min-width:180px}
+.back{margin-left:auto;background:var(--navy-2);border:1px solid var(--line);color:#fff;text-decoration:none;font:600 13px 'Inter';padding:9px 15px;border-radius:10px}
+.back:hover{background:#45558a}
+.wrap{max-width:1160px;margin:0 auto;padding:24px 26px 80px}
+.lead{font-size:14.5px;color:#574a58;max-width:820px;margin:6px 0 22px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;margin-bottom:26px}
+.c{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:18px 20px}
+.c .v{font:700 27px 'Poppins';color:var(--navy)}
+.c .v.orange{color:var(--orange)}
+.c .l{font-size:12.5px;color:var(--gris);margin-top:3px}
+.c .sub{font-size:11.5px;color:var(--gris);margin-top:8px;line-height:1.5}
+.beparam{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:-8px 0 26px;font-size:13px;color:#574a58}
+.beparam input{width:82px;font:600 13px 'Inter';padding:7px 10px;border:1px solid var(--border);border-radius:9px;background:#fff;color:var(--navy)}
+section.grp{margin-bottom:24px}
+.gt{display:flex;align-items:baseline;gap:10px;margin:0 0 10px}
+.gt h2{font:600 15px 'Poppins';margin:0;color:var(--navy)}
+.gt .tag{font:600 10px 'Inter';letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:99px}
+.tag.fixe{background:#efe6f3;color:#7a6790}
+.tag.var{background:#fdeee4;color:#c56a35}
+.tag.fut{background:#eef3ec;color:#5f7256}
+.tbl{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden}
+.tbl th{font:600 11px 'Inter';letter-spacing:.04em;text-transform:uppercase;color:var(--gris);text-align:left;padding:10px 12px;background:#f7f1ea;border-bottom:1px solid var(--border)}
+.tbl td{padding:8px 12px;border-bottom:1px solid #f1e9df;font-size:13.5px;vertical-align:middle}
+.tbl tr:last-child td{border-bottom:none}
+.tbl input.poste{width:100%;border:none;background:transparent;font:500 13.5px 'Inter';color:#3E2F44}
+.tbl input.amt{width:92px;text-align:right;border:1px solid var(--border);border-radius:8px;padding:6px 9px;font:600 13.5px 'Inter';color:var(--navy);background:#fff}
+.tbl select{border:1px solid var(--border);border-radius:8px;padding:6px 8px;font:500 12.5px 'Inter';background:#fff;color:#574a58}
+.tbl input.note{width:100%;border:none;background:transparent;font-size:12.5px;color:var(--gris)}
+.tbl input:focus,.tbl select:focus{outline:2px solid rgba(240,130,71,.35);outline-offset:1px}
+.colamt{text-align:right;white-space:nowrap}
+.rm{border:none;background:transparent;color:#c2b6a6;cursor:pointer;font-size:16px;line-height:1;padding:2px 6px}
+.rm:hover{color:var(--alert)}
+.addrow{margin-top:8px;background:transparent;border:1px dashed var(--line);color:var(--navy);font:600 12.5px 'Inter';padding:8px 14px;border-radius:10px;cursor:pointer}
+.addrow:hover{background:#eef1f9}
+.tools{display:flex;gap:10px;margin-top:24px}
+.btn{font:600 13px 'Inter';padding:10px 16px;border-radius:10px;cursor:pointer;border:1px solid var(--border);background:#fff;color:var(--navy)}
+.btn.ghost{color:var(--gris)}
+.btn:hover{filter:brightness(.99)}
+.foot{color:var(--gris);font-size:12px;margin-top:20px;line-height:1.6}
+@media(max-width:720px){
+  .tbl thead{display:none}
+  .tbl,.tbl tbody,.tbl tr,.tbl td{display:block;width:100%}
+  .tbl tr{border-bottom:1px solid var(--border);padding:8px 4px}
+  .tbl td{border:none;padding:5px 12px}
+  .tbl td::before{content:attr(data-l);font:600 10px 'Inter';text-transform:uppercase;color:var(--gris);display:block;margin-bottom:2px}
+  .colamt{text-align:left}
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="logo"><span>Li<span class="pt">·</span>La</span><small>Charges & économie</small></div>
+  <h1>Modèle économique — tout ce qui coûte</h1>
+  <a class="back" href="index.html">← Retour à l'accueil</a>
+</header>
+
+<div class="wrap">
+  <p class="lead">La liste complète des charges du projet. Chaque montant est modifiable et sauvegardé sur cet appareil. Les charges <b>fixes</b> (mensuel / annuel) alimentent le seuil de rentabilité. Les charges <b>variables</b> (à l'usage, à la transaction, par membre) sont listées pour mémoire et à surveiller.</p>
+
+  <div class="cards">
+    <div class="c"><div class="v" id="cFixe">—</div><div class="l">Charges fixes / mois</div><div class="sub">Mensuel + annuel ramené au mois.</div></div>
+    <div class="c"><div class="v" id="cAn">—</div><div class="l">Charges fixes / an</div><div class="sub">Fixes mensuelles × 12.</div></div>
+    <div class="c"><div class="v orange" id="cBreak">—</div><div class="l">Seuil de rentabilité</div><div class="sub">Abonnés nécessaires pour couvrir les charges fixes.</div></div>
+  </div>
+
+  <div class="beparam">
+    Marge nette moyenne par abonné :
+    <input id="marge" type="number" min="1" step="1" value="15"> €/mois
+    <span style="color:var(--gris)">— hypothèse de travail, ajuste selon le mix Office / Com' / Com'+.</span>
+  </div>
+
+  <div id="sections"></div>
+
+  <div class="tools">
+    <button class="btn" id="reset">Réinitialiser les valeurs</button>
+  </div>
+
+  <div class="foot">
+    Sauvegarde locale (cet appareil). Pour un suivi partagé Laurence / Linda, on branchera ce dossier sur le même back-end que le cockpit.<br>
+    « Qui paye » : <b>L'Rénov</b> = côté technique · <b>SASU Linda</b> = entité qui encaisse · <b>Commun</b> = à répartir 50/50 · <b>Sort SASU</b> = déduit avant partage.
+  </div>
+</div>
+
+<script>
+const PER={mois:"/ mois",an:"/ an",usage:"à l'usage",transac:"/ transaction",membre:"/ membre",ponctuel:"ponctuel"};
+const QUI=["L'Rénov","SASU Linda","Commun","Sort SASU"];
+const DEFAULT=[
+ {title:"Infrastructure & outils",type:"fixe",rows:[
+   {p:"Hébergement Netlify (site + fonctions)",a:0,per:"mois",q:"L'Rénov",n:"Gratuit au départ, ~19$ Pro si besoin"},
+   {p:"Nom de domaine",a:15,per:"an",q:"L'Rénov",n:".fr / .com annuel"},
+   {p:"Google Workspace / Apps Script / Sheets",a:0,per:"mois",q:"L'Rénov",n:"Compte existant — gratuit"},
+   {p:"Pennylane (facturation)",a:0,per:"mois",q:"SASU Linda",n:"À confirmer selon offre"},
+   {p:"MailerLite (emails)",a:0,per:"mois",q:"Commun",n:"Gratuit <1000 contacts puis payant"},
+   {p:"Make (automatisations)",a:0,per:"mois",q:"Commun",n:"Gratuit puis payant selon volume"},
+   {p:"Tally (formulaires)",a:0,per:"mois",q:"Commun",n:"Gratuit puis payant"}
+ ]},
+ {title:"IA & usage",type:"var",rows:[
+   {p:"API Anthropic (Claude Haiku / Sonnet)",a:0,per:"usage",q:"Sort SASU",n:"Au token — bornée par quota/membre, récupérée avant partage"},
+   {p:"API OpenAI",a:0,per:"usage",q:"Sort SASU",n:"Au token — secours / compatibilité"},
+   {p:"API image (Com'+)",a:0,per:"usage",q:"Sort SASU",n:"Plus chère — quota strict"}
+ ]},
+ {title:"Encaissement",type:"var",rows:[
+   {p:"Frais Stripe (carte)",a:0,per:"transac",q:"Sort SASU",n:"~1,5% + 0,25€ par paiement UE"},
+   {p:"Frais SEPA (prélèvement)",a:0,per:"transac",q:"Sort SASU",n:"~0,25€ par prélèvement"}
+ ]},
+ {title:"Par membre / utilisateur",type:"var",rows:[
+   {p:"Netty / Septéo (si utilisé)",a:25,per:"membre",q:"Sort SASU",n:"Par utilisateur/mois — déduit du net de Linda"},
+   {p:"Maintenance Hub",a:42,per:"mois",q:"Sort SASU",n:"Forfait mensuel SASU Linda vers L'Rénov"}
+ ]},
+ {title:"Ponctuel / setup",type:"var",rows:[
+   {p:"Accord écrit 50/50 (sans avocat)",a:0,per:"ponctuel",q:"Commun",n:"Rédigé en interne"},
+   {p:"Logo / charte",a:0,per:"ponctuel",q:"L'Rénov",n:"Fait maison"}
+ ]},
+ {title:"Migration future",type:"fut",rows:[
+   {p:"Supabase EU (>100 adhérents)",a:0,per:"mois",q:"L'Rénov",n:"Gratuit puis ~25$ Pro — à activer plus tard"}
+ ]}
+];
+
+let DATA, MARGE;
+function load(){
+  try{const s=JSON.parse(localStorage.getItem("lila-charges"));if(s&&s.data){DATA=s.data;MARGE=s.marge;return;}}catch(e){}
+  DATA=JSON.parse(JSON.stringify(DEFAULT));MARGE=15;
+}
+function save(){try{localStorage.setItem("lila-charges",JSON.stringify({data:DATA,marge:MARGE}));}catch(e){}}
+function fixedEq(r){return r.per==="mois"?(+r.a||0):r.per==="an"?(+r.a||0)/12:0;}
+function money(n){return (Math.round(n*100)/100).toLocaleString("fr-FR",{minimumFractionDigits:0,maximumFractionDigits:2})+" €";}
+
+function optionsPer(sel){return Object.keys(PER).map(k=>`<option value="${k}"${k===sel?" selected":""}>${PER[k]}</option>`).join("");}
+function optionsQui(sel){return QUI.map(q=>`<option${q===sel?" selected":""}>${q}</option>`).join("");}
+
+function render(){
+  const host=document.getElementById("sections");host.innerHTML="";
+  DATA.forEach((sec,si)=>{
+    const s=document.createElement("section");s.className="grp";
+    const tag=sec.type==="fixe"?"fixe":sec.type==="fut"?"fut":"var";
+    const tlbl=sec.type==="fixe"?"Fixe":sec.type==="fut"?"Futur":"Variable";
+    let rows=sec.rows.map((r,ri)=>`
+      <tr>
+        <td data-l="Poste"><input class="poste" value="${(r.p||"").replace(/"/g,'&quot;')}" data-s="${si}" data-r="${ri}" data-k="p"></td>
+        <td class="colamt" data-l="Montant"><input class="amt" type="number" step="0.01" value="${r.a}" data-s="${si}" data-r="${ri}" data-k="a"></td>
+        <td data-l="Périodicité"><select data-s="${si}" data-r="${ri}" data-k="per">${optionsPer(r.per)}</select></td>
+        <td data-l="Qui paye"><select data-s="${si}" data-r="${ri}" data-k="q">${optionsQui(r.q)}</select></td>
+        <td data-l="Note"><input class="note" value="${(r.n||"").replace(/"/g,'&quot;')}" data-s="${si}" data-r="${ri}" data-k="n"></td>
+        <td data-l=""><button class="rm" data-s="${si}" data-r="${ri}" title="Supprimer">×</button></td>
+      </tr>`).join("");
+    s.innerHTML=`
+      <div class="gt"><h2>${sec.title}</h2><span class="tag ${tag}">${tlbl}</span></div>
+      <table class="tbl"><thead><tr>
+        <th>Poste</th><th class="colamt">Montant</th><th>Périodicité</th><th>Qui paye</th><th>Note</th><th></th>
+      </tr></thead><tbody>${rows}</tbody></table>
+      <button class="addrow" data-s="${si}">+ Ajouter une ligne</button>`;
+    host.appendChild(s);
+  });
+  bind();compute();
+}
+function bind(){
+  document.querySelectorAll("#sections input,#sections select").forEach(el=>{
+    const ev=el.tagName==="SELECT"?"change":"input";
+    el.addEventListener(ev,e=>{
+      const {s,r,k}=el.dataset;DATA[s].rows[r][k]=el.value;save();
+      if(k==="a"||k==="per")compute();
+    });
+  });
+  document.querySelectorAll(".rm").forEach(b=>b.addEventListener("click",()=>{
+    DATA[b.dataset.s].rows.splice(+b.dataset.r,1);save();render();
+  }));
+  document.querySelectorAll(".addrow").forEach(b=>b.addEventListener("click",()=>{
+    DATA[b.dataset.s].rows.push({p:"",a:0,per:"mois",q:"Commun",n:""});save();render();
+  }));
+}
+function compute(){
+  let fixe=0;DATA.forEach(sec=>sec.rows.forEach(r=>{fixe+=fixedEq(r);}));
+  document.getElementById("cFixe").textContent=money(fixe);
+  document.getElementById("cAn").textContent=money(fixe*12);
+  const m=+document.getElementById("marge").value||0;
+  const bk=m>0?Math.ceil(fixe/m):0;
+  document.getElementById("cBreak").textContent=fixe===0?"—":(bk+" abonnés");
+}
+document.getElementById("marge").addEventListener("input",e=>{MARGE=+e.target.value||0;save();compute();});
+document.getElementById("reset").addEventListener("click",()=>{
+  if(confirm("Remettre toutes les valeurs par défaut ?")){localStorage.removeItem("lila-charges");load();document.getElementById("marge").value=MARGE;render();}
+});
+
+load();document.getElementById("marge").value=MARGE;render();
+</script>
+</body>
+</html>
