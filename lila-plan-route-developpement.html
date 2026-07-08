@@ -2,443 +2,239 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Li·La — Plan de route du développement</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#FAF8F4">
+<title>Li·La — Plan de développement, étape par étape</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600&display=swap');
 :root{
-  --navy:#43303F;--orange:#F08247;--lavande:#A996B8;--sauge:#9AAD8F;
-  --creme:#FBF4EE;--gris:#626A73;--navy-2:#5A4152;--line:#e7ddd0;--card:#fff;
+  --encre:#0C2241; --encre-soft:#41506A;
+  --lavande:#A996B8; --sauge:#9AAD8F; --orange:#F08247;
+  --lavande-soft:#F1ECF4; --sauge-soft:#EDF2EA; --orange-soft:#FCEEE4;
+  --creme:#FAF8F4; --gris:#6B6570; --line:#E7E1D8; --card:#FFFFFF;
 }
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Inter',system-ui,sans-serif;color:var(--navy);background:var(--creme);line-height:1.6;-webkit-font-smoothing:antialiased}
-.shell{display:grid;grid-template-columns:1fr;max-width:1180px;margin:0 auto}
-@media(min-width:1000px){.shell{grid-template-columns:236px 1fr}}
-/* SOMMAIRE */
-nav{background:var(--navy);color:#cdd8e4;padding:26px 18px;display:none}
-@media(min-width:1000px){nav{display:block;position:sticky;top:0;height:100vh;overflow-y:auto}}
-nav .logo{display:block;font:700 22px 'Poppins';color:#fff;letter-spacing:-.5px;margin-bottom:2px;text-decoration:none}
-nav .logo b{color:var(--orange)}
-nav .back{display:flex;align-items:center;justify-content:center;gap:6px;background:var(--orange);color:#fff;font:600 13px 'Inter';text-decoration:none;padding:10px 12px;border-radius:9px;margin-bottom:18px}
-nav .back:hover{background:#e06f33}
-.backfab{display:none}
-@media(max-width:999px){
-  .backfab{display:inline-flex;align-items:center;gap:5px;position:sticky;top:10px;z-index:40;background:var(--navy);color:#fff;font:600 13px 'Inter';text-decoration:none;padding:9px 14px;border-radius:99px;box-shadow:0 3px 12px rgba(12,34,65,.25);margin-bottom:10px}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--creme);color:var(--encre);
+  font-family:'Inter',system-ui,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:860px;margin:0 auto;padding:0 22px}
+
+.top{display:flex;align-items:center;gap:12px;padding:22px 22px 0;max-width:860px;margin:0 auto}
+.top img{height:26px}
+.top .bk{margin-left:auto;font:600 12.5px 'Inter';color:var(--gris);text-decoration:none;
+  border:1px solid var(--line);border-radius:20px;padding:7px 14px;background:#fff}
+.top .bk:hover{color:var(--encre);border-color:var(--lavande)}
+
+/* signature : trois pastilles */
+.dots{display:inline-flex;gap:5px;vertical-align:middle}
+.dots i{width:8px;height:8px;border-radius:50%;display:inline-block}
+.dots .l{background:var(--lavande)} .dots .o{background:var(--orange)} .dots .s{background:var(--sauge)}
+
+.hero{padding:46px 0 38px}
+.eyebrow{display:flex;align-items:center;gap:12px;font:600 12px 'Inter';letter-spacing:.13em;
+  text-transform:uppercase;color:var(--gris);margin-bottom:22px}
+.hero h1{font:700 clamp(38px,7vw,64px) 'Poppins';line-height:1;letter-spacing:-.02em;margin:0 0 22px;color:var(--encre)}
+.hero h1 .u{position:relative;white-space:nowrap}
+.hero h1 .u::after{content:"";position:absolute;left:0;right:0;bottom:.08em;height:.14em;border-radius:3px;
+  background:linear-gradient(90deg,var(--lavande),var(--orange),var(--sauge))}
+.hero .lede{font:400 18px 'Inter';color:var(--encre-soft);max-width:600px;margin:0}
+.anchors{display:flex;flex-wrap:wrap;gap:0;margin-top:38px;border-top:1px solid var(--line)}
+.anchor{flex:1;min-width:150px;padding:20px 22px 0 0}
+.anchor .n{font:700 26px 'Poppins';letter-spacing:-.01em;color:var(--encre)}
+.anchor.a1 .n{color:var(--orange)} .anchor.a2 .n{color:var(--lavande)} .anchor.a3 .n{color:var(--sauge)}
+.anchor .l{font:500 13px 'Inter';color:var(--gris);margin-top:2px}
+
+/* méthode : carte claire, accent pastille — pas de bloc navy */
+.method{margin:22px 0 8px;padding:24px 28px;background:var(--card);border:1px solid var(--line);
+  border-left:4px solid var(--lavande);border-radius:16px}
+.method .k{font:600 11px 'Inter';letter-spacing:.13em;text-transform:uppercase;color:var(--lavande);margin-bottom:10px}
+.method p{margin:0;font:500 16.5px 'Inter';line-height:1.5;color:var(--encre-soft)}
+.method p b{color:var(--encre)}
+.method .rule{margin-top:14px;font:600 15px 'Poppins';color:var(--encre);display:flex;align-items:center;gap:10px}
+
+.timeline{position:relative;margin:46px 0 10px;padding-left:38px}
+.timeline::before{content:"";position:absolute;left:9px;top:6px;bottom:40px;width:2px;
+  background:linear-gradient(var(--lavande),var(--orange) 55%,var(--sauge))}
+.stage{position:relative;margin-bottom:34px}
+.stage::before{content:"";position:absolute;left:-38px;top:4px;width:20px;height:20px;border-radius:50%;
+  background:var(--creme);border:3px solid var(--lavande)}
+.stage.n2::before{border-color:var(--orange)}
+.stage.n3::before{border-color:var(--sauge)}
+.stage.n4::before{border-color:var(--lavande)}
+.stage.n5::before{border-color:var(--orange)}
+.stage .no{font:700 12px 'Poppins';letter-spacing:.1em;color:var(--gris)}
+.stage .when{font:600 12.5px 'Inter';margin-left:10px;color:var(--encre-soft)}
+.stage h2{font:600 24px 'Poppins';letter-spacing:-.01em;margin:6px 0 14px;color:var(--encre)}
+.scard{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px 22px;
+  box-shadow:0 1px 2px rgba(12,34,65,.04)}
+.scard .row{display:flex;gap:14px;margin-bottom:14px}
+.scard .row:last-child{margin-bottom:0}
+.scard .tag{flex:none;width:104px;font:600 11px 'Inter';letter-spacing:.05em;text-transform:uppercase;
+  color:var(--gris);padding-top:2px}
+.scard .txt{font:450 15px 'Inter';color:var(--encre-soft);line-height:1.55}
+.scard .txt b{color:var(--encre);font-weight:600}
+.effort{margin-top:16px;padding-top:14px;border-top:1px dashed var(--line);
+  display:flex;gap:22px;flex-wrap:wrap;font:500 13px 'Inter';color:var(--gris)}
+.effort b{color:var(--encre);font-weight:600}
+
+/* jalon climax : lavis trois pastilles, texte navy — pas de navy plein */
+.milestone{position:relative;margin:8px 0 34px -38px;padding:22px 26px;border-radius:16px;
+  background:linear-gradient(100deg,var(--lavande-soft),var(--orange-soft),var(--sauge-soft));
+  border:1px solid #EBDFD2}
+.milestone .d{display:flex;align-items:center;gap:10px;font:600 12px 'Inter';letter-spacing:.12em;text-transform:uppercase;color:var(--gris)}
+.milestone .t{font:700 22px 'Poppins';letter-spacing:-.01em;margin-top:6px;line-height:1.15;color:var(--encre)}
+.milestone.soft{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--sauge)}
+.milestone.event{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--lavande)}
+
+.plans{margin:52px 0 20px}
+.plans h3{display:flex;align-items:center;gap:12px;font:700 13px 'Inter';letter-spacing:.13em;text-transform:uppercase;color:var(--gris);
+  margin:0 0 18px;padding-bottom:14px;border-bottom:1px solid var(--line)}
+.plan{display:flex;align-items:baseline;gap:16px;padding:16px 4px;border-bottom:1px solid var(--line)}
+.plan .nm{font:600 18px 'Poppins';min-width:150px;color:var(--encre)}
+.plan .in{flex:1;font:450 14.5px 'Inter';color:var(--encre-soft)}
+.plan .pr{font:700 18px 'Poppins';white-space:nowrap;color:var(--encre)}
+.plan.p1 .pr{color:var(--lavande)} .plan.p2 .pr{color:var(--orange)} .plan.p3 .pr{color:var(--sauge)}
+
+.closing{margin:44px 0 60px;padding:38px 34px;text-align:center;border-radius:22px;
+  background:var(--card);border:1px solid var(--line)}
+.closing .dots{margin-bottom:16px}
+.closing p{font:600 22px 'Poppins';line-height:1.35;letter-spacing:-.01em;margin:0;max-width:560px;margin-inline:auto;color:var(--encre)}
+.closing p em{font-style:normal;color:var(--orange)}
+.foot{text-align:center;color:var(--gris);font:500 12px 'Inter';padding-bottom:40px}
+
+@media(max-width:600px){
+  .scard .row{flex-direction:column;gap:4px}
+  .scard .tag{width:auto}
+  .plan{flex-wrap:wrap}
+  .plan .nm{min-width:0;width:100%}
+  .anchor{min-width:120px}
 }
-nav .sub{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#7d92aa;margin-bottom:22px}
-nav a{display:block;color:#cdd8e4;text-decoration:none;font-size:13.5px;padding:7px 10px;border-radius:8px;margin-bottom:2px}
-nav a:hover{background:var(--navy-2);color:#fff}
-nav a.head{font:600 11px 'Inter';letter-spacing:.1em;text-transform:uppercase;color:#7d92aa;margin:16px 0 4px;padding-left:10px;pointer-events:none}
-/* CONTENU */
-main{padding:34px 30px 80px;max-width:820px}
-.h1{font:700 30px 'Poppins';letter-spacing:-.5px;line-height:1.15}
-.lead{font-size:15px;color:#574a58;margin:12px 0 4px;max-width:680px}
-.tagline{display:inline-block;font-size:12px;font-weight:600;color:var(--orange);background:#fdeee4;padding:5px 12px;border-radius:99px;margin-bottom:18px}
-h2.sec{font:600 13px 'Inter';letter-spacing:.12em;text-transform:uppercase;color:var(--gris);margin:38px 0 14px;padding-bottom:8px;border-bottom:1px solid var(--line)}
-.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin-bottom:14px;box-shadow:0 1px 2px rgba(12,34,65,.04)}
-.card p{font-size:14.5px;color:#574a58}
-.card p+p{margin-top:8px}
-ul.bul{list-style:none;margin-top:8px}
-ul.bul li{position:relative;padding-left:18px;font-size:14.5px;color:#574a58;margin-bottom:5px}
-ul.bul li:before{content:"·";position:absolute;left:4px;color:var(--orange);font-weight:700}
-table{width:100%;border-collapse:collapse;font-size:13.5px;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden}
-th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
-th{background:#f4eee5;font:600 12px 'Inter';color:var(--navy)}
-tr:last-child td{border-bottom:none}
-.tag{display:inline-block;font-size:11px;font-weight:600;padding:2px 8px;border-radius:99px;white-space:nowrap}
-.t-j{background:#fdeee4;color:#bd6a36}
-.t-a{background:#e9f0e9;color:#3f6650}
-.t-s{background:#efe9f1;color:#7a6790}
-/* FICHE MODULE */
-.mod{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:0;margin-bottom:22px;overflow:hidden;box-shadow:0 1px 3px rgba(12,34,65,.05)}
-.mod .top{background:var(--navy);color:#fff;padding:18px 22px}
-.mod .code{font:600 11px 'Inter';letter-spacing:.12em;text-transform:uppercase;color:#9fb0c4}
-.mod .top h3{font:600 20px 'Poppins';margin:3px 0 0}
-.mod .meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:11px}
-.mchip{font-size:11.5px;font-weight:600;padding:4px 10px;border-radius:99px;background:rgba(255,255,255,.1);color:#dbe4ee}
-.mchip.dur{background:rgba(240,130,71,.18);color:#f3a877}
-.mchip.win{background:rgba(154,173,143,.2);color:#bcccb2}
-.mbody{padding:18px 22px 20px}
-.mbody h4{font:600 11.5px 'Inter';letter-spacing:.09em;text-transform:uppercase;color:var(--gris);margin:16px 0 8px}
-.mbody h4:first-child{margin-top:0}
-.grid2{display:grid;gap:14px}
-@media(min-width:620px){.grid2{grid-template-columns:1fr 1fr}}
-.box{background:#faf6ef;border:1px solid var(--line);border-radius:10px;padding:12px 14px}
-.box .lbl{font:600 10.5px 'Inter';letter-spacing:.08em;text-transform:uppercase;color:var(--gris);margin-bottom:5px}
-.box p,.box ul{font-size:13px;color:#574a58}
-.box ul{list-style:none}
-.box ul li{position:relative;padding-left:14px;margin-bottom:3px}
-.box ul li:before{content:"›";position:absolute;left:0;color:var(--sauge);font-weight:700}
-ol.steps{list-style:none;counter-reset:s;margin-top:4px}
-ol.steps li{position:relative;padding-left:34px;margin-bottom:11px;font-size:14px;color:var(--navy)}
-ol.steps li:before{counter-increment:s;content:counter(s);position:absolute;left:0;top:-1px;width:23px;height:23px;border-radius:50%;background:var(--navy);color:#fff;font:700 12px 'Poppins';display:flex;align-items:center;justify-content:center}
-ol.steps code{background:#eef2f6;border-radius:5px;padding:1px 6px;font-size:12.5px;color:#1d3a5c}
-.vigi{background:#fdf3ef;border-left:3px solid var(--orange);border-radius:0 8px 8px 0;padding:11px 14px;font-size:13.5px;color:#7a4327;margin-top:6px}
-.valid{background:#eef4ee;border-left:3px solid var(--sauge);border-radius:0 8px 8px 0;padding:11px 14px;font-size:13.5px;color:#3f5a47;margin-top:6px}
-.livr{font-size:13.5px;color:var(--navy);font-weight:500;margin-top:6px}
-.foot{font-size:12px;color:var(--gris);padding:24px 0 0;border-top:1px solid var(--line);margin-top:30px}
-code{font-family:ui-monospace,Menlo,Consolas,monospace}
-.note{background:#eef1f5;border-radius:10px;padding:13px 16px;font-size:13.5px;color:#574a58;margin-top:10px}
-.note b{color:var(--navy)}
-@media print{nav{display:none}.shell{display:block}main{max-width:none}.mod{break-inside:avoid}}
+@media(prefers-reduced-motion:no-preference){
+  .stage,.milestone{opacity:0;transform:translateY(14px);transition:opacity .5s ease,transform .5s ease}
+  .stage.in,.milestone.in{opacity:1;transform:none}
+}
 </style>
 </head>
 <body>
-<div class="shell">
-<nav>
-  <a class="back" href="lila-cockpit.html">← Retour à l'accueil</a>
-  <a class="logo" href="#top">Li<b>·</b>La</a>
-  <div class="sub">Plan de route dev</div>
-  <a href="#intro">Comment l'utiliser</a>
-  <a href="#stack">Stack & principes</a>
-  <a href="#recap">Vue d'ensemble</a>
-  <a class="head">Juillet — Build</a>
-  <a href="#c1">C1 · Socle données</a>
-  <a href="#c2">C2 · Proxy IA + quotas</a>
-  <a href="#c3">C3 · Identification & Freemium</a>
-  <a href="#c4">C4 · Lila Office</a>
-  <a href="#c5">C5 · Lila Carnet</a>
-  <a href="#c6">C6 · Li·La Com'</a>
-  <a href="#c8">C8 · Offre Ava base</a>
-  <a href="#c7">C7 · Li·La Com'+</a>
-  <a href="#c10">C10 · PWA / Landing / RGPD</a>
-  <a class="head">Août — Avant le 18</a>
-  <a href="#c9">C9 · Paiement</a>
-  <a href="#couts">Coûts d'exploitation</a>
-  <a href="#sequencement">Séquencement & indispos</a>
-</nav>
 
-<main>
-  <a id="top"></a>
-  <a class="backfab" href="lila-cockpit.html">← Accueil</a>
-  <span class="tagline">Document de travail — Laurence</span>
-  <div class="h1">Plan de route du développement</div>
-  <p class="lead">Le guide pas à pas de Li·La, module par module : ce qu'il faut faire, dans quel ordre, avec quelles compétences, à quel coût, et comment vérifier que c'est bon. Pense-le comme ta feuille de chantier.</p>
-
-  <h2 class="sec" id="intro">Comment l'utiliser</h2>
-  <div class="card">
-    <p>Chaque module a une <b>fenêtre</b> (quand le faire), une <b>durée estimée</b> (charge), les <b>compétences</b> mobilisées, les <b>coûts</b> d'exploitation, puis les <b>étapes pas à pas</b>, les <b>points de vigilance</b>, la <b>validation</b> et le <b>livrable</b>.</p>
-    <p>Les durées sont des hypothèses pour une développeuse seule. Elles servent à voir où le temps part, pas à t'enfermer. Le cockpit de pilotage reste la version vivante (cochage, avancement) ; ce document est la version « comment je m'y prends ».</p>
-  </div>
-
-  <h2 class="sec" id="stack">Stack & principes transverses</h2>
-  <div class="card">
-    <h4 style="font:600 11.5px 'Inter';letter-spacing:.09em;text-transform:uppercase;color:var(--gris);margin-bottom:8px">Brique technique</h4>
-    <ul class="bul">
-      <li><b>Front</b> : HTML / CSS / JS (PWA), déployé sur Netlify.</li>
-      <li><b>Back & données</b> : Google Apps Script + Google Sheets (jusqu'à 100 adhérents), puis Supabase.</li>
-      <li><b>IA</b> : API Anthropic (Claude), appelée <b>uniquement</b> via le proxy Apps Script.</li>
-      <li><b>Périphérie</b> : Tally (formulaires/RSVP), MailerLite (emails), Stripe (paiement).</li>
-    </ul>
-    <div class="note"><b>3 principes non négociables.</b> 1) La clé IA reste côté serveur, jamais dans le navigateur. 2) La bibliothèque de prompts est ton IP : elle vit dans le proxy, invisible. 3) Li·La propose, l'agent valide : aucune écriture irréversible sans confirmation.</div>
-  </div>
-
-  <h2 class="sec" id="recap">Vue d'ensemble</h2>
-  <table>
-    <tr><th>Module</th><th>Fenêtre</th><th>Durée</th><th>Compétences clés</th><th>Coût d'exploitation</th></tr>
-    <tr><td><b>C1</b> Socle données</td><td>30 juin → 5 juil.</td><td><span class="tag t-a">≈ 3 j</span></td><td>Sheets, Apps Script</td><td>Gratuit</td></tr>
-    <tr><td><b>C2</b> Proxy IA + quotas</td><td>6 → 12 juil.</td><td><span class="tag t-a">≈ 3 j</span></td><td>Apps Script avancé, API, sécurité</td><td>API à l'usage</td></tr>
-    <tr><td><b>C3</b> Identification & Freemium</td><td>6 → 12 juil.</td><td><span class="tag t-a">≈ 2 j</span></td><td>JS front, logique d'accès</td><td>Gratuit</td></tr>
-    <tr><td><b>C4</b> Lila Office</td><td>13 → 19 juil.</td><td><span class="tag t-j">≈ 4 j</span></td><td>Gmail API, JS, IA via proxy</td><td>API à l'usage</td></tr>
-    <tr><td><b>C5</b> Lila Carnet</td><td>13 → 19 juil.</td><td><span class="tag t-a">≈ 3 j</span></td><td>Web Speech API, JS, IA via proxy</td><td>API à l'usage</td></tr>
-    <tr><td><b>C6</b> Li·La Com'</td><td>20 → 26 juil.</td><td><span class="tag t-a">≈ 3 j</span></td><td>JS, prompting, IA via proxy</td><td>API à l'usage</td></tr>
-    <tr><td><b>C8</b> Offre Ava base</td><td>20 → 26 juil.</td><td><span class="tag t-a">≈ 1 j</span></td><td>JS, intégration</td><td>API faible</td></tr>
-    <tr><td><b>C7</b> Li·La Com'+</td><td>27 → 31 juil.</td><td><span class="tag t-a">≈ 2 j</span></td><td>API image, prompting</td><td>API image (cher)</td></tr>
-    <tr><td><b>C10</b> PWA / Landing / RGPD</td><td>27 → 31 juil.</td><td><span class="tag t-a">≈ 2 j</span></td><td>PWA, déploiement, légal</td><td>Domaine + Netlify</td></tr>
-    <tr><td><b>C9</b> Paiement</td><td>3 → 9 août</td><td><span class="tag t-a">≈ 2 j</span></td><td>Stripe, webhooks</td><td>Frais par transaction</td></tr>
-  </table>
-  <div class="note"><b>Levier d'allègement.</b> Si juillet est trop chargé, <b>C6 (Com')</b> et <b>C7 (Com'+)</b> peuvent passer en V1.1, juste après le 18 août. Le lancement se fait alors avec Office + Carnet + base Ava + paiement.</div>
-
-  <!-- ============ C1 ============ -->
-  <div class="mod" id="c1">
-    <div class="top"><div class="code">C1 · Juillet</div><h3>Socle données</h3>
-      <div class="meta"><span class="mchip win">30 juin → 5 juil.</span><span class="mchip dur">≈ 3 j</span><span class="mchip">Laurence</span></div></div>
-    <div class="mbody">
-      <p style="font-size:14.5px;color:#574a58">Une base Google Sheets propre, prête à porter l'app, et documentée pour migrer vers Supabase sans tout refaire.</p>
-      <div class="grid2" style="margin-top:14px">
-        <div class="box"><div class="lbl">Compétences</div><ul><li>Google Sheets (structure)</li><li>Apps Script (JS, lecture/écriture)</li><li>Notions de base de données</li></ul></div>
-        <div class="box"><div class="lbl">Coûts</div><ul><li>Dev : ton temps (≈ 3 j)</li><li>Exploitation : <b>gratuit</b> (Google Workspace)</li></ul></div>
-      </div>
-      <h4>Étapes pas à pas</h4>
-      <ol class="steps">
-        <li>Créer le classeur <code>LILA_BASE</code> avec un onglet par entité : <code>Membres</code>, <code>Contacts</code>, <code>Notes</code>, <code>Contenus</code>, <code>Quotas</code>, <code>Logs</code>.</li>
-        <li>Poser les colonnes. <code>Membres</code> : id, email, offre, statut, date_inscription, quota_mois, conso_mois. <code>Contacts</code> : id, membre_id, nom, tel, email, type, date. <code>Notes</code> : id, membre_id, contact_id, texte, type, date, statut.</li>
-        <li>Première colonne = <code>id</code> unique sur chaque ligne (via <code>Utilities.getUuid()</code> ou un compteur).</li>
-        <li>Écrire les fonctions d'accès en Apps Script : <code>getRows(sheet)</code>, <code>appendRow(sheet,obj)</code>, <code>updateRow(sheet,id,obj)</code>.</li>
-        <li>Protéger toute écriture par <code>LockService.getScriptLock()</code> pour éviter les collisions.</li>
-        <li>Documenter le schéma dans un onglet <code>_SCHEMA</code> : un onglet = une future table Supabase, une colonne = un futur champ.</li>
-      </ol>
-      <h4>Point de vigilance</h4>
-      <div class="vigi">Pense « tables » dès maintenant : pas de colonnes fourre-tout, des id partout, des liaisons par id (membre_id, contact_id). C'est ce qui rendra la bascule Supabase mécanique au lieu d'un chantier.</div>
-      <h4>Validation</h4>
-      <div class="valid">Écriture/lecture testée dans chaque onglet · deux écritures simultanées ne s'écrasent pas · le schéma est lisible par quelqu'un qui découvre la base.</div>
-      <h4>Livrable</h4>
-      <p class="livr">Classeur structuré + fonctions d'accès testées + schéma documenté.</p>
-    </div>
-  </div>
-
-  <!-- ============ C2 ============ -->
-  <div class="mod" id="c2">
-    <div class="top"><div class="code">C2 · Juillet</div><h3>Proxy IA + quotas</h3>
-      <div class="meta"><span class="mchip win">6 → 12 juil.</span><span class="mchip dur">≈ 3 j</span><span class="mchip">Laurence</span></div></div>
-    <div class="mbody">
-      <p style="font-size:14.5px;color:#574a58">Le cœur technique du système : la clé IA reste serveur, chaque membre a un quota, le coût global est plafonné. Tout passe par ici.</p>
-      <div class="grid2" style="margin-top:14px">
-        <div class="box"><div class="lbl">Compétences</div><ul><li>Apps Script avancé (doPost, UrlFetch)</li><li>API REST / JSON</li><li>Sécurité (gestion de clés)</li><li>Notions d'API LLM (tokens)</li></ul></div>
-        <div class="box"><div class="lbl">Coûts</div><ul><li>Dev : ton temps (≈ 3 j)</li><li>Exploitation : <b>API Anthropic à l'usage</b> (au token) — le quota par membre la borne</li><li>Apps Script : gratuit</li></ul></div>
-      </div>
-      <h4>Étapes pas à pas</h4>
-      <ol class="steps">
-        <li>Créer le point d'entrée <code>doPost(e)</code> : parser <code>e.postData.contents</code> en JSON → <code>{type, email, payload}</code>.</li>
-        <li>Authentifier : retrouver l'email dans <code>Membres</code>, vérifier que le statut est actif et que l'offre couvre le <code>type</code> demandé.</li>
-        <li>Vérifier le quota : <code>conso_mois &lt; quota_mois</code>. Sinon, renvoyer un refus propre (message « quota atteint »).</li>
-        <li>Router selon <code>type</code> (<code>office_mail</code>, <code>note_struct</code>, <code>studio_post</code>, <code>studio_image</code>) : c'est ici qu'on choisit le bon prompt dans ta bibliothèque, côté serveur.</li>
-        <li>Appeler l'API via <code>UrlFetchApp.fetch()</code>, clé lue dans <code>PropertiesService.getScriptProperties()</code> — <b>jamais</b> en dur.</li>
-        <li>Décompter les tokens consommés (champ <code>usage</code> de la réponse) dans <code>Quotas</code> + écrire une ligne <code>Logs</code>.</li>
-        <li>Créer un trigger mensuel qui remet <code>conso_mois</code> à zéro.</li>
-        <li>Gérer les erreurs : quota dépassé, IA indisponible, timeout → chaque cas renvoie un message clair.</li>
-      </ol>
-      <h4>Point de vigilance</h4>
-      <div class="vigi">Vérifie dans l'inspecteur réseau du navigateur qu'<b>aucune trace de la clé</b> n'apparaît. Le front n'appelle que ton URL <code>/exec</code>, jamais Anthropic directement.</div>
-      <h4>Validation</h4>
-      <div class="valid">Un appel renvoie une réponse · le quota se décrémente réellement · quota épuisé → blocage propre · clé invisible côté navigateur.</div>
-      <h4>Livrable</h4>
-      <p class="livr">Proxy en ligne, quota fonctionnel, clé protégée.</p>
-    </div>
-  </div>
-
-  <!-- ============ C3 ============ -->
-  <div class="mod" id="c3">
-    <div class="top"><div class="code">C3 · Juillet</div><h3>Identification & Freemium</h3>
-      <div class="meta"><span class="mchip win">6 → 12 juil.</span><span class="mchip dur">≈ 2 j</span><span class="mchip">Laurence</span></div></div>
-    <div class="mbody">
-      <p style="font-size:14.5px;color:#574a58">Un non-abonné voit l'app, est tenté par les vitrines, mais n'accède au contenu qu'après identification et selon son offre. C'est le moteur du modèle.</p>
-      <div class="grid2" style="margin-top:14px">
-        <div class="box"><div class="lbl">Compétences</div><ul><li>JS front</li><li>Logique d'accès / état</li><li>UX de « vitrine » convaincante</li></ul></div>
-        <div class="box"><div class="lbl">Coûts</div><ul><li>Dev : ton temps (≈ 2 j)</li><li>Exploitation : <b>gratuit</b></li></ul></div>
-      </div>
-      <h4>Étapes pas à pas</h4>
-      <ol class="steps">
-        <li>Écran d'identification par <b>email</b> : l'email interroge <code>Membres</code> et renvoie l'offre du membre.</li>
-        <li>Définir l'état d'accès : <code>ava</code> / <code>office</code> / <code>studio</code> / <code>studioplus</code> → ce qui est ouvert vs verrouillé.</li>
-        <li>Construire les <b>vitrines factices</b> des pôles non souscrits : un aperçu réaliste et désirable, sans données ni action réelle.</li>
-        <li>Verrouiller : au clic sur un pôle non souscrit → invitation à passer à l'offre supérieure (pas d'accès).</li>
-        <li>Débloquer dynamiquement selon l'offre renvoyée (et plus tard, selon le paiement validé en C9).</li>
-      </ol>
-      <h4>Point de vigilance</h4>
-      <div class="vigi">La vitrine doit donner envie sans frustrer : montre la valeur, pas un mur. Et aucun vocabulaire interne à l'écran (pas de « quota », « offre studioplus » bruts).</div>
-      <h4>Validation</h4>
-      <div class="valid">Un non-abonné voit la vitrine sans accéder au contenu · le déblocage suit exactement l'offre du membre.</div>
-      <h4>Livrable</h4>
-      <p class="livr">Parcours verrouillé → identifié → débloqué selon l'offre.</p>
-    </div>
-  </div>
-
-  <!-- ============ C4 ============ -->
-  <div class="mod" id="c4">
-    <div class="top"><div class="code">C4 · Juillet</div><h3>Lila Office — mail + CRM</h3>
-      <div class="meta"><span class="mchip win">13 → 19 juil.</span><span class="mchip dur">≈ 4 j</span><span class="mchip">Laurence</span></div></div>
-    <div class="mbody">
-      <p style="font-size:14.5px;color:#574a58">Le pôle qui justifie l'abonnement à 19€. Le module le plus lourd de la semaine — prévois-lui de la place.</p>
-      <div class="grid2" style="margin-top:14px">
-        <div class="box"><div class="lbl">Compétences</div><ul><li>Gmail API / OAuth</li><li>JS, gestion d'état CRM</li><li>IA via proxy (rédaction)</li></ul></div>
-        <div class="box"><div class="lbl">Coûts</div><ul><li>Dev : ton temps (≈ 4 j)</li><li>Exploitation : API à l'usage (rédaction seulement)</li></ul></div>
-      </div>
-      <h4>Étapes pas à pas</h4>
-      <ol class="steps">
-        <li>Connexion à la boîte mail (Gmail API) : lecture des derniers messages, tri par priorité.</li>
-        <li>Tri <b>déterministe</b> d'abord (labels, expéditeurs, mots-clés) — zéro coût IA. L'IA n'intervient qu'à la demande.</li>
-        <li>CRM : afficher/éditer les <code>Contacts</code>, rattacher un mail à un contact, ajouter une note → écrite dans <code>Notes</code>.</li>
-        <li>Assistant de rédaction : bouton « répondre » → appel proxy <code>type=office_mail</code> → brouillon proposé.</li>
-        <li>Validation obligatoire avant envoi (Li·La propose, tu valides).</li>
-      </ol>
-      <h4>Point de vigilance</h4>
-      <div class="vigi">Garde le tri sans IA : c'est gratuit et instantané. Réserve l'IA à la rédaction et à l'analyse d'un mail ambigu, sinon les quotas fondent pour rien.</div>
-      <h4>Validation</h4>
-      <div class="valid">Mail trié + priorités OK · une note remonte dans le CRM · un brouillon cohérent est généré et validé avant envoi.</div>
-      <h4>Livrable</h4>
-      <p class="livr">Mail trié + CRM alimenté + brouillons générés.</p>
-    </div>
-  </div>
-
-  <!-- ============ C5 ============ -->
-  <div class="mod" id="c5">
-    <div class="top"><div class="code">C5 · Juillet</div><h3>Lila Carnet — notes + mémo vocal</h3>
-      <div class="meta"><span class="mchip win">13 → 19 juil.</span><span class="mchip dur">≈ 3 j</span><span class="mchip">Laurence</span></div></div>
-    <div class="mbody">
-      <p style="font-size:14.5px;color:#574a58">Capturer une info en déplacement et la ranger au bon endroit, sans rien perdre.</p>
-      <div class="grid2" style="margin-top:14px">
-        <div class="box"><div class="lbl">Compétences</div><ul><li>Web Speech API (+ repli texte)</li><li>JS front</li><li>IA via proxy (structuration)</li></ul></div>
-        <div class="box"><div class="lbl">Coûts</div><ul><li>Dev : ton temps (≈ 3 j)</li><li>Exploitation : API à l'usage (structuration)</li></ul></div>
-      </div>
-      <h4>Étapes pas à pas</h4>
-      <ol class="steps">
-        <li>Bouton de capture unique (vocal + texte), accessible partout dans l'app.</li>
-        <li>Dictée via <code>Web Speech API</code> — avec un <b>repli texte obligatoire</b> (la dictée est capricieuse sur iOS).</li>
-        <li>Envoi du texte brut au proxy <code>type=note_struct</code> → proposition structurée (contact / rappel / note).</li>
-        <li>UI de rattachement : relier la note à un contact ou un dossier existant (par id).</li>
-        <li>Validation avant enregistrement, puis écriture dans <code>Notes</code>.</li>
-      </ol>
-      <h4>Point de vigilance</h4>
-      <div class="vigi">Sur iPhone, la reconnaissance vocale peut être bloquée : le champ texte doit toujours fonctionner en repli, sinon le module est inutilisable en démo.</div>
-      <h4>Validation</h4>
-      <div class="valid">Dictée → proposition correcte · repli texte OK sur iOS · rien n'est enregistré sans validation.</div>
-      <h4>Livrable</h4>
-      <p class="livr">Dictée → proposition structurée → validée → rangée au bon endroit.</p>
-    </div>
-  </div>
-
-  <!-- ============ C6 ============ -->
-  <div class="mod" id="c6">
-    <div class="top"><div class="code">C6 · Juillet (déplaçable en V1.1)</div><h3>Li·La Com' — contenu réseaux</h3>
-      <div class="meta"><span class="mchip win">20 → 26 juil.</span><span class="mchip dur">≈ 3 j</span><span class="mchip">Laurence</span></div></div>
-    <div class="mbody">
-      <p style="font-size:14.5px;color:#574a58">Produire du contenu réseaux sociaux prêt à publier (offre 39€). Candidat n°1 au report après le 18 août si juillet déborde.</p>
-      <div class="grid2" style="margin-top:14px">
-        <div class="box"><div class="lbl">Compétences</div><ul><li>JS front</li><li>Prompting (angles immo)</li><li>IA via proxy</li></ul></div>
-        <div class="box"><div class="lbl">Coûts</div><ul><li>Dev : ton temps (≈ 3 j)</li><li>Exploitation : API à l'usage</li></ul></div>
-      </div>
-      <h4>Étapes pas à pas</h4>
-      <ol class="steps">
-        <li>Formulaire de brief court (sujet, ton, canal).</li>
-        <li>Appel proxy <code>type=studio_post</code> → la bibliothèque d'angles immo (côté serveur) guide la génération.</li>
-        <li>Déclinaison par canal (LinkedIn, Instagram) : longueurs et formats adaptés.</li>
-        <li>Édition + copie en un clic.</li>
-      </ol>
-      <h4>Validation</h4>
-      <div class="valid">Un post généré est exploitable directement, décliné par canal.</div>
-      <h4>Livrable</h4>
-      <p class="livr">Posts prêts à publier, par canal.</p>
-    </div>
-  </div>
-
-  <!-- ============ C8 ============ -->
-  <div class="mod" id="c8">
-    <div class="top"><div class="code">C8 · Juillet</div><h3>Offre Ava (base, gratuite)</h3>
-      <div class="meta"><span class="mchip win">20 → 26 juil.</span><span class="mchip dur">≈ 1 j</span><span class="mchip">Laurence</span></div></div>
-    <div class="mbody">
-      <p style="font-size:14.5px;color:#574a58">La porte d'entrée gratuite qui fait découvrir l'écosystème : veille, mémo vocal, quelques questions IA, accès formations.</p>
-      <div class="grid2" style="margin-top:14px">
-        <div class="box"><div class="lbl">Compétences</div><ul><li>JS, intégration</li><li>Réglage des limites (quota faible)</li></ul></div>
-        <div class="box"><div class="lbl">Coûts</div><ul><li>Dev : ton temps (≈ 1 j)</li><li>Exploitation : API <b>faible</b> (volontairement bridée)</li></ul></div>
-      </div>
-      <h4>Étapes pas à pas</h4>
-      <ol class="steps">
-        <li>Activer la veille + le mémo vocal en accès libre.</li>
-        <li>Donner « quelques questions IA » avec un quota gratuit très bas.</li>
-        <li>Lien vers les formations.</li>
-        <li>Mettre en avant le passage payant (sans bloquer brutalement).</li>
-      </ol>
-      <h4>Validation</h4>
-      <div class="valid">L'offre gratuite fonctionne sans paiement et donne envie de passer payant.</div>
-      <h4>Livrable</h4>
-      <p class="livr">Offre gratuite fonctionnelle.</p>
-    </div>
-  </div>
-
-  <!-- ============ C7 ============ -->
-  <div class="mod" id="c7">
-    <div class="top"><div class="code">C7 · Juillet (déplaçable en V1.1)</div><h3>Li·La Com'+ — image avancée</h3>
-      <div class="meta"><span class="mchip win">27 → 31 juil.</span><span class="mchip dur">≈ 2 j</span><span class="mchip">Laurence</span></div></div>
-    <div class="mbody">
-      <p style="font-size:14.5px;color:#574a58">Le haut de gamme visuel : traitement d'image et prompts archi/BTP. Poste le plus coûteux à l'usage — à surveiller.</p>
-      <div class="grid2" style="margin-top:14px">
-        <div class="box"><div class="lbl">Compétences</div><ul><li>API de génération d'image</li><li>Prompting visuel archi/BTP</li><li>Réglage de quota serré</li></ul></div>
-        <div class="box"><div class="lbl">Coûts</div><ul><li>Dev : ton temps (≈ 2 j)</li><li>Exploitation : <b>API image (cher)</b> — quota strict obligatoire</li></ul></div>
-      </div>
-      <h4>Étapes pas à pas</h4>
-      <ol class="steps">
-        <li>Brancher l'API de traitement / génération d'image au proxy <code>type=studio_image</code>.</li>
-        <li>Intégrer la bibliothèque de prompts archi/BTP (côté serveur, invisible).</li>
-        <li>Poser un <b>quota image serré</b> distinct du quota texte.</li>
-        <li>Afficher clairement la consommation restante au membre.</li>
-      </ol>
-      <h4>Point de vigilance</h4>
-      <div class="vigi">L'image coûte bien plus que le texte. Sans quota dédié strict, ce module peut manger toute la marge d'un abonnement à lui seul.</div>
-      <h4>Validation</h4>
-      <div class="valid">Un visuel produit est exploitable · le quota image borne réellement le coût.</div>
-      <h4>Livrable</h4>
-      <p class="livr">Visuels avancés + quota qui protège la marge.</p>
-    </div>
-  </div>
-
-  <!-- ============ C10 ============ -->
-  <div class="mod" id="c10">
-    <div class="top"><div class="code">C10 · Juillet</div><h3>PWA / Landing / Domaine / RGPD</h3>
-      <div class="meta"><span class="mchip win">27 → 31 juil.</span><span class="mchip dur">≈ 2 j</span><span class="mchip">Laurence</span></div></div>
-    <div class="mbody">
-      <p style="font-size:14.5px;color:#574a58">Rendre Li·La installable, visible et conforme. Inclut la landing simple et la prise de démo.</p>
-      <div class="grid2" style="margin-top:14px">
-        <div class="box"><div class="lbl">Compétences</div><ul><li>PWA (manifest, service worker)</li><li>Déploiement Netlify, DNS</li><li>Bases RGPD</li></ul></div>
-        <div class="box"><div class="lbl">Coûts</div><ul><li>Dev : ton temps (≈ 2 j)</li><li>Exploitation : <b>domaine ≈ 12–15€/an</b> + Netlify (gratuit au départ)</li></ul></div>
-      </div>
-      <h4>Étapes pas à pas</h4>
-      <ol class="steps">
-        <li>Coque PWA : <code>manifest.json</code> + <code>sw.js</code> + bannière d'installation (icônes fond blanc pour iOS).</li>
-        <li>Landing en <b>une page</b> : promesse + 3 bénéfices + 2 boutons (« Réserver une démo » / « Être prévenu »).</li>
-        <li>Brancher le bouton démo sur Tally ou Calendly.</li>
-        <li>Acheter / configurer le nom de domaine + DNS vers Netlify.</li>
-        <li>Pages RGPD : mentions légales, CGV, politique de données (« vos données restent chez vous »).</li>
-      </ol>
-      <h4>Validation</h4>
-      <div class="valid">App installable sur mobile · landing en ligne + prise de démo qui marche · documents RGPD publiés.</div>
-      <h4>Livrable</h4>
-      <p class="livr">App installable + landing en ligne + RGPD publié.</p>
-    </div>
-  </div>
-
-  <!-- ============ C9 ============ -->
-  <div class="mod" id="c9">
-    <div class="top"><div class="code">C9 · Août — avant le 18</div><h3>Paiement</h3>
-      <div class="meta"><span class="mchip win">3 → 9 août</span><span class="mchip dur">≈ 2 j</span><span class="mchip">Laurence</span></div></div>
-    <div class="mbody">
-      <p style="font-size:14.5px;color:#574a58">Encaisser proprement dès le 18 août. Doit être prêt et testé avant le lancement commercial.</p>
-      <div class="grid2" style="margin-top:14px">
-        <div class="box"><div class="lbl">Compétences</div><ul><li>Stripe (produits, checkout)</li><li>Webhooks</li><li>Logique d'activation d'offre</li></ul></div>
-        <div class="box"><div class="lbl">Coûts</div><ul><li>Dev : ton temps (≈ 2 j)</li><li>Exploitation : <b>frais par transaction</b> (carte ≈ 1,5 % + frais fixe ; SEPA moins cher) — vérifier la grille Stripe à jour</li></ul></div>
-      </div>
-      <h4>Étapes pas à pas</h4>
-      <ol class="steps">
-        <li>Créer les produits Stripe : Office+Carnet 19€/mois, Com' 39€/mois (+ SEPA pour le récurrent, moins cher).</li>
-        <li>Page de souscription depuis Li·La.</li>
-        <li>Webhook Stripe → mettre à jour l'<code>offre</code> du membre dans <code>Membres</code> + ajuster le quota.</li>
-        <li>Gérer la bascule des anciens adhérents Ava à leur date anniversaire.</li>
-        <li>Tester un encaissement réel de bout en bout (mode test puis réel).</li>
-      </ol>
-      <h4>Point de vigilance</h4>
-      <div class="vigi">C'est le module qui ne peut pas glisser : sans lui, pas de lancement commercial le 18 août. Garde-lui une marge et teste un vrai paiement avant.</div>
-      <h4>Validation</h4>
-      <div class="valid">Un paiement test passe · l'offre et le quota s'activent automatiquement via le webhook.</div>
-      <h4>Livrable</h4>
-      <p class="livr">Paiement opérationnel, offre activée à l'achat.</p>
-    </div>
-  </div>
-
-  <h2 class="sec" id="couts">Coûts d'exploitation — récap</h2>
-  <table>
-    <tr><th>Poste</th><th>Type</th><th>Ordre de grandeur</th></tr>
-    <tr><td>Google Sheets / Apps Script</td><td>Inclus</td><td>Gratuit (Workspace)</td></tr>
-    <tr><td>API Anthropic (texte)</td><td>À l'usage</td><td>Au token — borné par les quotas membres</td></tr>
-    <tr><td>API image (Com'+)</td><td>À l'usage</td><td>Nettement plus cher — quota strict</td></tr>
-    <tr><td>Netlify</td><td>Abonnement</td><td>Gratuit au départ</td></tr>
-    <tr><td>Nom de domaine</td><td>Annuel</td><td>≈ 12–15 €/an</td></tr>
-    <tr><td>Stripe</td><td>Par transaction</td><td>≈ 1,5 % + frais fixe (carte) · SEPA moins cher</td></tr>
-    <tr><td>Tally / MailerLite</td><td>Abonnement</td><td>Gratuit au départ, payant à l'échelle</td></tr>
-  </table>
-  <div class="note"><b>À vérifier.</b> Les grilles API (Anthropic), Stripe, Tally et MailerLite évoluent — confirme les tarifs à jour sur leurs pages avant de figer ton modèle de coûts. Ces postes alimentent directement le volet « Coûts & répartition 50/50 » du cockpit.</div>
-
-  <h2 class="sec" id="sequencement">Séquencement & indisponibilités</h2>
-  <div class="card">
-    <p><b>Indisponibilités connues</b></p>
-    <ul class="bul">
-      <li><b>Linda</b> : week-end du 14 juillet · week-end du 15 août.</li>
-      <li><b>Laurence</b> : 1 journée de formation à placer (date à confirmer, liée à une conférence).</li>
-    </ul>
-    <div class="note" style="margin-top:12px"><b>Alerte charge.</b> Juillet est dense : le build technique seul pèse ≈ 23 jours pour une développeuse, sur ~22 jours ouvrés. La semaine du 13–19 juillet cumule ≈ 10,5 j. Deux issues : <b>(1)</b> reporter C6 et C7 (Com' / Com'+) en V1.1 après le 18 août, ou <b>(2)</b> étaler la dispo technique au-delà du 31 juillet. Dis-moi laquelle, et je recale les fenêtres pour qu'aucune ne tombe sur une indispo.</div>
-  </div>
-
-  <div class="foot">Li·La · Plan de route du développement · document de travail interne — Laurence &amp; Linda · à relire à chaque point de contrôle (mardis 7 et 21 juillet).</div>
-</main>
+<div class="top">
+  <img src="./lila-logo.png" alt="Li·La">
+  <a class="bk" href="lila-cockpit.html">← Cockpit</a>
 </div>
+
+<div class="wrap">
+
+  <section class="hero">
+    <div class="eyebrow"><span class="dots"><i class="l"></i><i class="o"></i><i class="s"></i></span> Plan de développement · Li·La</div>
+    <h1>De l'atelier<br>au <span class="u">lancement.</span></h1>
+    <p class="lede">Notre méthode, étape par étape — jusqu'au 31 juillet, jour où Li·La entre en ligne pour les membres de La Maison d'AVA.</p>
+    <div class="anchors">
+      <div class="anchor a1"><div class="n">31 juil.</div><div class="l">Li·La en ligne</div></div>
+      <div class="anchor a2"><div class="n">4 étapes</div><div class="l">avant le lancement</div></div>
+      <div class="anchor a3"><div class="n">19€</div><div class="l">premier forfait vendable</div></div>
+    </div>
+  </section>
+
+  <div class="method">
+    <div class="k">Notre manière de faire</div>
+    <p>On ne construit pas tout, tout de suite. Chaque étape livre quelque chose d'utilisable, se teste en conditions réelles, et prépare la suivante. Pas de tunnel de six mois — des paliers courts, tenus.</p>
+    <div class="rule"><span class="dots"><i class="l"></i><i class="o"></i><i class="s"></i></span> Li·La propose. L'agent valide.</div>
+  </div>
+
+  <div class="timeline">
+
+    <div class="stage n1">
+      <div><span class="no">ÉTAPE 01</span><span class="when">8 → 13 juillet</span></div>
+      <h2>La fondation</h2>
+      <div class="scard">
+        <div class="row"><div class="tag">Ce qu'on pose</div><div class="txt">La <b>base de données partagée</b> (Google Sheets) et le <b>moteur d'IA sécurisé</b> qui distribue les demandes et compte la consommation de chaque membre.</div></div>
+        <div class="row"><div class="tag">Ce que ça change</div><div class="txt">Rien de visible encore — mais sans cette fondation, aucun module ne tient. La clé de l'IA reste côté serveur : elle n'est <b>jamais</b> exposée.</div></div>
+        <div class="effort"><span>Temps réel Laurence : <b>3 à 4 h</b></span><span>Sessions : <b>2-3</b></span></div>
+      </div>
+    </div>
+
+    <div class="stage n2">
+      <div><span class="no">ÉTAPE 02</span><span class="when">14 → 20 juillet</span></div>
+      <h2>Le collectif prend vie</h2>
+      <div class="scard">
+        <div class="row"><div class="tag">Ce qu'on ouvre</div><div class="txt">Le <b>Hub — Li·La by La Maison d'AVA</b> (biens, recherches, annuaire du collectif), l'<b>accès réservé</b> selon le forfait, et <b>Li·La Office</b> — l'assistant mail qui s'installe dans le Google de chaque agent.</div></div>
+        <div class="row"><div class="tag">Ce que ça change</div><div class="txt">Le membre AVA retrouve son collectif, en mieux. C'est précisément ce qu'il renouvelle — la valeur est là, sous ses yeux.</div></div>
+        <div class="effort"><span>Temps réel Laurence : <b>6 à 7 h</b></span><span>Sessions : <b>4-5</b></span></div>
+      </div>
+    </div>
+
+    <div class="stage n3">
+      <div><span class="no">ÉTAPE 03</span><span class="when">21 → 27 juillet</span></div>
+      <h2>Prêt à vendre</h2>
+      <div class="scard">
+        <div class="row"><div class="tag">Ce qu'on ajoute</div><div class="txt"><b>Li·La Carnet</b> (contacts, biens, suivi, mémo vocal), les <b>modules gratuits AVA</b> (veille ALUR, éducation IA), et le <b>paiement</b> — le produit Essentiel 19€ dans le Stripe existant de Linda.</div></div>
+        <div class="row"><div class="tag">Ce que ça change</div><div class="txt">Le forfait <b>Essentiel</b> devient réellement souscriptible. À partir d'ici, on peut encaisser.</div></div>
+        <div class="effort"><span>Temps réel Laurence : <b>5 à 6 h</b></span><span>Sessions : <b>4</b></span></div>
+      </div>
+    </div>
+
+    <div class="stage n4">
+      <div><span class="no">ÉTAPE 04</span><span class="when">28 → 31 juillet</span></div>
+      <h2>En ligne</h2>
+      <div class="scard">
+        <div class="row"><div class="tag">Ce qu'on livre</div><div class="txt">La <b>mise en ligne</b>, l'installation sur mobile, les <b>documents légaux</b> (mentions, CGV, RGPD), et le <b>guide d'installation</b> pour les membres.</div></div>
+        <div class="row"><div class="tag">Ce que ça change</div><div class="txt">Li·La est vivante. Les membres AVA basculent au fil de leurs réabonnements.</div></div>
+        <div class="effort"><span>Temps réel Laurence : <b>2 à 3 h</b></span><span>Sessions : <b>1</b> + tests</span></div>
+      </div>
+    </div>
+
+    <div class="milestone">
+      <div class="d"><span class="dots"><i class="l"></i><i class="o"></i><i class="s"></i></span> Vendredi 31 juillet</div>
+      <div class="t">Li·La est en ligne — Hub AVA ouvert, Essentiel vendable</div>
+    </div>
+
+    <div class="stage n5">
+      <div><span class="no">ÉTAPE 05</span><span class="when">1 → 16 août</span></div>
+      <h2>La montée en gamme</h2>
+      <div class="scard">
+        <div class="row"><div class="tag">Ce qu'on développe</div><div class="txt"><b>Li·La Com'</b> — la création de contenu pour les réseaux sociaux (forfait Pro), puis <b>Li·La Studio+</b> — les visuels avancés (forfait Business).</div></div>
+        <div class="row"><div class="tag">Ce que ça change</div><div class="txt">Les agents déjà à bord peuvent monter en gamme. On élargit la valeur sans repartir de zéro.</div></div>
+        <div class="effort"><span>Temps réel Laurence : <b>4 à 6 h</b></span><span>Sessions : <b>4</b></span></div>
+      </div>
+    </div>
+
+    <div class="milestone soft">
+      <div class="d">Mardi 18 août</div>
+      <div class="t">Lancement public — Pro &amp; Business ouverts au-delà d'AVA</div>
+    </div>
+
+    <div class="milestone event">
+      <div class="d">Jeudi 17 septembre</div>
+      <div class="t">L'événement officiel de présentation</div>
+    </div>
+
+  </div>
+
+  <section class="plans">
+    <h3><span class="dots"><i class="l"></i><i class="o"></i><i class="s"></i></span> Les forfaits</h3>
+    <div class="plan ava"><div class="nm">Adhésion AVA</div><div class="in">Le collectif : Hub, mémo vocal, veille ALUR, éducation IA</div><div class="pr">129€/an</div></div>
+    <div class="plan p1"><div class="nm">Essentiel</div><div class="in">Office (mails, tâches, agenda) + Carnet (contacts, biens, suivi)</div><div class="pr">19€/mois</div></div>
+    <div class="plan p2"><div class="nm">Pro</div><div class="in">Essentiel + Com' — création de contenu réseaux sociaux</div><div class="pr">39€/mois</div></div>
+    <div class="plan p3"><div class="nm">Business</div><div class="in">Pro + Studio+ — visuels avancés, prompts métier</div><div class="pr">59€/mois</div></div>
+  </section>
+
+  <div class="closing">
+    <div class="dots"><i class="l"></i><i class="o"></i><i class="s"></i></div>
+    <p>Chaque étape est une <em>promesse tenue.</em> C'est comme ça qu'on gagne la confiance — celle des membres, et la nôtre.</p>
+  </div>
+
+  <div class="foot">Li·La — plan de développement · document interne Linda &amp; Laurence · 8 juillet 2026</div>
+
+</div>
+
+<script>
+(function(){
+  if(!('IntersectionObserver' in window)){document.querySelectorAll('.stage,.milestone').forEach(function(e){e.classList.add('in')});return;}
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}})},{threshold:.18});
+  document.querySelectorAll('.stage,.milestone').forEach(function(e){io.observe(e)});
+})();
+</script>
 </body>
 </html>

@@ -126,11 +126,11 @@ h1,h2,h3,.disp{font-family:'Poppins',system-ui,sans-serif}
 
 /* DASHBOARD */
 .dash{padding-top:4px}
-.hero2{display:flex;align-items:center;justify-content:space-between;gap:18px;background:var(--navy);color:#fff;border-radius:16px;padding:22px 26px;flex-wrap:wrap}
-.h2k{font:600 12px 'Inter';letter-spacing:.14em;text-transform:uppercase;color:#b3a6c4}
-.h2t{font:600 23px 'Poppins';margin-top:4px}
-.h2cd{display:flex;align-items:center;gap:12px;text-align:right;font-size:12px;color:#ccc0d8;line-height:1.3}
-.h2cd .big{font:700 42px 'Poppins';color:var(--orange);line-height:1}
+.hero2{display:flex;align-items:center;justify-content:space-between;gap:18px;background:var(--card);color:var(--navy);border:1px solid var(--border);border-left:4px solid var(--lavande);border-radius:16px;padding:18px 22px;flex-wrap:wrap}
+.h2k{font:600 11px 'Inter';letter-spacing:.13em;text-transform:uppercase;color:var(--gris)}
+.h2t{font:600 18px 'Poppins';margin-top:3px;color:var(--navy)}
+.h2cd{display:flex;align-items:center;gap:12px;text-align:right;font-size:12px;color:var(--gris);line-height:1.3}
+.h2cd .big{font:700 30px 'Poppins';color:var(--orange);line-height:1}
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:14px 0}
 .stat{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;box-shadow:0 1px 2px rgba(12,34,65,.05)}
 .stat.go{cursor:pointer}.stat.go:hover{border-color:var(--orange)}
@@ -158,6 +158,13 @@ h1,h2,h3,.disp{font-family:'Poppins',system-ui,sans-serif}
 .pbbar i.build{background:var(--orange)}.pbbar i.beta{background:var(--sauge)}.pbbar i.launch{background:var(--lavande)}
 .pbv{font:600 12px 'Poppins';color:var(--gris);min-width:34px;text-align:right}
 .brief{margin-top:12px}
+.points{list-style:none;margin:0;padding:0}
+.points li{display:flex;gap:9px;align-items:flex-start;font:450 13px 'Inter';color:var(--navy-2);line-height:1.5;padding:5px 0;border-bottom:1px solid var(--border)}
+.points li:last-child{border-bottom:none}
+.points li b{color:var(--navy);font-weight:600}
+.points .b{flex:none;width:6px;height:6px;border-radius:50%;background:var(--lavande);margin-top:7px;font-size:0;overflow:hidden}
+.points li:nth-child(3n+2) .b{background:var(--orange)}
+.points li:nth-child(3n) .b{background:var(--sauge)}
 .doctiles{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .doctile{display:flex;align-items:center;gap:12px;background:#faf6ef;border:1px solid var(--border);border-radius:12px;padding:13px 15px;text-decoration:none;transition:border-color .15s,transform .15s}
 .doctile:hover{border-color:var(--orange);transform:translateY(-1px)}
@@ -379,6 +386,7 @@ body.sbopen .sbov{opacity:1;pointer-events:auto}
 
     <div class="sbk">Dossiers du projet</div>
     <a href="lila-plan-route-developpement.html"><svg class="si" viewBox="0 0 24 24"><circle cx="6" cy="19" r="2.4"/><circle cx="18" cy="5" r="2.4"/><path d="M8 19h6a3 3 0 0 0 3-3V8M16 5h-6a3 3 0 0 0-3 3v6"/></svg><span>Plan de route — dev</span><span class="sx">10 modules</span></a>
+    <a href="lila-plan-operationnel.html"><svg class="si" viewBox="0 0 24 24"><path d="M9 11l3 3 8-8"/><path d="M20 12v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h9"/></svg><span>Plan opérationnel</span><span class="sx">à suivre</span></a>
     <a href="lila-business-plan.html"><svg class="si" viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><span>Business plan</span></a>
     <a href="lila-veille-prospection.html"><svg class="si" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg><span>Veille &amp; prospection</span></a>
     <a href="lila-plan-communication.html"><svg class="si" viewBox="0 0 24 24"><path d="M3 11v2a1 1 0 0 0 1 1h3l5 4V6L7 10H4a1 1 0 0 0-1 1z"/><path d="M16 9a4 4 0 0 1 0 6"/></svg><span>Plan de communication</span><span class="sx">29 posts</span></a>
@@ -443,7 +451,7 @@ body.sbopen .sbov{opacity:1;pointer-events:auto}
   <main id="app"></main>
   <aside class="rail" id="rail"></aside>
 </div>
-<div class="foot">Li·La · Cockpit interne — Laurence &amp; Linda · Google Sheets → Supabase · lancement commercial 18 août · événement 17 sept. 2026</div>
+<div class="foot">Li·La · Cockpit interne — Laurence &amp; Linda · Google Sheets · 31 juil. mise à disposition · 18 août lancement public · 17 sept. événement</div>
 
 <div class="drawer-ov" id="drawerOv"></div>
 <aside class="drawer" id="drawer"></aside>
@@ -513,15 +521,15 @@ const api={
 /* ====================== LE PLAN ====================== */
 const PLAN={
   technique:{label:"Développement technique",owner:"Laurence",modules:[
-    {id:"c1",nom:"Socle données",code:"C1",sub:"Google Sheets (< 100 adhérents) → Supabase ensuite",
+    {id:"c1",nom:"Socle données",code:"C1",sub:"Google Sheets (base partagée, proxy Apps Script)",
      dev:[
-       {t:"Structurer les onglets (membres, contacts, notes, contenus, quotas)",r:"L"},
+       {t:"Structurer les onglets (membres, contacts, biens, notes, contenus, quotas)",r:"L"},
        {t:"Schéma + IDs de liaison entre les onglets",r:"L"},
        {t:"Fonctions de lecture/écriture (Apps Script) + LockService",r:"L"},
-       {t:"Préparer la migration Supabase (au-delà de 100 adhérents)",r:"L"}],
+       {t:"Sauvegarde automatique de la base",r:"L"}],
      check:[
        {t:"Écriture/lecture testée dans chaque onglet",r:"L"},
-       {t:"Sauvegarde de la base en place",r:"L"}]},
+       {t:"Sauvegarde en place",r:"L"}]},
 
     {id:"c2",nom:"Proxy IA + quotas",code:"C2",sub:"Apps Script : clé serveur, routage, décompte, plafond",
      dev:[
@@ -536,37 +544,81 @@ const PLAN={
        {t:"Quota épuisé → blocage propre",r:"L"},
        {t:"Clé absente du front (inspecteur réseau)",r:"L"}]},
 
-    {id:"c3",nom:"Identification & Freemium",code:"C3",sub:"Accès par mail, interface verrouillée, vitrines factices",
+    {id:"c3",nom:"Identification & accès par forfait",code:"C3",sub:"Accès par mail, déblocage selon Essentiel / Pro / Business",
      dev:[
        {t:"Identification par adresse mail",r:"L"},
        {t:"Interface verrouillée pour les non-abonnés",r:"L"},
-       {t:"Vitrines « factices » des offres non souscrites",r:"L"},
-       {t:"Déblocage conditionnel selon l'offre du membre",r:"L"}],
+       {t:"Vitrines « factices » des modules non souscrits",r:"L"},
+       {t:"Déblocage conditionnel selon le forfait (Essentiel/Pro/Business)",r:"L"}],
      check:[
        {t:"Un non-abonné voit la vitrine sans accéder au contenu",r:"L"},
-       {t:"Le déblocage suit bien l'offre payée",r:"L"}]},
+       {t:"Le déblocage suit bien le forfait payé",r:"L"}]},
 
-    {id:"c4",nom:"Lila Office",code:"C4",sub:"Boîte mail + CRM (offre 19€)",
+    {id:"hub",nom:"Hub — Li·La by La Maison d'AVA",code:"HUB",sub:"Le collectif : biens, recherches, annuaire (adhésion AVA)",
      dev:[
-       {t:"Connexion boîte mail + tri/priorités",r:"L"},
-       {t:"CRM : contacts, suivi, notes vers CRM",r:"L"},
-       {t:"Assistant de rédaction de mail via le proxy IA",r:"L"}],
+       {t:"Interface Hub finalisée + accueil Li·La",r:"L"},
+       {t:"Dépôt de biens + recherches par les membres",r:"L"},
+       {t:"Annuaire du collectif (membres AVA)",r:"L"},
+       {t:"Consultation partagée (données Sheets communes)",r:"L"}],
      check:[
-       {t:"Mail relié + priorités fonctionnelles",r:"L"},
-       {t:"Une note remonte dans le CRM",r:"L"}]},
+       {t:"Un membre dépose un bien, un autre le voit",r:"L"},
+       {t:"L'accès Hub suit l'adhésion AVA",r:"L"}]},
 
-    {id:"c5",nom:"Lila Carnet",code:"C5",sub:"Notes + mémo vocal (offre 19€ / base)",
+    {id:"c4",nom:"Li·La Office",code:"C4",sub:"Mails + tâches + agenda (Essentiel 19€)",
      dev:[
+       {t:"Script Gmail installé dans le Google de l'agent (méthode guidée)",r:"L"},
+       {t:"Tri / priorités / étiquettes des mails (Apps Script, zéro crédit IA)",r:"L"},
+       {t:"Assistant de rédaction de mail via le proxy IA",r:"L"},
+       {t:"Tâches + agenda",r:"L"},
+       {t:"Guide d'installation pas-à-pas pour l'agent",r:"2"}],
+     check:[
+       {t:"Le tri des mails fonctionne sans consommer de crédit IA",r:"L"},
+       {t:"Une réponse rédigée par l'IA est exploitable",r:"L"},
+       {t:"Un agent installe le script en autonomie avec le guide",r:"Li"}]},
+
+    {id:"c5",nom:"Li·La Carnet",code:"C5",sub:"Contacts + biens + suivi + mémo vocal (Essentiel 19€)",
+     dev:[
+       {t:"Contacts + fiches biens + suivi",r:"L"},
        {t:"Capture note + mémo vocal (Web Speech API + fallback texte)",r:"L"},
        {t:"Structuration IA de la note (contact / rappel / note)",r:"L"},
-       {t:"Rattachement de la note au bon contact/dossier",r:"L"},
        {t:"Validation avant enregistrement (« Li·La propose, tu valides »)",r:"L"}],
      check:[
+       {t:"Une fiche contact/bien se crée et se retrouve",r:"L"},
        {t:"Dictée → proposition structurée correcte",r:"L"},
        {t:"Fallback texte fonctionne sur iOS",r:"L"},
        {t:"Rien enregistré sans validation",r:"L"}]},
 
-    {id:"c6",nom:"Li·La Com'",code:"C6",sub:"Création de contenu réseaux sociaux (offre 39€)",
+    {id:"grat",nom:"Modules gratuits AVA",code:"GRAT",sub:"Mémo vocal · Veille ALUR · Éducation IA (inclus adhésion)",
+     dev:[
+       {t:"Veille ALUR / réglementaire (flux + sélection)",r:"L"},
+       {t:"Accès mémo vocal (sans quota IA lourd)",r:"L"},
+       {t:"Éducation IA (ressources / formations)",r:"L"}],
+     check:[
+       {t:"Les modules gratuits fonctionnent sans abonnement payant",r:"L"}]},
+
+    {id:"c9",nom:"Paiement — Stripe",code:"C9",sub:"Produit Essentiel 19€ dans le compte Stripe existant (Linda)",
+     dev:[
+       {t:"Créer le produit Stripe « Essentiel 19€/mois » (compte Linda existant)",r:"L"},
+       {t:"Page de souscription + déblocage à l'achat",r:"L"},
+       {t:"Webhook → activation du forfait + quota",r:"L"},
+       {t:"Bascule des membres AVA au réabonnement",r:"2"}],
+     check:[
+       {t:"Un encaissement test réel passe",r:"L"},
+       {t:"Le forfait + le quota s'activent automatiquement",r:"L"}]},
+
+    {id:"c10",nom:"Mise en ligne & RGPD",code:"C10",sub:"Déploiement, installation, conformité — LIVE 31 juillet",
+     dev:[
+       {t:"Coque Li·La réunissant les modules",r:"L"},
+       {t:"PWA (manifest, sw, bannière d'installation)",r:"L"},
+       {t:"Déploiement Netlify + nom de domaine",r:"L"},
+       {t:"RGPD (mentions, CGV, registre)",r:"L"},
+       {t:"Guide d'installation membre (Office + accès)",r:"2"}],
+     check:[
+       {t:"Installable sur mobile + hors-ligne basique",r:"L"},
+       {t:"Documents RGPD en ligne",r:"L"},
+       {t:"Un membre s'installe de bout en bout avec le guide",r:"Li"}]},
+
+    {id:"c6",nom:"Li·La Com'",code:"C6",sub:"Création de contenu réseaux sociaux (Pro 39€) — mi-août",
      dev:[
        {t:"Génération de posts / contenus réseaux sociaux",r:"L"},
        {t:"Déclinaison par canal (LinkedIn, Instagram…)",r:"L"},
@@ -574,51 +626,21 @@ const PLAN={
      check:[
        {t:"Un post généré est exploitable directement",r:"L"}]},
 
-    {id:"c7",nom:"Li·La Com'+",code:"C7",sub:"Image avancée, prompts archi/BTP",
+    {id:"c7",nom:"Li·La Studio+",code:"C7",sub:"Visuels avancés, prompts archi/BTP (Business 59€) — mi-août",
      dev:[
        {t:"Traitement d'image avancé (valorisation visuelle)",r:"L"},
        {t:"Bibliothèque de prompts architecte / BTP (IP invisible)",r:"L"},
        {t:"Quota image serré (poste coûteux)",r:"L"}],
      check:[
        {t:"Un visuel produit est exploitable",r:"L"},
-       {t:"Le quota image protège la marge",r:"L"}]},
-
-    {id:"c8",nom:"Offre Ava (base)",code:"C8",sub:"Gratuit — veille, mémo vocal, questions IA, formations",
-     dev:[
-       {t:"Veille (flux / sélection)",r:"L"},
-       {t:"Accès mémo vocal + quelques questions IA",r:"L"},
-       {t:"Accès aux formations",r:"L"}],
-     check:[
-       {t:"L'offre gratuite fonctionne sans paiement",r:"L"}]},
-
-    {id:"c9",nom:"Paiement",code:"C9",sub:"Stripe (19 / 39€), bascule anciens adhérents — prêt le 18 août",
-     dev:[
-       {t:"Produits Stripe (Office+Carnet 19€, Com' 39€) + SEPA",r:"L"},
-       {t:"Page de souscription + déblocage à l'achat",r:"L"},
-       {t:"Webhook → activation de l'offre + quota",r:"L"},
-       {t:"Bascule des anciens adhérents Ava à leur date anniversaire",r:"2"}],
-     check:[
-       {t:"Un encaissement test réel passe",r:"L"},
-       {t:"L'offre + le quota s'activent automatiquement",r:"L"}]},
-
-    {id:"c10",nom:"PWA / Landing / Domaine / RGPD",code:"C10",sub:"Coque, page web, déploiement, conformité",
-     dev:[
-       {t:"Coque Li·La réunissant les pôles",r:"L"},
-       {t:"PWA (manifest, sw, bannière d'installation)",r:"L"},
-       {t:"Landing page + réservation de démos live",r:"L"},
-       {t:"Acheter / configurer le nom de domaine",r:"L"},
-       {t:"Déploiement Netlify + RGPD (mentions, CGV, registre)",r:"L"}],
-     check:[
-       {t:"Installable sur mobile + hors-ligne basique",r:"L"},
-       {t:"Landing en ligne + prise de démo fonctionnelle",r:"L"},
-       {t:"Documents RGPD en ligne",r:"L"}]}
+       {t:"Le quota image protège la marge",r:"L"}]}
   ]},
 
   plan:{label:"Business plan & cadre",owner:"Linda + Laurence",modules:[
-    {id:"b1",nom:"Offres & tarifs",code:"B1",sub:"Gratuit / 19€ / 39€ + Com'+",
+    {id:"b1",nom:"Offres & tarifs",code:"B1",sub:"AVA 129€/an · Essentiel 19€ · Pro 39€ · Business 59€",
      dev:[
-       {t:"Structurer les 4 pôles + l'offre Ava base",r:"2"},
-       {t:"Tarifs actés — 19 / 39 / 59 (lancement) → 39 / 59 / 79 (après événement)",r:"1"},
+       {t:"Structurer les forfaits : Essentiel (Office+Carnet) / Pro (+Com') / Business (+Studio+)",r:"2"},
+       {t:"Tarifs actés — AVA 129€/an · Essentiel 19 · Pro 39 · Business 59",r:"1"},
        {t:"Fixer les règles du freemium (ce qui est verrouillé)",r:"2"},
        {t:"Conditions de bascule des anciens adhérents Ava",r:"2"}],
      check:[
@@ -729,14 +751,14 @@ const PLAN={
        {t:"Landing + prise de démo en ligne",r:"L"},
        {t:"Message clé validé à deux",r:"2"}]},
 
-    {id:"k2",nom:"Pré-lancement (mi-août)",code:"COM2",sub:"Ouverture des pré-inscriptions",
+    {id:"k2",nom:"Bascule membres AVA (fin juillet)",code:"COM2",sub:"Réabonnement → passage sur Li·La",
      dev:[
-       {t:"Annonce de pré-lancement (réseau AVA + LinkedIn)",r:"2"},
-       {t:"Ouvrir les pré-inscriptions (Tally)",r:"Li"},
-       {t:"Inviter les bêta-testeurs",r:"2"},
+       {t:"Message aux membres AVA en réabonnement (bascule Li·La)",r:"2"},
+       {t:"Guide d'installation Office envoyé aux membres",r:"L"},
+       {t:"Accompagner les premières installations",r:"Li"},
        {t:"Séquence d'accueil (MailerLite : confirmation + accès)",r:"L"}],
      check:[
-       {t:"Pré-inscriptions ouvertes et suivies",r:"Li"},
+       {t:"Premiers membres AVA basculés sur Li·La",r:"Li"},
        {t:"Séquence MailerLite active",r:"L"}]},
 
     {id:"k3",nom:"Preuve sociale",code:"COM3",sub:"Début août — faire parler les testeurs",
@@ -774,14 +796,14 @@ const PLAN={
    à ajuster). METHODE = fiche détaillée qui s'ouvre au clic.
 ============================================================== */
 const EST={
-  c1:3, c2:3, c3:2, c4:4, c5:3, c6:3, c7:2, c8:1, c9:2, c10:2,
+  c1:3, c2:3, c3:2, hub:4, c4:4, c5:3, grat:3, c9:2, c10:2, c6:3, c7:2,
   b1:0.5, b2:0.5, b3:1, b4:1, b5:1,
   p1:1, p2:1.5, p3:0.5, p4:0.5, p5:1, p6:1.5,
   k1:2, k2:1, k3:1, k4:1, k5:1.5
 };
 const METHODE={
-  c1:{but:"Une base Google Sheets propre, prête à porter l'app, et migrable vers Supabase plus tard.",
-      comment:"Un onglet par entité (membres, contacts, notes, contenus, quotas) + une colonne ID unique par ligne. Fonctions Apps Script lire/écrire protégées par LockService. On documente le schéma dès maintenant pour que la bascule Supabase soit mécanique.",
+  c1:{but:"Une base Google Sheets propre et partagée, qui porte toute l'app.",
+      comment:"Un onglet par entité (membres, contacts, biens, notes, contenus, quotas) + une colonne ID unique par ligne. Fonctions Apps Script lire/écrire protégées par LockService.",
       livrable:"Classeur structuré + fonctions d'accès testées + schéma documenté."},
   c2:{but:"La clé IA reste côté serveur, chaque membre a un quota, le coût global est plafonné.",
       comment:"Un seul point d'entrée (doPost) qui route selon le type de demande. Clé dans les propriétés du script, jamais dans la page. Chaque appel décrémente le quota du membre ; au plafond, blocage propre. Reset mensuel automatique.",
@@ -849,33 +871,22 @@ function globalProgress(){
 
 /* ====================== PLANNING DATÉ ====================== */
 const PLANNING=[
-  {periode:"Juillet — Build (dispo technique au 31 juillet)",phase:"build",semaines:[
-    {sem:"S27",lbl:"30 juin → 5 juil.",due:"2026-07-05",mids:["c1"]},
-    {sem:"S28",lbl:"6 → 12 juil.",due:"2026-07-12",mids:["c2","c3"]},
-    {sem:"S29",lbl:"13 → 19 juil.",due:"2026-07-19",mids:["c4","c5","b1","k1","p1"],abs:"Linda indisponible — week-end du 14 juillet"},
-    {sem:"S30",lbl:"20 → 26 juil.",due:"2026-07-26",mids:["c6","c8","b2","b4","p2"]},
-    {sem:"S31",lbl:"27 → 31 juil.",due:"2026-07-31",mids:["c7","c10","p5"]}
-  ],jalon:{t:"Dispo technique — vendredi 31 juillet",kind:"go"}},
+  {periode:"Juillet — Build (Li·La by La Maison d'AVA LIVE au 31 juillet)",phase:"build",semaines:[
+    {sem:"S28",lbl:"8 → 13 juil.",due:"2026-07-13",mids:["c1","c2"],note:"Socle Google Sheets + proxy IA (clé serveur)."},
+    {sem:"S29",lbl:"14 → 20 juil.",due:"2026-07-20",mids:["c3","hub","c4"],abs:"Linda indisponible — week-end du 14 juillet",note:"Accès par forfait + Hub AVA + Office (mails via script chez l'agent)."},
+    {sem:"S30",lbl:"21 → 27 juil.",due:"2026-07-27",mids:["c5","grat","c9"],note:"Carnet + modules gratuits AVA + produit Stripe Essentiel 19€."},
+    {sem:"S31",lbl:"28 → 31 juil.",due:"2026-07-31",mids:["c10"],note:"Mise en ligne, installation, tests, bascule des membres AVA en réabonnement."}
+  ],jalon:{t:"Li·La by La Maison d'AVA LIVE + Essentiel vendable — vendredi 31 juillet",kind:"go"}},
 
-  {periode:"Août — Pré-lancement & lancement commercial",phase:"beta",semaines:[
-    {sem:"S32",lbl:"3 → 9 août",due:"2026-08-09",mids:["c9","b3","b5","k2"]},
-    {sem:"S33",lbl:"10 → 16 août",due:"2026-08-16",mids:["k3"],abs:"Linda indisponible — week-end du 15 août",
-     note:"Tests internes (Linda + Laurence) en conditions réelles + ouverture des pré-inscriptions (mi-août) + correctifs."}
-  ],jalon:{t:"Lancement commercial — mardi 18 août",kind:"launch"}},
+  {periode:"Août — Pro & Business, puis lancement public",phase:"beta",semaines:[
+    {sem:"S32-33",lbl:"1 → 16 août",due:"2026-08-16",mids:["c6","c7"],abs:"Linda indisponible — week-end du 15 août",note:"Développement Com' (Pro 39€) et Studio+ (Business 59€). Preuve sociale : premiers membres AVA basculés."}
+  ],jalon:{t:"Lancement public (Pro + Business, hors AVA) — mardi 18 août",kind:"launch"}},
 
   {periode:"Du lancement à l'événement",phase:"launch",semaines:[
-    {sem:"S34-35",lbl:"18 → 30 août",due:"2026-08-30",mids:["k4","p3","p4"],
-     note:"Ouverture des abonnements, montée en charge, suivi des premiers membres."},
-    {sem:"S36-37",lbl:"31 août → 13 sept.",due:"2026-09-13",mids:["p6"],
-     note:"Préparation de l'événement officiel (lieu, déroulé, invitations)."},
-    {sem:"S38",lbl:"14 → 17 sept.",due:"2026-09-17",mids:["k5"],
-     note:"Répétition de la présentation. Soirée le jeudi 17 septembre."}
-  ],jalon:{t:"Événement officiel — jeudi 17 septembre",kind:"event"}},
-
-  {periode:"Après le lancement",phase:"post",semaines:[
-    {sem:"Post",lbl:"au-delà de 100 adhérents",due:"2026-12-31",mids:[],
-     note:"Migration de la base vers Supabase quand le réseau dépasse 100 adhérents."}
-  ]}
+    {sem:"S34-35",lbl:"18 → 30 août",due:"2026-08-30",mids:["p3","p4"],note:"Ouverture publique des abonnements, montée en charge, suivi des premiers membres."},
+    {sem:"S36-37",lbl:"31 août → 13 sept.",due:"2026-09-13",mids:["p6"],note:"Préparation de l'événement officiel (lieu, déroulé, invitations)."},
+    {sem:"S38",lbl:"14 → 17 sept.",due:"2026-09-17",mids:["k5"],note:"Répétition de la présentation. Soirée le jeudi 17 septembre."}
+  ],jalon:{t:"Événement officiel — jeudi 17 septembre",kind:"event"}}
 ];
 const MOIS=["janv.","févr.","mars","avr.","mai","juin","juil.","août","sept.","oct.","nov.","déc."];
 function fmtDate(iso){const d=new Date(iso+"T00:00:00");return d.getDate()+" "+MOIS[d.getMonth()];}
@@ -974,7 +985,7 @@ function renderDashboard(){
     </div>
     <div class="dgrid">
       <div class="panel"><h3>Les jalons clés</h3>
-        ${jalonCard("Dispo technique","vendredi 31 juillet","2026-07-31","go")}
+        ${jalonCard("Li·La mis à disposition","vendredi 31 juillet","2026-07-31","go")}
         ${jalonCard("Lancement commercial","mardi 18 août","2026-08-18","launch")}
         ${jalonCard("Événement officiel","jeudi 17 septembre","2026-09-17","event")}
       </div>
@@ -991,11 +1002,11 @@ function renderDashboard(){
     </div>
     <div class="panel brief"><h3>Le projet en bref</h3>
       <ul class="points">
-        <li><span class="b">·</span><span><b>Li·La</b> = assistant IA métier immo. 4 pôles : Office (mail+CRM), Carnet (notes+mémo), Com' (réseaux), Com'+ (image) + offre Ava base.</span></li>
-        <li><span class="b">·</span><span><b>Freemium</b> : interface verrouillée, vitrines factices, déblocage par mail. Gratuit / 19€ / 39€.</span></li>
+        <li><span class="b">·</span><span><b>Li·La</b> = assistant IA métier immo. Modules : Office (mail+tâches), Carnet (contacts+biens+mémo), Com' (réseaux), Studio+ (visuels) + Hub AVA & modules gratuits.</span></li>
+        <li><span class="b">·</span><span><b>Forfaits</b> : AVA 129€/an · Essentiel 19€ (Office+Carnet) · Pro 39€ (+Com') · Business 59€ (+Studio+).</span></li>
         <li><span class="b">·</span><span><b>Clé IA chez Laurence</b>, jamais dans le front : proxy à quotas par membre.</span></li>
-        <li><span class="b">·</span><span><b>Données</b> : Google Sheets jusqu'à 100 adhérents, puis Supabase.</span></li>
-        <li><span class="b">·</span><span><b>31 juil.</b> dispo technique · <b>18 août</b> lancement commercial · <b>17 sept.</b> événement officiel.</span></li>
+        <li><span class="b">·</span><span><b>Données</b> : Google Sheets (base partagée, proxy Apps Script).</span></li>
+        <li><span class="b">·</span><span><b>31 juil.</b> Li·La mis à disposition (Hub AVA + accès + gratuits) · <b>18 août</b> lancement public · <b>17 sept.</b> événement.</span></li>
       </ul>
     </div>
     <div class="panel"><h3>Les dossiers du projet</h3>
@@ -1029,7 +1040,7 @@ function renderRail(){
     <div class="rcd"><span class="rcdn">${cd}</span><small>jours avant le<br>lancement · 18 août</small></div>
     <div class="rnext" data-jump="planning">Prochaine échéance<b>${nx}</b><span>${nd||""}</span></div>
     <div class="rjalons">
-      ${railJalon("Dispo technique","31 juil.","2026-07-31","go")}
+      ${railJalon("Li·La disponible","31 juil.","2026-07-31","go")}
       ${railJalon("Lancement commercial","18 août","2026-08-18","launch")}
       ${railJalon("Événement officiel","17 sept.","2026-09-17","event")}
     </div>
@@ -1047,16 +1058,16 @@ function renderReperes(){
     <section><h3>Ce qu'est Li·La</h3><p>Un assistant IA spécialisé pour les agents immobiliers, co-créé par Linda (réseau, terrain, vente) et Laurence (technique, IA, bibliothèque de prompts). Objectif : faire gagner du temps, organiser le quotidien et garantir la confidentialité des données clients (souveraineté).</p></section>
     <section><h3>Les offres</h3>
       <div class="repmods">
-        <div class="rm now"><b>Offre Ava — base</b><span>Veille, mémo vocal, quelques questions IA, accès formations</span><i>Gratuit</i></div>
-        <div class="rm now"><b>Li·La Office + Carnet</b><span>Boîte mail, CRM, priorités, notes vers CRM</span><i>19€/mois</i></div>
-        <div class="rm now"><b>Li·La Com'</b><span>Création de contenu, réseaux sociaux</span><i>39€/mois</i></div>
-        <div class="rm later"><b>Li·La Com'+</b><span>Image avancée, prompts immo/BTP, valorisation visuelle</span><i>59€/mois</i></div>
+        <div class="rm now"><b>Adhésion AVA</b><span>Hub collectif, mémo vocal, veille ALUR, éducation IA</span><i>129€/an</i></div>
+        <div class="rm now"><b>Essentiel</b><span>Office (mails/tâches/agenda) + Carnet (contacts/biens/suivi)</span><i>19€/mois</i></div>
+        <div class="rm now"><b>Pro</b><span>Essentiel + Com' (création de contenu réseaux sociaux)</span><i>39€/mois</i></div>
+        <div class="rm later"><b>Business</b><span>Pro + Studio+ (visuels avancés, prompts immo/BTP)</span><i>59€/mois</i></div>
       </div></section>
     <section><h3>Architecture & données</h3>
       <ul class="points">
         <li><span class="b">1</span><span><b>Freemium</b> : interface verrouillée pour les non-abonnés, vitrines factices, déblocage par identification mail.</span></li>
         <li><span class="b">2</span><span><b>Proxy IA à quotas</b> (Apps Script) : la clé reste côté serveur, jamais dans le front ; décompte par membre + plafond global.</span></li>
-        <li><span class="b">3</span><span><b>Base</b> : Google Sheets jusqu'à 100 adhérents, puis migration Supabase.</span></li>
+        <li><span class="b">3</span><span><b>Base</b> : Google Sheets (base partagée, proxy Apps Script côté serveur).</span></li>
       </ul></section>
     <section><h3>Décisions & cadre</h3>
       <ul class="points">
@@ -1067,11 +1078,11 @@ function renderReperes(){
       </ul></section>
     <section><h3>Calendrier</h3>
       <ul class="points">
-        <li><span class="b">·</span><span><b>31 juillet</b> : disponibilité technique potentielle.</span></li>
-        <li><span class="b">·</span><span><b>Mi-août</b> : pré-lancement + ouverture des pré-inscriptions.</span></li>
-        <li><span class="b">·</span><span><b>18 août</b> : lancement commercial (ouverture des abonnements).</span></li>
+        <li><span class="b">·</span><span><b>31 juillet</b> : Li·La by La Maison d'AVA LIVE + Essentiel vendable.</span></li>
+        <li><span class="b">·</span><span><b>1 → 16 août</b> : développement Pro (Com') et Business (Studio+).</span></li>
+        <li><span class="b">·</span><span><b>18 août</b> : lancement public (Pro + Business, hors AVA).</span></li>
         <li><span class="b">·</span><span><b>17 septembre</b> : événement officiel de présentation.</span></li>
-        <li><span class="b">·</span><span><b>Après</b> : migration Supabase au-delà de 100 adhérents.</span></li>
+        <li><span class="b">·</span><span><b>Prochaine étape</b> : cadre juridique (accord 50/50) — fil dédié.</span></li>
       </ul></section>
     <section><h3>Annexes &amp; liens</h3>
       <p style="margin-bottom:10px">À compléter avec les vrais liens (édite la section <code>ANNEXES</code> du fichier).</p>
