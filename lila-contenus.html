@@ -45,6 +45,7 @@ body.sbopen .sbov{opacity:1;pointer-events:auto}
 .ph .titre{flex:1;min-width:220px;border:none;background:transparent;font:600 15px 'Poppins';color:var(--navy)}
 .ph .titre:focus{outline:2px solid rgba(224,122,166,.35);border-radius:6px}
 .badge{font:600 11px 'Inter';padding:4px 10px;border-radius:99px;white-space:nowrap}
+.datechip{font:600 11px 'Inter';padding:4px 10px;border-radius:99px;white-space:nowrap;background:#F3EAF4;color:#6D5480;border:1px solid #E2D3EA}
 .b-w{background:#eee7ef;color:#7a6790}.b-d{background:#fdeee4;color:#c56a35}.b-m{background:#efe6f3;color:#7a5c92}.b-ok{background:#d9ead4;color:#4a6b3d}
 .meta{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:9px}
 .fg{display:flex;flex-direction:column;gap:4px}
@@ -95,7 +96,7 @@ textarea{width:100%;min-height:120px;border:1px solid var(--border);border-radiu
 </header>
 
 <div class="wrap">
-  <p class="lead">Les <b>29 publications sont déjà rédigées en brouillon</b>. Linda et Laurence peuvent les relire, les adapter, dicter une correction, ajouter le visuel puis valider chacune de leur côté.</p>
+  <p class="lead">Les <b>29 publications sont déjà rédigées et datées en brouillon</b>. Linda et Laurence peuvent les relire, les adapter, dicter une correction, ajouter le visuel puis valider chacune de leur côté.</p>
   <div class="rule"><b>Deux validations indépendantes</b>, en bas de chaque post : Linda et Laurence cochent chacune de leur côté. Quand les <b>deux</b> sont cochées → le post est <b>prêt à programmer</b> dans le Plan de communication.</div>
 
   <div class="cards">
@@ -193,6 +194,7 @@ function nid(){return 'k'+Math.random().toString(36).slice(2,9);}
 function ensureIds(){let ch=false;DATA.forEach(r=>{if(!r.id){r.id=nid();ch=true;}});if(ch)save();}
 function opt(list,sel){return list.map(v=>`<option${v===sel?" selected":""}>${v}</option>`).join("");}
 function esc(x){return (x||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/"/g,"&quot;");}
+function fmtDateCourte(iso){if(!iso)return "Date à fixer";const p=iso.split("-");const mois=["janv.","févr.","mars","avr.","mai","juin","juil.","août","sept.","oct.","nov.","déc."];return (+p[2])+" "+mois[(+p[1])-1]+" "+p[0];}
 function headBadge(r){
   if(r.okL&&r.okA)return '<span class="badge b-ok">Validé par les deux</span>';
   if(r.okA)return '<span class="badge b-ok">Validé par Laurence</span>';
@@ -208,10 +210,11 @@ function render(){
     div.innerHTML=`
       <div class="ph">
         <input class="titre" value="${esc(r.t)}" data-i="${i}" data-k="t">
+        <span class="datechip">${fmtDateCourte(pieceDate(r.id,i))}</span>
         ${headBadge(r)}
       </div>
       <div class="meta">
-        <div class="fg"><label>Date</label><input type="date" value="${pieceDate(r.id,i)}" data-date="${i}"></div>
+        <div class="fg"><label>Date de publication</label><input type="date" value="${pieceDate(r.id,i)}" data-date="${i}"></div>
         <div class="fg"><label>Canal</label><select data-i="${i}" data-k="c">${opt(CANAUX,r.c)}</select></div>
         <div class="fg"><label>Format</label><input value="${esc(r.f)}" data-i="${i}" data-k="f" style="width:120px"></div>
         <div class="fg"><label>Étape de travail</label><select data-i="${i}" data-k="s">${opt(STEPS,r.s)}</select></div>
@@ -241,7 +244,7 @@ function bind(){
   document.querySelectorAll("[data-ok]").forEach(cb=>cb.addEventListener("change",()=>{
     const i=cb.dataset.i;if(cb.dataset.ok==="L")DATA[i].okL=cb.checked;else DATA[i].okA=cb.checked;save();render();
   }));
-  document.querySelectorAll("[data-date]").forEach(el=>el.addEventListener("change",()=>setPieceDate(DATA[el.dataset.date].id,el.value)));
+  document.querySelectorAll("[data-date]").forEach(el=>el.addEventListener("change",()=>{setPieceDate(DATA[el.dataset.date].id,el.value);save();render();}));
   document.querySelectorAll("[data-dic]").forEach(b=>b.addEventListener("click",()=>toggleDic(+b.dataset.dic,b)));
   document.querySelectorAll("[data-rm]").forEach(b=>b.addEventListener("click",()=>{DATA.splice(+b.dataset.rm,1);save();render();}));
 }
