@@ -1,0 +1,40 @@
+LI·LA — PACK COMPLET GITHUB — 29 POSTS PRÉRÉDIGÉS
+Date : 11 juillet 2026
+
+CE PACK REMPLACE LES FICHIERS ENVOYÉS SÉPARÉMENT AVANT.
+Ne dépose pas les fichiers « ORIGINAL-posts-rédigés » ou les anciennes V2/V3 dans GitHub.
+Les 29 brouillons sont déjà intégrés dans lila-contenus.html.
+
+MÉTHODE LA PLUS SIMPLE DANS GITHUB
+1. Ouvre le dépôt du site Li·La.
+2. À la racine, remplace les fichiers par ceux de ce pack en conservant exactement les mêmes noms.
+3. Fais un seul commit, par exemple :
+   Mise à jour atelier contenus — 29 brouillons
+4. Attends la mise à jour de GitHub Pages.
+5. Ouvre lila-contenus.html sur le site.
+6. Clique une seule fois sur « Compléter les brouillons manquants ».
+   - Cela conserve les contenus déjà commencés.
+   - Cela complète les cases encore vides avec les 29 brouillons.
+7. Vérifie ensuite lila-plan-communication.html : le calendrier lit les contenus depuis le même Google Sheet.
+
+FICHIER RÉELLEMENT MODIFIÉ
+- lila-contenus.html : 29 brouillons rédigés + travail Linda/Laurence + synchronisation Sheet.
+
+FICHIERS CONSERVÉS DE LA BASE CLAUDE
+- index.html
+- lila-cockpit.html
+- lila-plan-communication.html
+- lila-plan-operationnel.html
+- lila-plan-route-developpement.html
+- lila-business-plan.html
+- lila-charges.html
+- lila-veille-prospection.html
+- li-la-cockpit-backend.gs
+- README.md
+- logos et pictogramme
+
+IMPORTANT
+- Ne clique pas sur « Repartir des 29 brouillons » sauf si tu veux écraser les modifications en cours.
+- Le bouton conseillé pour la première installation est « Compléter les brouillons manquants ».
+- Le fichier lila-contenus-ORIGINAL-posts-rediges.html n'est pas à mettre sur GitHub : il a servi de source et son contenu utile est déjà intégré.
+- Aucun nouveau Google Sheet n'est nécessaire.
