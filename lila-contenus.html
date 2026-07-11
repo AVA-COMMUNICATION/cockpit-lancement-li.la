@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Li·La — Kit de contenus</title>
+<!-- Correctif dates Google Sheet : normalisation ISO vers AAAA-MM-JJ -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -178,7 +179,7 @@ async function loadFromSheet(){
         okL:c.valide_linda==="oui"||c.valide_linda===true,okA:c.valide_laurence==="oui"||c.valide_laurence===true},i);});
       if(DATA.length<DRAFTS.length){for(var di=DATA.length;di<DRAFTS.length;di++)DATA.push(mergeWithDraft({},di));}
       // dates -> sched local pour le calendrier
-      rows.forEach(function(c){if(c.date)setPieceDate(c.id,c.date);});
+      rows.forEach(function(c,i){if(c.date)setPieceDate(c.id,normalizeDate(c.date,CADENCE[i]||""));});
       try{localStorage.setItem("lila-contenus-v2",JSON.stringify(DATA));}catch(e){}
       render();
       pushContenus();
@@ -187,14 +188,33 @@ async function loadFromSheet(){
   }catch(e){setSyncBadge("err");}
 }
 const CADENCE=["2026-07-15","2026-07-16","2026-07-20","2026-07-22","2026-07-23","2026-07-27","2026-07-29","2026-07-30","2026-08-03","2026-08-05","2026-08-06","2026-08-10","2026-08-12","2026-08-13","2026-08-17","2026-08-19","2026-08-20","2026-08-24","2026-08-26","2026-08-27","2026-08-31","2026-09-02","2026-09-03","2026-09-07","2026-09-09","2026-09-10","2026-09-14","2026-09-16","2026-09-17"];
+function normalizeDate(val,fallback){
+  fallback=fallback||"";
+  if(val===null||val===undefined||val==="")return fallback;
+  const s=String(val).trim();
+  let m=s.match(/^(\d{4})-(\d{2})-(\d{2})/); // ISO Sheets : 2026-07-15T00:00:00.000Z
+  if(m)return `${m[1]}-${m[2]}-${m[3]}`;
+  m=s.match(/^(\d{1,2})[\/.\-](\d{1,2})[\/.\-](\d{4})$/); // 15/07/2026
+  if(m)return `${m[3]}-${String(m[2]).padStart(2,"0")}-${String(m[1]).padStart(2,"0")}`;
+  return fallback;
+}
 function readSched(){try{return JSON.parse(localStorage.getItem("lila-plancom-sched"))||{};}catch(e){return{};}}
-function pieceDate(id,idx){const m=readSched();return (m[id]&&m[id].d!==undefined)?m[id].d:(CADENCE[idx]||"");}
-function setPieceDate(id,val){const m=readSched();m[id]=Object.assign({},m[id],{d:val});try{localStorage.setItem("lila-plancom-sched",JSON.stringify(m));}catch(e){}}
+function pieceDate(id,idx){
+  const fallback=CADENCE[idx]||"";
+  const m=readSched();
+  const raw=(m[id]&&m[id].d!==undefined)?m[id].d:fallback;
+  return normalizeDate(raw,fallback);
+}
+function setPieceDate(id,val){
+  const m=readSched();
+  m[id]=Object.assign({},m[id],{d:normalizeDate(val,"")});
+  try{localStorage.setItem("lila-plancom-sched",JSON.stringify(m));}catch(e){}
+}
 function nid(){return 'k'+Math.random().toString(36).slice(2,9);}
 function ensureIds(){let ch=false;DATA.forEach(r=>{if(!r.id){r.id=nid();ch=true;}});if(ch)save();}
 function opt(list,sel){return list.map(v=>`<option${v===sel?" selected":""}>${v}</option>`).join("");}
 function esc(x){return (x||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/"/g,"&quot;");}
-function fmtDateCourte(iso){if(!iso)return "Date à fixer";const p=iso.split("-");const mois=["janv.","févr.","mars","avr.","mai","juin","juil.","août","sept.","oct.","nov.","déc."];return (+p[2])+" "+mois[(+p[1])-1]+" "+p[0];}
+function fmtDateCourte(iso){const d=normalizeDate(iso,"");if(!d)return "Date à fixer";const p=d.split("-");const mois=["janv.","févr.","mars","avr.","mai","juin","juil.","août","sept.","oct.","nov.","déc."];return (+p[2])+" "+mois[(+p[1])-1]+" "+p[0];}
 function headBadge(r){
   if(r.okL&&r.okA)return '<span class="badge b-ok">Validé par les deux</span>';
   if(r.okA)return '<span class="badge b-ok">Validé par Laurence</span>';
