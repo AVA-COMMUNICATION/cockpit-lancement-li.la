@@ -64,8 +64,11 @@ ul.tasks li::before{content:"";position:absolute;left:3px;top:11px;width:7px;hei
 ul.tasks li.chk::before{border-radius:50%;background:var(--sauge)}
 .livr{margin-top:14px;padding-top:12px;border-top:1px dashed var(--line);font:500 13.5px 'Inter';color:var(--encre)}
 .livr .lk{font:600 10.5px 'Inter';letter-spacing:.05em;text-transform:uppercase;color:var(--sauge);margin-right:8px}
+.gate{background:var(--card);border:2px solid var(--orange);border-radius:18px;padding:22px 24px;margin:28px 0}.gate h2{font:700 19px 'Poppins';margin:0 0 5px}.gate>p{font-size:13.5px;color:var(--encre-soft);margin:0 0 15px}.gategrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.gateitem{background:var(--orange-soft);border-radius:11px;padding:11px 13px;font-size:13px}.gateitem b{display:block;font:600 11px 'Inter';text-transform:uppercase;letter-spacing:.04em;color:var(--gris);margin-bottom:2px}.godecision{margin-top:14px;background:var(--encre);color:#fff;border-radius:12px;padding:14px 16px;font-size:13.5px}.godecision b{font-family:'Poppins'}
+.retours{background:var(--lavande-soft);border:1px solid rgba(169,150,184,.45);border-radius:18px;padding:22px 24px;margin:20px 0}.retours h2{font:700 18px 'Poppins';margin:0 0 12px}.retour{background:#fff;border-radius:11px;padding:12px 14px;margin-top:8px;font-size:13px;color:var(--encre-soft)}.retour b{color:var(--encre)}
+.roadmap{margin-top:38px}.roadmap>h2{font:700 23px 'Poppins';margin:0 0 4px}.roadmap>p{color:var(--gris);font-size:14px;margin:0 0 16px}.roadgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.roadperiod{background:#fff;border:1px solid var(--line);border-radius:15px;padding:17px 19px}.roadperiod h3{font:650 16px 'Poppins';margin:0 0 8px}.roadperiod ul{margin:0;padding-left:18px}.roadperiod li{font-size:13px;color:var(--encre-soft);padding:3px 0}.roadperiod.focus{border-color:var(--orange)}
 .foot{text-align:center;color:var(--gris);font:500 12px 'Inter';padding:40px 0 0}
-@media(max-width:640px){.mbody{grid-template-columns:1fr;gap:12px}.mh{flex-wrap:wrap}.mtime{text-align:left}}
+@media(max-width:640px){.mbody,.gategrid,.roadgrid{grid-template-columns:1fr;gap:12px}.mh{flex-wrap:wrap}.mtime{text-align:left}}
 </style></head>
 <body>
 <div class="top"><img src="./lila-logo.png" alt="Li·La"><a class="bk" href="lila-cockpit.html">← Cockpit</a></div>
@@ -86,6 +89,28 @@ ul.tasks li.chk::before{border-radius:50%;background:var(--sauge)}
       <span class="fin">C10</span>
     </div>
     <div class="cnote"><b>C1 → C2 → C3 doivent se faire dans cet ordre</b> (chacune a besoin de la précédente). Ensuite, le groupe vert (Hub, Office, Carnet, Gratuits, Stripe) peut se faire <b>dans l'ordre que tu veux</b> — ils ne dépendent plus que de C3. <b>C10 (mise en ligne) vient en dernier</b>, quand tout est prêt.</div>
+  </div>
+
+  <div class="retours">
+    <h2>Décisions intégrées — retours validés de Linda</h2>
+    <div class="retour"><b>Plan de communication — retour : validé.</b><br>Décision : conserver le plan de communication sans modification globale.</div>
+    <div class="retour"><b>Jalons jusqu'au 18 août — retour : validés.</b><br>Décision : conserver le calendrier et le déroulé.</div>
+    <div class="retour"><b>Stabilisation du produit — retour : elle doit être suffisante avant le 18 août.</b><br>Décision : le périmètre vendu doit être testé et stable avant la commercialisation.</div>
+    <div class="retour"><b>Tarifs — retour : ils doivent être prêts avant le 18 août.</b><br>Décision : verrouiller les offres et les tarifs avant la vente.</div>
+    <div class="retour"><b>CGV, contrats, comptes et paiement — retour : obligatoires avant commercialisation.</b><br>Décision : ces éléments sont bloquants pour le go / no-go.</div>
+    <div class="retour"><b>Septembre — retour : organiser une visio commune récurrente.</b><br>Décision : intégrer cette action au plan après lancement.</div>
+  </div>
+
+  <div class="gate">
+    <h2>Prérequis obligatoires avant la commercialisation</h2>
+    <p>Ces échéances complètent le plan détaillé ci-dessous. Elles ne remplacent aucune mission existante : elles fixent les preuves attendues avant l'ouverture des ventes. Repères produit : autour du 20 juillet, ouverture du Hub Li.La by La Maison d'AVA au premier cercle ; au 31 juillet, Office et Carnet accessibles au premier cercle testeur ; le 18 août, ouverture commerciale de l'application Li.La générique aux professionnels extérieurs.</p>
+    <div class="gategrid">
+      <div class="gateitem"><b>31 juillet · Linda + Laurence</b>Périmètre exact de Li.La Essentiel, périmètre des offres complémentaires et tarifs définitivement verrouillés.</div>
+      <div class="gateitem"><b>7 août · Linda + Laurence</b>CGV, contrat, politique de confidentialité, cadre RGPD, support, page de vente et démonstration prêts.</div>
+      <div class="gateitem"><b>12 août · Laurence, avec validation commune</b>Paiement, facturation, compte client, souscription et onboarding testés de bout en bout.</div>
+      <div class="gateitem"><b>14 août · Laurence</b>Périmètre vendu stable, recette terminée et absence de bug bloquant.</div>
+    </div>
+    <div class="godecision"><b>15 août — GO / NO-GO Linda + Laurence.</b> La commercialisation du 18 août est autorisée uniquement si les éléments bloquants sont validés. Toute fonction non stable sort du périmètre vendu ou entraîne un no-go.</div>
   </div>
 
   <div class="phase seq">
@@ -120,12 +145,12 @@ ul.tasks li.chk::before{border-radius:50%;background:var(--sauge)}
     <div class="mission" id="m-C3">
       <div class="mh">
         <span class="mno">03</span>
-        <div class="mt"><span class="mcode">C3</span><h3>Identification & accès par forfait</h3><div class="msub">Accès par mail, déblocage selon Essentiel / Pro / Business</div></div>
+        <div class="mt"><span class="mcode">C3</span><h3>Identification & accès par forfait</h3><div class="msub">Accès distincts : Hub réservé aux membres AVA et abonnements de l'application Li.La générique</div></div>
         <div class="mtime"><b>2 à 3 h</b><span>1-2 session(s)</span></div>
       </div>
       <div class="before"><span class="bl">À faire avant</span> <span class="deppill">C1</span> <span class="deppill">C2</span><span class="why">L'accès s'appuie sur les membres (C1) et doit pouvoir ouvrir/fermer l'IA (C2).</span></div>
       <div class="mbody">
-        <div class="col"><div class="cl">Ce qu'il y a à faire</div><ul class="tasks"><li>Identification par adresse mail</li><li>Interface verrouillée pour les non-abonnés</li><li>Vitrines « factices » des modules non souscrits</li><li>Déblocage conditionnel selon le forfait (Essentiel/Pro/Business)</li></ul></div>
+        <div class="col"><div class="cl">Ce qu'il y a à faire</div><ul class="tasks"><li>Identification par adresse mail</li><li>Interface verrouillée pour les non-abonnés</li><li>Vitrines « factices » des modules non souscrits</li><li>Déblocage conditionnel selon l'accès souscrit ; l'adhésion AVA n'active pas automatiquement Essentiel</li></ul></div>
         <div class="col"><div class="cl">On vérifie que</div><ul class="tasks"><li class="chk">Un non-abonné voit la vitrine sans accéder au contenu</li><li class="chk">Le déblocage suit bien le forfait payé</li></ul></div>
       </div>
       <div class="livr"><span class="lk">Quand c'est fini</span> Chaque membre entre avec son mail et ne voit que ce qu'il a payé.</div>
@@ -176,7 +201,7 @@ ul.tasks li.chk::before{border-radius:50%;background:var(--sauge)}
     <div class="mission" id="m-GRAT">
       <div class="mh">
         <span class="mno">07</span>
-        <div class="mt"><span class="mcode">GRAT</span><h3>Modules gratuits AVA</h3><div class="msub">Mémo vocal · Veille ALUR · Éducation IA (inclus adhésion)</div></div>
+        <div class="mt"><span class="mcode">GRAT</span><h3>Modules du Hub AVA</h3><div class="msub">Mémo vocal · Veille ALUR · Éducation IA réservés aux membres ; Essentiel reste un accès indépendant</div></div>
         <div class="mtime"><b>2 h</b><span>1-2 session(s)</span></div>
       </div>
       <div class="before"><span class="bl">À faire avant</span> <span class="deppill">C1</span> <span class="deppill">C3</span><span class="why">Contenus stockés dans la base (C1), réservés aux adhérents AVA (C3).</span></div>
@@ -194,8 +219,8 @@ ul.tasks li.chk::before{border-radius:50%;background:var(--sauge)}
       </div>
       <div class="before"><span class="bl">À faire avant</span> <span class="deppill">C3</span><span class="why">Le paiement doit pouvoir débloquer le bon forfait (C3).</span></div>
       <div class="mbody">
-        <div class="col"><div class="cl">Ce qu'il y a à faire</div><ul class="tasks"><li>Créer le produit Stripe « Essentiel 19€/mois » (compte Linda existant)</li><li>Page de souscription + déblocage à l'achat</li><li>Webhook → activation du forfait + quota</li><li>Bascule des membres AVA au réabonnement</li></ul></div>
-        <div class="col"><div class="cl">On vérifie que</div><ul class="tasks"><li class="chk">Un encaissement test réel passe</li><li class="chk">Le forfait + le quota s'activent automatiquement</li></ul></div>
+        <div class="col"><div class="cl">Ce qu'il y a à faire</div><ul class="tasks"><li>Créer le produit Stripe « Essentiel 19€/mois » (compte Linda existant)</li><li>Page de souscription + déblocage à l'achat</li><li>Webhook → activation du forfait + quota</li><li>Proposer Li.La Essentiel séparément aux membres AVA, sans activation automatique liée à l'adhésion</li><li>Configurer et vérifier la facturation liée au paiement</li><li>Tester la création du compte client et le parcours complet de souscription avant le 12 août</li></ul></div>
+        <div class="col"><div class="cl">On vérifie que</div><ul class="tasks"><li class="chk">Un encaissement test réel passe</li><li class="chk">Le forfait + le quota s'activent automatiquement</li><li class="chk">La facture attendue est émise et contrôlée</li><li class="chk">Le compte client accède uniquement à l'offre souscrite</li></ul></div>
       </div>
       <div class="livr"><span class="lk">Quand c'est fini</span> On encaisse l'Essentiel 19€ et l'accès s'ouvre tout seul.</div>
     </div>
@@ -206,24 +231,24 @@ ul.tasks li.chk::before{border-radius:50%;background:var(--sauge)}
     <div class="mission" id="m-C10">
       <div class="mh">
         <span class="mno">09</span>
-        <div class="mt"><span class="mcode">C10</span><h3>Mise en ligne & RGPD</h3><div class="msub">Déploiement, installation, conformité — LIVE 31 juillet</div></div>
+        <div class="mt"><span class="mcode">C10</span><h3>Mise en ligne & RGPD</h3><div class="msub">Déploiement, installation, conformité — Office et Carnet accessibles au premier cercle testeur le 31 juillet</div></div>
         <div class="mtime"><b>2 à 3 h</b><span>1 + tests session(s)</span></div>
       </div>
       <div class="before"><span class="bl">À faire avant</span> <span class="deppill">HUB</span> <span class="deppill">C4</span> <span class="deppill">C5</span> <span class="deppill">GRAT</span> <span class="deppill">C9</span><span class="why">On ne met en ligne qu'une fois tous les modules prêts et testés.</span></div>
       <div class="mbody">
-        <div class="col"><div class="cl">Ce qu'il y a à faire</div><ul class="tasks"><li>Coque Li·La réunissant les modules</li><li>PWA (manifest, sw, bannière d'installation)</li><li>Déploiement Netlify + nom de domaine</li><li>RGPD (mentions, CGV, registre)</li><li>Guide d'installation membre (Office + accès)</li></ul></div>
-        <div class="col"><div class="cl">On vérifie que</div><ul class="tasks"><li class="chk">Installable sur mobile + hors-ligne basique</li><li class="chk">Documents RGPD en ligne</li><li class="chk">Un membre s'installe de bout en bout avec le guide</li></ul></div>
+        <div class="col"><div class="cl">Ce qu'il y a à faire</div><ul class="tasks"><li>Coque Li·La réunissant les modules</li><li>PWA (manifest, sw, bannière d'installation)</li><li>Déploiement Netlify + nom de domaine</li><li>RGPD (mentions, CGV, registre)</li><li>Guide d'installation membre (Office + accès)</li><li>Finaliser le contrat et la politique de confidentialité</li><li>Préparer le support, la page de vente et le scénario de démonstration</li><li>Faire tester l'onboarding complet avant le 12 août</li></ul></div>
+        <div class="col"><div class="cl">On vérifie que</div><ul class="tasks"><li class="chk">Installable sur mobile + hors-ligne basique</li><li class="chk">Documents RGPD en ligne</li><li class="chk">Un membre s'installe de bout en bout avec le guide</li><li class="chk">CGV, contrat et politique de confidentialité sont prêts avant le 7 août</li><li class="chk">La page de vente et la démonstration utilisent le périmètre et les tarifs validés</li><li class="chk">Le canal et la procédure de support sont définis</li></ul></div>
       </div>
       <div class="livr"><span class="lk">Quand c'est fini</span> Li·La est en ligne, installable, avec les documents légaux.</div>
     </div>
     </div>
   <div class="phase aout">
-      <div class="ph"><h2>④ Août — la montée en gamme</h2><p>Après le lancement du 31 juillet. Dépendent du proxy (C2) et des accès (C3).</p></div>
+      <div class="ph"><h2>④ Avant le 18 août — stabiliser la montée en gamme</h2><p>Com' et Studio+ ne sont commercialisés le 18 août que s'ils sont inclus dans le périmètre vendu validé, testés et stables au 14 août. Ils dépendent du proxy (C2) et des accès (C3).</p></div>
       
     <div class="mission" id="m-C6">
       <div class="mh">
         <span class="mno">10</span>
-        <div class="mt"><span class="mcode">C6</span><h3>Li·La Com'</h3><div class="msub">Création de contenu réseaux sociaux (Pro 39€) — mi-août</div></div>
+        <div class="mt"><span class="mcode">C6</span><h3>Li·La Com'</h3><div class="msub">Création de contenu réseaux sociaux — niveau 39€ hypothétique, à tester et stabiliser au plus tard le 14 août s'il est retenu pour le 18</div></div>
         <div class="mtime"><b>2 à 3 h</b><span>2 session(s)</span></div>
       </div>
       <div class="before"><span class="bl">À faire avant</span> <span class="deppill">C2</span> <span class="deppill">C3</span><span class="why">Génération via le proxy IA (C2), réservée au forfait Pro (C3).</span></div>
@@ -236,7 +261,7 @@ ul.tasks li.chk::before{border-radius:50%;background:var(--sauge)}
     <div class="mission" id="m-C7">
       <div class="mh">
         <span class="mno">11</span>
-        <div class="mt"><span class="mcode">C7</span><h3>Li·La Studio+</h3><div class="msub">Visuels avancés, prompts archi/BTP (Business 59€) — mi-août</div></div>
+        <div class="mt"><span class="mcode">C7</span><h3>Li·La Studio+</h3><div class="msub">Visuels avancés, prompts archi/BTP — niveau 59€ hypothétique, à tester et stabiliser au plus tard le 14 août s'il est retenu pour le 18</div></div>
         <div class="mtime"><b>2 à 3 h</b><span>2 session(s)</span></div>
       </div>
       <div class="before"><span class="bl">À faire avant</span> <span class="deppill">C2</span> <span class="deppill">C3</span><span class="why">Traitement d'image via le proxy (C2), réservé au forfait Business (C3).</span></div>
@@ -248,6 +273,31 @@ ul.tasks li.chk::before{border-radius:50%;background:var(--sauge)}
     </div>
     </div>
 
-  <div class="foot">Li·La — plan de développement opérationnel · document de travail Laurence · 8 juillet 2026</div>
+  <section class="roadmap">
+    <h2>⑤ Feuille de route après le 18 août</h2>
+    <p>Les prérequis de vente restent avant le lancement. La période suivante est consacrée à l'installation, au retour terrain, à l'amélioration et à la validation du modèle commercial.</p>
+    <div class="roadgrid">
+      <div class="roadperiod focus"><h3>18 au 31 août</h3><ul>
+        <li>Premières installations</li><li>Accompagnement rapproché</li><li>Correction des incidents</li><li>Mesure du temps d'installation</li><li>Suivi du support</li><li>Contrôle du coût IA</li><li>Collecte des premières objections</li>
+      </ul></div>
+      <div class="roadperiod"><h3>Septembre</h3><ul>
+        <li>Visio commune récurrente Linda + Laurence</li><li>Démonstration Li.La</li><li>Présentation distincte de Li.La by La Maison d'AVA</li><li>FAQ</li><li>Réponses aux objections</li><li>Premiers témoignages validés</li><li>Optimisation du tunnel de vente</li><li>Amélioration de l'onboarding</li>
+      </ul></div>
+      <div class="roadperiod"><h3>Octobre</h3><ul>
+        <li>Acquisition régulière</li><li>Cas client</li><li>Recommandation et partenariats</li><li>Amélioration de l'assistant d'installation</li><li>Analyse des conversions par offre</li>
+      </ul></div>
+      <div class="roadperiod"><h3>Novembre</h3><ul>
+        <li>Industrialisation de l'installation</li><li>Standardisation du support</li><li>Contrôle des droits Google</li><li>Suivi des quotas et coûts API</li><li>Procédures de sécurité et de reprise</li>
+      </ul></div>
+      <div class="roadperiod"><h3>Décembre</h3><ul>
+        <li>Marge réelle</li><li>Coût du support</li><li>Coût IA par offre</li><li>Taux de conversion</li><li>Taux de résiliation</li><li>Modules réellement utilisés et décisions de maintien, modification ou suppression</li>
+      </ul></div>
+      <div class="roadperiod"><h3>Janvier à mars 2027</h3><ul>
+        <li>Duplication pour de nouveaux profils immobiliers</li><li>Amélioration de la PWA</li><li>Onboarding plus autonome</li><li>Partenariats</li><li>Nouveaux cas clients</li><li>Pas de priorité App Store ou Google Play tant que le modèle commercial n'est pas validé</li>
+      </ul></div>
+    </div>
+  </section>
+
+  <div class="foot">Li·La — plan de développement opérationnel · document de travail Laurence · mis à jour le 16 juillet 2026</div>
 </div>
 </body></html>

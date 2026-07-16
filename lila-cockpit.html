@@ -372,6 +372,21 @@ body.sbopen .sbov{opacity:1;pointer-events:auto}
 
 .sbhead .lgimg{height:30px;width:auto;display:block;margin:0 0 2px}
 
+/* ==== PILOTAGE OPÉRATIONNEL — même charte, hiérarchie simplifiée ==== */
+.ops{display:flex;flex-direction:column;gap:18px}.ops h1{font:700 28px 'Poppins';margin:0}.opslead{color:var(--gris);font-size:14px;margin:-10px 0 0}
+.opshero{display:grid;grid-template-columns:1.5fr .8fr;gap:16px;background:var(--navy);color:#fff;border-radius:18px;padding:24px}
+.opshero .k{font:600 11px 'Inter';letter-spacing:.12em;text-transform:uppercase;opacity:.65}.opshero h2{font:700 25px 'Poppins';line-height:1.15;margin:7px 0}.opshero p{margin:0;color:rgba(255,255,255,.72);font-size:13.5px}.opsgo{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:14px;padding:17px}.opsgo b{display:block;font:700 19px 'Poppins';margin:5px 0}.opsgo span{font-size:12px;opacity:.76}
+.opsstats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.opsstat{background:#fff;border:1px solid var(--border);border-radius:14px;padding:16px;cursor:pointer}.opsstat:hover{border-color:var(--lavande)}.opsstat .n{font:700 25px 'Poppins';display:block}.opsstat .l{font-size:12px;color:var(--gris)}.opsstat.alert .n{color:var(--orange)}
+.opsprogress{height:7px;border-radius:8px;background:#F1ECF4;overflow:hidden;margin-top:9px}.opsprogress i{display:block;height:100%;background:var(--sauge);border-radius:8px}
+.opsgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.opsummary{background:#fff;border:1px solid var(--border);border-radius:16px;padding:18px;cursor:pointer}.opsummary:hover{border-color:var(--lavande);box-shadow:0 5px 18px rgba(12,34,65,.06)}.opsummary h3{font:650 17px 'Poppins';margin:0 0 5px}.opsummary p{font-size:13px;color:var(--gris);margin:0 0 12px}.opmeta{display:grid;gap:6px;font-size:12.5px}.opmeta span{display:flex;gap:6px}.opmeta b{color:var(--navy)}
+.opperiod{background:#fff;border:1px solid var(--border);border-radius:16px;overflow:hidden}.opperiod[open]{border-color:var(--lavande)}.opperiod summary{list-style:none;cursor:pointer;padding:18px 20px;display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center}.opperiod summary::-webkit-details-marker{display:none}.opperiod summary h2{font:650 18px 'Poppins';margin:0}.opperiod summary p{margin:3px 0 0;color:var(--gris);font-size:12.5px}.opperiod summary .count{font:700 12px 'Poppins';background:#F1ECF4;padding:6px 9px;border-radius:9px}.oprows{border-top:1px solid var(--border)}
+.oprow{padding:16px 20px;border-bottom:1px solid var(--border)}.oprow:last-child{border-bottom:0}.oprowhead{display:flex;gap:10px;align-items:flex-start}.oprowhead h3{font:600 15px 'Poppins';margin:1px 0;flex:1}.opid{font:700 9.5px 'Poppins';letter-spacing:.05em;color:var(--gris);background:var(--creme);border-radius:6px;padding:4px 6px}.opfields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px 18px;margin-top:12px}.opfield{font-size:12.5px;color:var(--gris)}.opfield b{display:block;font:600 10px 'Inter';letter-spacing:.04em;text-transform:uppercase;color:var(--gris);margin-bottom:2px}.opfield.full{grid-column:1/-1}.opraw{background:#F1ECF4;padding:9px 11px;border-radius:9px}.opdecision{background:#EDF2EA;padding:9px 11px;border-radius:9px}
+.opstatus{border:0;border-radius:20px;padding:6px 10px;font:700 10.5px 'Inter';cursor:pointer;white-space:nowrap}.opstatus.a_faire{background:#F1EEF2;color:var(--gris)}.opstatus.en_cours{background:#FCEEE4;color:#A54C20}.opstatus.fait,.opstatus.valide{background:#EDF2EA;color:#4E6B43}.opstatus.bloque{background:#FCE8E5;color:#A73E34}
+.opsdocs{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.opsdoc{display:flex;flex-direction:column;gap:4px;background:#fff;border:1px solid var(--border);border-radius:14px;padding:16px;color:var(--navy);text-decoration:none;cursor:pointer;text-align:left}.opsdoc:hover{border-color:var(--lavande)}.opsdoc b{font:600 14px 'Poppins'}.opsdoc span{font-size:12px;color:var(--gris)}button.opsdoc{font-family:inherit}
+.opsnote{background:#EDF2EA;border:1px solid rgba(154,173,143,.35);border-radius:13px;padding:13px 15px;font-size:12.5px;color:var(--gris)}
+@media(max-width:850px){.opshero,.opsgrid{grid-template-columns:1fr}.opsstats{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.opsstats,.opsdocs,.opfields{grid-template-columns:1fr}.opfield.full{grid-column:auto}.oprowhead{flex-wrap:wrap}.opstatus{margin-left:auto}}
+
 </style>
 </head>
 <body>
@@ -381,19 +396,14 @@ body.sbopen .sbov{opacity:1;pointer-events:auto}
     <div class="lg"><img class="lgimg" src="./lila-logo.png" alt="Li·La"><small>Pilotage projet</small></div>
   </div>
   <nav class="sbnav">
-    <div class="sbk">Accueil</div>
-    <a href="lila-cockpit.html" class="active"><svg class="si" viewBox="0 0 24 24"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M9 20v-6h6v6"/></svg><span>Cockpit de pilotage</span></a>
-
-    <div class="sbk">Dossiers du projet</div>
-    <a href="lila-plan-route-developpement.html"><svg class="si" viewBox="0 0 24 24"><circle cx="6" cy="19" r="2.4"/><circle cx="18" cy="5" r="2.4"/><path d="M8 19h6a3 3 0 0 0 3-3V8M16 5h-6a3 3 0 0 0-3 3v6"/></svg><span>Plan de route — dev</span><span class="sx">10 modules</span></a>
-    <a href="lila-plan-operationnel.html"><svg class="si" viewBox="0 0 24 24"><path d="M9 11l3 3 8-8"/><path d="M20 12v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h9"/></svg><span>Plan opérationnel</span><span class="sx">à suivre</span></a>
-    <a href="lila-business-plan.html"><svg class="si" viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><span>Business plan</span></a>
-    <a href="lila-veille-prospection.html"><svg class="si" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg><span>Veille &amp; prospection</span></a>
-    <a href="lila-plan-communication.html"><svg class="si" viewBox="0 0 24 24"><path d="M3 11v2a1 1 0 0 0 1 1h3l5 4V6L7 10H4a1 1 0 0 0-1 1z"/><path d="M16 9a4 4 0 0 1 0 6"/></svg><span>Plan de communication</span><span class="sx">29 posts</span></a>
-    <a href="lila-contenus.html"><svg class="si" viewBox="0 0 24 24"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/></svg><span>Kit de contenus</span><span class="sx">29 posts</span></a>
-    <a href="lila-charges.html"><svg class="si" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M14.5 9.4a3 3 0 0 0-4 .2M9.5 11h4M9.5 13.2h4"/></svg><span>Charges &amp; économie</span><span class="sx">à remplir</span></a>
+    <div class="sbk">Pilotage opérationnel</div>
+    <a href="#vue-ensemble" class="active" data-navview="dash"><svg class="si" viewBox="0 0 24 24"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M9 20v-6h6v6"/></svg><span>Vue d’ensemble</span></a>
+    <a href="#avant-18-aout" data-navview="avant"><svg class="si" viewBox="0 0 24 24"><path d="M12 3v18M3 12h18"/></svg><span>Avant le 18 août</span><span class="sx">15 bloquants</span></a>
+    <a href="#apres-18-aout" data-navview="apres"><svg class="si" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>Après le 18 août</span><span class="sx">37 actions</span></a>
+    <a href="#decisions-retours" data-navview="decisions"><svg class="si" viewBox="0 0 24 24"><path d="M5 12l4 4L19 6"/></svg><span>Décisions et retours</span><span class="sx">6 décisions</span></a>
+    <a href="#documents" data-navview="documents"><svg class="si" viewBox="0 0 24 24"><path d="M6 3h9l3 3v15H6z"/><path d="M9 11h6M9 15h6"/></svg><span>Documents</span></a>
   </nav>
-  <div class="sbfoot"><a href="index.html" style="color:inherit;text-decoration:underline">Version mobile ↗</a><br>Lancement 18 août · Événement 17 sept. 2026</div>
+  <div class="sbfoot"><a href="index.html" style="color:inherit;text-decoration:underline">Version mobile ↗</a><br>Go / no-go 15 août · Commercialisation 18 août 2026</div>
 </aside>
 <div class="sbov" id="sbov"></div>
 <div id="toast" class="toast"></div>
@@ -422,12 +432,10 @@ body.sbopen .sbov{opacity:1;pointer-events:auto}
 <div class="controls">
   <div class="tabs" id="tabs">
     <button class="tab active" data-v="dash">Vue d'ensemble</button>
-    <button class="tab" data-v="planning">Planning</button>
-    <button class="tab" data-v="technique">Développement</button>
-    <button class="tab" data-v="plan">Business plan</button>
-    <button class="tab" data-v="business">Prospection &amp; veille</button>
-    <button class="tab" data-v="com">Plan de com</button>
-    <button class="tab" data-v="reperes">Repères</button>
+    <button class="tab" data-v="avant">Avant le 18 août</button>
+    <button class="tab" data-v="apres">Après le 18 août</button>
+    <button class="tab" data-v="decisions">Décisions et retours</button>
+    <button class="tab" data-v="documents">Documents</button>
   </div>
   <div class="filters" id="filters">
     <span class="lbl">Qui :</span>
@@ -439,19 +447,19 @@ body.sbopen .sbov{opacity:1;pointer-events:auto}
 </div>
 
 <div class="legend">
-  <span class="freeorder">Ordre libre — avance dans le module que tu veux, seul l'avancement avant le 18 août compte</span>
+  <span class="freeorder">Priorité — lever les bloquants avant la décision go / no-go du 15 août</span>
   <span><i class="lg-av"></i> À venir</span>
   <span><i class="lg-en"></i> En cours</span>
   <span><i class="lg-fa"></i> Terminé</span>
   <span><i class="lg-bl"></i> Bloqué</span>
-  <span style="margin-left:auto">Clique un point pour changer le statut</span>
+  <span style="margin-left:auto">Clique un statut pour le mettre à jour</span>
 </div>
 
 <div class="shell">
   <main id="app"></main>
   <aside class="rail" id="rail"></aside>
 </div>
-<div class="foot">Li·La · Cockpit interne — Laurence &amp; Linda · Google Sheets · 31 juil. mise à disposition · 18 août lancement public · 17 sept. événement</div>
+<div class="foot">Li·La · Cockpit interne — Laurence &amp; Linda · Google Sheets · 15 août go / no-go · 18 août commercialisation si go</div>
 
 <div class="drawer-ov" id="drawerOv"></div>
 <aside class="drawer" id="drawer"></aside>
@@ -500,10 +508,16 @@ const store={get(k){try{return JSON.parse(localStorage.getItem(k))}catch(e){retu
              set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
 
 const api={
+  lastLoadOk:false,
+  lastPilotageLoadOk:false,
   async load(){
+    this.lastLoadOk=false;
     if(!BACKEND_URL) return store.get('lila-cockpit')||{};
     try{const r=await fetch(BACKEND_URL+'?action=load');const j=await r.json();
-        const s=j.statuts||{};store.set('lila-cockpit',s);return s;}
+        if(r.ok&&j&&j.ok===true&&j.statuts&&typeof j.statuts==='object'){
+          this.lastLoadOk=true;const s=j.statuts;store.set('lila-cockpit',s);return s;
+        }
+        console.warn('Réponse back-end invalide pour les statuts',j);return store.get('lila-cockpit')||{};}
     catch(e){console.warn('Back-end injoignable, mode local',e);return store.get('lila-cockpit')||{};}
   },
   async save(id,statut,full){
@@ -515,10 +529,109 @@ const api={
     try{await fetch(BACKEND_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},
         body:JSON.stringify({id:mid,statut:statut})});}
     catch(e){console.warn('Sauvegarde module échouée',e);}
+  },
+  async loadPilotage(){
+    this.lastPilotageLoadOk=false;
+    const local=store.get('lila-pilotage-statuts')||{};
+    if(BACKEND_URL){
+      try{const r=await fetch(BACKEND_URL+'?action=pilotage');const j=await r.json();
+          if(r.ok&&j&&j.ok===true&&Array.isArray(j.pilotage)){
+            this.lastPilotageLoadOk=true;
+            if(j.pilotage.length)return j.pilotage;
+          }else console.warn('Réponse back-end invalide pour le pilotage',j);}
+      catch(e){console.warn('Pilotage partagé indisponible, données locales utilisées',e);}
+    }
+    return OPDATA.map(o=>Object.assign({},o,{statut:local[o.pilotage_id]||o.statut}));
+  },
+  async savePilotageStatut(id,statut){
+    const local=store.get('lila-pilotage-statuts')||{};local[id]=statut;store.set('lila-pilotage-statuts',local);
+    if(!BACKEND_URL)return {ok:false,local:true,error:'Aucun back-end configuré'};
+    try{const r=await fetch(BACKEND_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},
+        body:JSON.stringify({type:'pilotage_statut',id:id,statut:statut})});
+        const j=await r.json();
+        if(!r.ok||!j||j.ok!==true){
+          const erreur=j&&j.error?j.error:'réponse invalide du back-end';
+          console.warn('Statut conservé uniquement en local',erreur);return {ok:false,local:true,error:erreur};
+        }
+        return {ok:true,local:false};}
+    catch(e){console.warn('Statut conservé uniquement en local',e);return {ok:false,local:true,error:String(e)};}
   }
 };
 
-/* ====================== LE PLAN ====================== */
+/* ====================== PILOTAGE OPÉRATIONNEL ====================== */
+function op(pilotage_id,type,periode,titre,statut,responsable,echeance,blocage,prochaine_action,retour_brut,decision){
+  return {pilotage_id,type,periode,titre,statut,responsable,echeance,blocage,prochaine_action,retour_brut:retour_brut||"",decision:decision||""};
+}
+const OPDATA=[
+  op("BLOC-001","bloquant","Avant le 18 août","Périmètre exact de Li.La Essentiel","a_faire","Linda + Laurence","2026-07-31","Fonctions incluses et exclues non encore formalisées","Valider une fiche de périmètre Essentiel unique"),
+  op("BLOC-002","bloquant","Avant le 18 août","Périmètre des offres complémentaires","a_faire","Linda + Laurence","2026-07-31","Frontières entre les offres à verrouiller","Valider la matrice des fonctions par offre"),
+  op("BLOC-003","bloquant","Avant le 18 août","Validation définitive des tarifs","a_faire","Linda + Laurence","2026-07-31","Arbitrage final des prix et options","Signer la grille tarifaire définitive"),
+  op("BLOC-004","bloquant","Avant le 18 août","CGV prêtes","a_faire","Linda + Laurence","2026-08-07","Version juridiquement exploitable à finaliser","Valider la version prête à publier des CGV"),
+  op("BLOC-005","bloquant","Avant le 18 août","Contrat prêt","a_faire","Linda + Laurence","2026-08-07","Clauses et circuit de signature à confirmer","Valider le contrat et son mode de signature"),
+  op("BLOC-006","bloquant","Avant le 18 août","Politique de confidentialité et informations RGPD prêtes","a_faire","Linda + Laurence","2026-08-07","Informations de traitement et responsabilités à consolider","Valider les textes de confidentialité et le cadre RGPD"),
+  op("BLOC-007","bloquant","Avant le 18 août","Paiement et facturation testés","a_faire","Laurence","2026-08-12","Parcours réel de paiement et de facturation non validé de bout en bout","Réaliser un paiement test avec facture vérifiée"),
+  op("BLOC-008","bloquant","Avant le 18 août","Compte client et souscription testés","a_faire","Laurence","2026-08-12","Activation et droits après souscription à confirmer","Tester la création de compte jusqu'à l'accès à l'offre"),
+  op("BLOC-009","bloquant","Avant le 18 août","Onboarding testé","a_faire","Linda + Laurence","2026-08-12","Parcours d'installation complet non validé par un cas réel","Faire exécuter l'onboarding complet par une testeuse"),
+  op("BLOC-010","bloquant","Avant le 18 août","Support défini","a_faire","Linda + Laurence","2026-08-07","Canal, délai de réponse et responsabilités à formaliser","Valider la procédure de support de premier niveau"),
+  op("BLOC-011","bloquant","Avant le 18 août","Fonctions vendues stables","a_faire","Laurence","2026-08-14","Le périmètre vendu doit passer tous les tests critiques","Exécuter la recette finale du périmètre vendu"),
+  op("BLOC-012","bloquant","Avant le 18 août","Absence de bug bloquant","a_faire","Laurence","2026-08-14","Tout incident empêchant achat, accès ou usage bloque le lancement","Clore ou contourner chaque bug classé bloquant"),
+  op("BLOC-013","bloquant","Avant le 18 août","Page de vente prête","a_faire","Linda","2026-08-07","Promesse, offres, tarifs et appels à l'action à aligner","Valider la page de vente avec les offres définitives"),
+  op("BLOC-014","bloquant","Avant le 18 août","Démonstration prête","a_faire","Linda + Laurence","2026-08-07","Scénario de démonstration et environnement stable à confirmer","Répéter une démonstration complète chronométrée"),
+  op("BLOC-015","bloquant","Avant le 18 août","Décision go / no-go le 15 août","a_faire","Linda + Laurence","2026-08-15","La commercialisation reste interdite si un bloquant critique est ouvert","Tenir la revue go / no-go et consigner la décision"),
+
+  op("DEC-001","decision_retour","Décisions et retours","Plan de communication","valide","Linda + Laurence","2026-07-16","Aucun blocage signalé","Contrôler l'exécution du calendrier validé","Validé.","Conserver sans modification globale."),
+  op("DEC-002","decision_retour","Décisions et retours","Jalons jusqu'au 18 août","valide","Linda + Laurence","2026-07-16","Aucun blocage signalé","Reporter les jalons validés dans le pilotage opérationnel","Validés.","Conserver le calendrier et le déroulé."),
+  op("DEC-003","decision_retour","Décisions et retours","Stabilisation du produit","en_cours","Laurence","2026-08-14","Recette complète du périmètre vendu à terminer","Piloter la recette finale jusqu'à zéro bug bloquant","Doit être suffisante avant le 18 août.","Le périmètre vendu doit être testé et stable avant la commercialisation."),
+  op("DEC-004","decision_retour","Décisions et retours","Tarifs","a_faire","Linda + Laurence","2026-07-31","Grille définitive non signée","Valider ensemble la grille offres et tarifs","Doivent être prêts avant le 18 août.","Verrouiller les offres et tarifs avant la vente."),
+  op("DEC-005","decision_retour","Décisions et retours","CGV, contrats, comptes et paiement","a_faire","Linda + Laurence","2026-08-12","Plusieurs prérequis juridiques et techniques restent à valider","Réunir les preuves de validation pour la revue go / no-go","Obligatoires avant commercialisation.","Éléments bloquants pour le go / no-go."),
+  op("DEC-006","decision_retour","Décisions et retours","Septembre","a_faire","Linda + Laurence","2026-09-01","Créneau et fréquence non définis","Fixer le créneau récurrent Linda + Laurence","Organiser une visio commune récurrente.","Intégrer cette action au plan après lancement."),
+
+  op("POST-202608-001","action_post_lancement","18 au 31 août","Premières installations","a_faire","Laurence","2026-08-31","Dépend du go commercial du 15 août","Planifier les premières installations clientes"),
+  op("POST-202608-002","action_post_lancement","18 au 31 août","Accompagnement rapproché","a_faire","Linda + Laurence","2026-08-31","Disponibilités d'accompagnement à réserver","Définir le rythme de suivi des premières clientes"),
+  op("POST-202608-003","action_post_lancement","18 au 31 août","Correction des incidents","a_faire","Laurence","2026-08-31","Les incidents critiques doivent être traités en priorité","Ouvrir un registre unique des incidents de lancement"),
+  op("POST-202608-004","action_post_lancement","18 au 31 août","Mesure du temps d'installation","a_faire","Laurence","2026-08-31","Mesure homogène à mettre en place","Chronométrer chaque installation de bout en bout"),
+  op("POST-202608-005","action_post_lancement","18 au 31 août","Suivi du support","a_faire","Linda + Laurence","2026-08-31","Demandes à centraliser","Consigner chaque demande et son temps de traitement"),
+  op("POST-202608-006","action_post_lancement","18 au 31 août","Contrôle du coût IA","a_faire","Laurence","2026-08-31","Coût réel par usage encore inconnu","Mesurer la consommation IA des premiers comptes"),
+  op("POST-202608-007","action_post_lancement","18 au 31 août","Collecte des premières objections","a_faire","Linda","2026-08-31","Retours commerciaux à structurer","Consigner chaque objection dans une liste partagée"),
+
+  op("POST-202609-001","action_post_lancement","Septembre","Visio commune récurrente Linda + Laurence","a_faire","Linda + Laurence","2026-09-01","Créneau récurrent à arrêter","Créer l'invitation récurrente commune"),
+  op("POST-202609-002","action_post_lancement","Septembre","Démonstration Li.La","a_faire","Linda + Laurence","2026-09-30","Démonstration à adapter aux retours d'août","Mettre à jour le scénario de démonstration Li.La"),
+  op("POST-202609-003","action_post_lancement","Septembre","Présentation distincte de Li.La by La Maison d'AVA","a_faire","Linda","2026-09-30","Positionnement distinct à clarifier","Préparer une présentation dédiée à La Maison d'AVA"),
+  op("POST-202609-004","action_post_lancement","Septembre","FAQ","a_faire","Linda + Laurence","2026-09-30","Questions réelles à consolider","Transformer les questions d'août en FAQ"),
+  op("POST-202609-005","action_post_lancement","Septembre","Réponses aux objections","a_faire","Linda","2026-09-30","Argumentaire à partir des objections réelles","Rédiger une réponse validée pour chaque objection récurrente"),
+  op("POST-202609-006","action_post_lancement","Septembre","Premiers témoignages validés","a_faire","Linda","2026-09-30","Accord explicite des clientes nécessaire","Demander la validation écrite du premier témoignage"),
+  op("POST-202609-007","action_post_lancement","Septembre","Optimisation du tunnel de vente","a_faire","Linda + Laurence","2026-09-30","Données de conversion à collecter","Identifier la principale rupture du tunnel"),
+  op("POST-202609-008","action_post_lancement","Septembre","Amélioration de l'onboarding","a_faire","Laurence","2026-09-30","Points de friction à prioriser","Corriger le principal point de friction d'installation"),
+
+  op("POST-202610-001","action_post_lancement","Octobre","Acquisition régulière","a_faire","Linda","2026-10-31","Canal reproductible à confirmer","Choisir le canal d'acquisition prioritaire"),
+  op("POST-202610-002","action_post_lancement","Octobre","Cas client","a_faire","Linda + Laurence","2026-10-31","Résultats documentés nécessaires","Sélectionner le premier cas client publiable"),
+  op("POST-202610-003","action_post_lancement","Octobre","Recommandation et partenariats","a_faire","Linda","2026-10-31","Proposition partenaire à formaliser","Définir une première offre de recommandation"),
+  op("POST-202610-004","action_post_lancement","Octobre","Amélioration de l'assistant d'installation","a_faire","Laurence","2026-10-31","Retours d'onboarding à intégrer","Prioriser l'amélioration la plus fréquente"),
+  op("POST-202610-005","action_post_lancement","Octobre","Analyse des conversions par offre","a_faire","Linda + Laurence","2026-10-31","Suivi par offre à fiabiliser","Construire le tableau des conversions par offre"),
+
+  op("POST-202611-001","action_post_lancement","Novembre","Industrialisation de l'installation","a_faire","Laurence","2026-11-30","Temps d'installation encore variable","Formaliser le parcours d'installation standard"),
+  op("POST-202611-002","action_post_lancement","Novembre","Standardisation du support","a_faire","Linda + Laurence","2026-11-30","Réponses et niveaux d'escalade à formaliser","Créer la procédure standard de support"),
+  op("POST-202611-003","action_post_lancement","Novembre","Contrôle des droits Google","a_faire","Laurence","2026-11-30","Droits trop larges possibles","Auditer les autorisations Google réellement nécessaires"),
+  op("POST-202611-004","action_post_lancement","Novembre","Suivi des quotas et coûts API","a_faire","Laurence","2026-11-30","Seuils d'alerte à définir","Mettre en place les seuils de suivi par offre"),
+  op("POST-202611-005","action_post_lancement","Novembre","Procédures de sécurité et de reprise","a_faire","Laurence","2026-11-30","Procédure de reprise non documentée","Rédiger le scénario de reprise prioritaire"),
+
+  op("POST-202612-001","action_post_lancement","Décembre","Marge réelle","a_faire","Linda + Laurence","2026-12-31","Coûts complets à consolider","Calculer la marge réelle par offre"),
+  op("POST-202612-002","action_post_lancement","Décembre","Coût du support","a_faire","Linda + Laurence","2026-12-31","Temps de support à valoriser","Calculer le coût mensuel du support"),
+  op("POST-202612-003","action_post_lancement","Décembre","Coût IA par offre","a_faire","Laurence","2026-12-31","Consommation à rattacher aux offres","Calculer le coût IA moyen de chaque offre"),
+  op("POST-202612-004","action_post_lancement","Décembre","Taux de conversion","a_faire","Linda","2026-12-31","Sources commerciales à consolider","Calculer le taux de conversion du trimestre"),
+  op("POST-202612-005","action_post_lancement","Décembre","Taux de résiliation","a_faire","Linda + Laurence","2026-12-31","Motifs de sortie à documenter","Analyser chaque résiliation et son motif"),
+  op("POST-202612-006","action_post_lancement","Décembre","Modules réellement utilisés et décisions de maintien, modification ou suppression","a_faire","Linda + Laurence","2026-12-31","Usage réel à comparer au coût","Décider du sort de chaque module à partir des usages"),
+
+  op("POST-2027Q1-001","action_post_lancement","Janvier à mars 2027","Duplication pour de nouveaux profils immobiliers","a_faire","Linda + Laurence","2027-03-31","Modèle commercial à valider avant duplication","Choisir le premier profil immobilier à tester"),
+  op("POST-2027Q1-002","action_post_lancement","Janvier à mars 2027","Amélioration de la PWA","a_faire","Laurence","2027-03-31","Priorités issues des usages à établir","Sélectionner l'amélioration PWA la plus utile"),
+  op("POST-2027Q1-003","action_post_lancement","Janvier à mars 2027","Onboarding plus autonome","a_faire","Laurence","2027-03-31","Dépend des mesures d'installation","Définir le prochain palier d'autonomie de l'onboarding"),
+  op("POST-2027Q1-004","action_post_lancement","Janvier à mars 2027","Partenariats","a_faire","Linda","2027-03-31","Partenaires prioritaires à qualifier","Contacter le premier partenaire qualifié"),
+  op("POST-2027Q1-005","action_post_lancement","Janvier à mars 2027","Nouveaux cas clients","a_faire","Linda + Laurence","2027-03-31","Accords clients nécessaires","Sélectionner un nouveau cas client documentable"),
+  op("POST-2027Q1-006","action_post_lancement","Janvier à mars 2027","Pas de priorité App Store ou Google Play tant que le modèle commercial n'est pas validé","a_faire","Linda + Laurence","2027-03-31","Risque de détourner l'effort avant validation commerciale","Maintenir la priorité sur la validation du modèle commercial")
+];
+let OPROWS=OPDATA.map(o=>Object.assign({},o));
+
+/* ====================== LE PLAN DÉTAILLÉ CONSERVÉ ====================== */
 const PLAN={
   technique:{label:"Développement technique",owner:"Laurence",modules:[
     {id:"c1",nom:"Socle données",code:"C1",sub:"Google Sheets (base partagée, proxy Apps Script)",
@@ -544,12 +657,12 @@ const PLAN={
        {t:"Quota épuisé → blocage propre",r:"L"},
        {t:"Clé absente du front (inspecteur réseau)",r:"L"}]},
 
-    {id:"c3",nom:"Identification & accès par forfait",code:"C3",sub:"Accès par mail, déblocage selon Essentiel / Pro / Business",
+    {id:"c3",nom:"Identification & accès par forfait",code:"C3",sub:"Accès distincts : Hub réservé aux membres AVA et abonnements de l'application Li.La générique",
      dev:[
        {t:"Identification par adresse mail",r:"L"},
        {t:"Interface verrouillée pour les non-abonnés",r:"L"},
        {t:"Vitrines « factices » des modules non souscrits",r:"L"},
-       {t:"Déblocage conditionnel selon le forfait (Essentiel/Pro/Business)",r:"L"}],
+       {t:"Déblocage conditionnel selon l'accès souscrit ; l'adhésion AVA n'active pas automatiquement Essentiel",r:"L"}],
      check:[
        {t:"Un non-abonné voit la vitrine sans accéder au contenu",r:"L"},
        {t:"Le déblocage suit bien le forfait payé",r:"L"}]},
@@ -588,7 +701,7 @@ const PLAN={
        {t:"Fallback texte fonctionne sur iOS",r:"L"},
        {t:"Rien enregistré sans validation",r:"L"}]},
 
-    {id:"grat",nom:"Modules gratuits AVA",code:"GRAT",sub:"Mémo vocal · Veille ALUR · Éducation IA (inclus adhésion)",
+    {id:"grat",nom:"Modules du Hub AVA",code:"GRAT",sub:"Mémo vocal · Veille ALUR · Éducation IA réservés aux membres ; Essentiel reste un accès indépendant",
      dev:[
        {t:"Veille ALUR / réglementaire (flux + sélection)",r:"L"},
        {t:"Accès mémo vocal (sans quota IA lourd)",r:"L"},
@@ -596,17 +709,17 @@ const PLAN={
      check:[
        {t:"Les modules gratuits fonctionnent sans abonnement payant",r:"L"}]},
 
-    {id:"c9",nom:"Paiement — Stripe",code:"C9",sub:"Produit Essentiel 19€ dans le compte Stripe existant (Linda)",
+    {id:"c9",nom:"Paiement — Stripe",code:"C9",sub:"Produit Li.La Essentiel 19€ indépendant de l'adhésion AVA, dans le compte Stripe existant (Linda)",
      dev:[
        {t:"Créer le produit Stripe « Essentiel 19€/mois » (compte Linda existant)",r:"L"},
        {t:"Page de souscription + déblocage à l'achat",r:"L"},
        {t:"Webhook → activation du forfait + quota",r:"L"},
-       {t:"Bascule des membres AVA au réabonnement",r:"2"}],
+       {t:"Proposer Li.La Essentiel séparément aux membres AVA, sans activation automatique liée à l'adhésion",r:"2"}],
      check:[
        {t:"Un encaissement test réel passe",r:"L"},
        {t:"Le forfait + le quota s'activent automatiquement",r:"L"}]},
 
-    {id:"c10",nom:"Mise en ligne & RGPD",code:"C10",sub:"Déploiement, installation, conformité — LIVE 31 juillet",
+    {id:"c10",nom:"Mise en ligne & RGPD",code:"C10",sub:"Déploiement, installation, conformité — Office et Carnet accessibles au premier cercle testeur le 31 juillet",
      dev:[
        {t:"Coque Li·La réunissant les modules",r:"L"},
        {t:"PWA (manifest, sw, bannière d'installation)",r:"L"},
@@ -618,7 +731,7 @@ const PLAN={
        {t:"Documents RGPD en ligne",r:"L"},
        {t:"Un membre s'installe de bout en bout avec le guide",r:"Li"}]},
 
-    {id:"c6",nom:"Li·La Com'",code:"C6",sub:"Création de contenu réseaux sociaux (Pro 39€) — mi-août",
+    {id:"c6",nom:"Li·La Com'",code:"C6",sub:"Création de contenu réseaux sociaux — niveau 39€ hypothétique jusqu'à validation de la grille",
      dev:[
        {t:"Génération de posts / contenus réseaux sociaux",r:"L"},
        {t:"Déclinaison par canal (LinkedIn, Instagram…)",r:"L"},
@@ -626,7 +739,7 @@ const PLAN={
      check:[
        {t:"Un post généré est exploitable directement",r:"L"}]},
 
-    {id:"c7",nom:"Li·La Studio+",code:"C7",sub:"Visuels avancés, prompts archi/BTP (Business 59€) — mi-août",
+    {id:"c7",nom:"Li·La Studio+",code:"C7",sub:"Visuels avancés, prompts archi/BTP — niveau 59€ hypothétique jusqu'à validation de la grille",
      dev:[
        {t:"Traitement d'image avancé (valorisation visuelle)",r:"L"},
        {t:"Bibliothèque de prompts architecte / BTP (IP invisible)",r:"L"},
@@ -637,12 +750,12 @@ const PLAN={
   ]},
 
   plan:{label:"Business plan & cadre",owner:"Linda + Laurence",modules:[
-    {id:"b1",nom:"Offres & tarifs",code:"B1",sub:"AVA 129€/an · Essentiel 19€ · Pro 39€ · Business 59€",
+    {id:"b1",nom:"Offres & tarifs",code:"B1",sub:"Adhésion AVA et Li.La Essentiel 19€ indépendants · niveaux 39€ et 59€ encore hypothétiques",
      dev:[
        {t:"Structurer les forfaits : Essentiel (Office+Carnet) / Pro (+Com') / Business (+Studio+)",r:"2"},
-       {t:"Tarifs actés — AVA 129€/an · Essentiel 19 · Pro 39 · Business 59",r:"1"},
+       {t:"Valider la grille — adhésion AVA distincte d'Essentiel 19€ ; niveaux 39€ et 59€ à confirmer",r:"1"},
        {t:"Fixer les règles du freemium (ce qui est verrouillé)",r:"2"},
-       {t:"Conditions de bascule des anciens adhérents Ava",r:"2"}],
+       {t:"Conditions de souscription séparée à Li.La pour les membres AVA qui souhaitent cumuler les deux accès",r:"2"}],
      check:[
        {t:"Grille tarifaire validée à deux",r:"2"}]},
 
@@ -817,7 +930,7 @@ const METHODE={
   c5:{but:"Capturer une info en déplacement et la ranger au bon endroit, sans rien perdre.",
       comment:"Bouton de capture vocal + texte (avec repli texte obligatoire sur iOS). L'IA propose une structuration (contact / rappel / note) que l'agent valide avant enregistrement. Rattachement au bon contact/dossier.",
       livrable:"Dictée → proposition structurée → validée → rangée."},
-  c6:{but:"Produire du contenu réseaux sociaux prêt à publier (offre 39€).",
+  c6:{but:"Produire du contenu réseaux sociaux prêt à publier ; le niveau 39€ reste une hypothèse jusqu'à validation de la grille tarifaire.",
       comment:"Génération de posts à partir d'un brief court, déclinés par canal. Une bibliothèque d'angles immo (IP invisible) guide la qualité sans être exposée.",
       livrable:"Un post exploitable directement, par canal."},
   c7:{but:"Le haut de gamme visuel : image avancée + prompts archi/BTP.",
@@ -827,7 +940,7 @@ const METHODE={
       comment:"Veille, mémo vocal et quelques questions IA, plus l'accès aux formations. Volontairement limité pour donner envie de passer payant.",
       livrable:"Offre gratuite fonctionnelle, sans paiement."},
   c9:{but:"Encaisser proprement dès le 18 août.",
-      comment:"Produits Stripe (19 / 39€) + SEPA. À l'achat, l'offre et le quota s'activent via webhook. Les anciens adhérents Ava basculent à leur date anniversaire.",
+      comment:"Produit Stripe Li.La Essentiel 19€ + SEPA. À l'achat, l'offre et le quota s'activent via webhook. Les membres AVA choisissent Essentiel séparément : aucune activation automatique liée à l'adhésion.",
       livrable:"Un paiement test réel passe et active l'offre."},
   c10:{but:"Rendre Li·La installable, visible et conforme.",
       comment:"Coque PWA (installable mobile), landing simple avec réservation de démo, nom de domaine, déploiement Netlify, documents RGPD.",
@@ -871,16 +984,16 @@ function globalProgress(){
 
 /* ====================== PLANNING DATÉ ====================== */
 const PLANNING=[
-  {periode:"Juillet — Build (Li·La by La Maison d'AVA LIVE au 31 juillet)",phase:"build",semaines:[
+  {periode:"Juillet — Build (ouverture du Hub Li.La by La Maison d'AVA au premier cercle autour du 20 juillet)",phase:"build",semaines:[
     {sem:"S28",lbl:"8 → 13 juil.",due:"2026-07-13",mids:["c1","c2"],note:"Socle Google Sheets + proxy IA (clé serveur)."},
-    {sem:"S29",lbl:"14 → 20 juil.",due:"2026-07-20",mids:["c3","hub","c4"],abs:"Linda indisponible — week-end du 14 juillet",note:"Accès par forfait + Hub AVA + Office (mails via script chez l'agent)."},
+    {sem:"S29",lbl:"14 → 20 juil.",due:"2026-07-20",mids:["c3","hub","c4"],abs:"Linda indisponible — week-end du 14 juillet",note:"Ouverture du Hub Li.La by La Maison d'AVA au premier cercle ; préparation des accès indépendants au Hub et à Li.La Essentiel."},
     {sem:"S30",lbl:"21 → 27 juil.",due:"2026-07-27",mids:["c5","grat","c9"],note:"Carnet + modules gratuits AVA + produit Stripe Essentiel 19€."},
-    {sem:"S31",lbl:"28 → 31 juil.",due:"2026-07-31",mids:["c10"],note:"Mise en ligne, installation, tests, bascule des membres AVA en réabonnement."}
-  ],jalon:{t:"Li·La by La Maison d'AVA LIVE + Essentiel vendable — vendredi 31 juillet",kind:"go"}},
+    {sem:"S31",lbl:"28 → 31 juil.",due:"2026-07-31",mids:["c10"],note:"Office et Carnet accessibles au premier cercle testeur ; tests des accès distincts entre adhésion AVA et Li.La Essentiel."}
+  ],jalon:{t:"Office et Carnet accessibles au premier cercle testeur — vendredi 31 juillet",kind:"go"}},
 
-  {periode:"Août — Pro & Business, puis lancement public",phase:"beta",semaines:[
-    {sem:"S32-33",lbl:"1 → 16 août",due:"2026-08-16",mids:["c6","c7"],abs:"Linda indisponible — week-end du 15 août",note:"Développement Com' (Pro 39€) et Studio+ (Business 59€). Preuve sociale : premiers membres AVA basculés."}
-  ],jalon:{t:"Lancement public (Pro + Business, hors AVA) — mardi 18 août",kind:"launch"}},
+  {periode:"Août — stabilisation des offres, puis ouverture commerciale de Li.La générique",phase:"beta",semaines:[
+    {sem:"S32-33",lbl:"1 → 16 août",due:"2026-08-16",mids:["c6","c7"],abs:"Linda indisponible — week-end du 15 août",note:"Stabilisation de Com' et Studio+ ; niveaux 39€ et 59€ encore hypothétiques jusqu'à validation de la grille tarifaire."}
+  ],jalon:{t:"Ouverture commerciale de Li.La générique aux professionnels extérieurs — mardi 18 août",kind:"launch"}},
 
   {periode:"Du lancement à l'événement",phase:"launch",semaines:[
     {sem:"S34-35",lbl:"18 → 30 août",due:"2026-08-30",mids:["p3","p4"],note:"Ouverture publique des abonnements, montée en charge, suivi des premiers membres."},
@@ -968,7 +1081,7 @@ function jalonCard(t,date,iso,kind){const j=daysTo(iso);return `<div class="jcar
 function phaseBar(lbl,ph){const p=phaseProgress(ph);return `<div class="pbrow"><span class="pbl">${lbl}</span><span class="pbbar"><i class="${ph}" style="width:${p}%"></i></span><span class="pbv">${p}%</span></div>`;}
 function voletBar(lbl,vol){const p=voletProgress(vol);return `<div class="pbrow" data-jump="${vol}"><span class="pbl">${lbl}</span><span class="pbbar"><i style="width:${p}%"></i></span><span class="pbv">${p}%</span></div>`;}
 
-function renderDashboard(){
+function renderLegacyDashboard(){
   const g=globalProgress(),s=modulesStats(),cd=daysTo("2026-08-18");
   const nx=s.next?`${s.next.m.code} · ${s.next.m.nom}`:"Tout est fait";
   const nd=s.next?fmtDate(s.next.due):"";
@@ -985,7 +1098,7 @@ function renderDashboard(){
     </div>
     <div class="dgrid">
       <div class="panel"><h3>Les jalons clés</h3>
-        ${jalonCard("Li·La mis à disposition","vendredi 31 juillet","2026-07-31","go")}
+        ${jalonCard("Office et Carnet accessibles aux testeurs","vendredi 31 juillet","2026-07-31","go")}
         ${jalonCard("Lancement commercial","mardi 18 août","2026-08-18","launch")}
         ${jalonCard("Événement officiel","jeudi 17 septembre","2026-09-17","event")}
       </div>
@@ -1003,10 +1116,10 @@ function renderDashboard(){
     <div class="panel brief"><h3>Le projet en bref</h3>
       <ul class="points">
         <li><span class="b">·</span><span><b>Li·La</b> = assistant IA métier immo. Modules : Office (mail+tâches), Carnet (contacts+biens+mémo), Com' (réseaux), Studio+ (visuels) + Hub AVA & modules gratuits.</span></li>
-        <li><span class="b">·</span><span><b>Forfaits</b> : AVA 129€/an · Essentiel 19€ (Office+Carnet) · Pro 39€ (+Com') · Business 59€ (+Studio+).</span></li>
+        <li><span class="b">·</span><span><b>Accès indépendants</b> : l'adhésion à La Maison d'AVA ouvre le Hub collectif ; Li.La Essentiel 19€ ouvre Office et Carnet. Les niveaux 39€ et 59€ restent des hypothèses jusqu'à validation de la grille.</span></li>
         <li><span class="b">·</span><span><b>Clé IA chez Laurence</b>, jamais dans le front : proxy à quotas par membre.</span></li>
         <li><span class="b">·</span><span><b>Données</b> : Google Sheets (base partagée, proxy Apps Script).</span></li>
-        <li><span class="b">·</span><span><b>31 juil.</b> Li·La mis à disposition (Hub AVA + accès + gratuits) · <b>18 août</b> lancement public · <b>17 sept.</b> événement.</span></li>
+        <li><span class="b">·</span><span><b>Autour du 20 juil.</b> ouverture du Hub AVA au premier cercle · <b>31 juil.</b> Office et Carnet accessibles aux testeurs · <b>18 août</b> ouverture commerciale de Li.La générique aux professionnels extérieurs.</span></li>
       </ul>
     </div>
     <div class="panel"><h3>Les dossiers du projet</h3>
@@ -1025,13 +1138,119 @@ function docTile(vol,titre,desc){
   const url=VOLDOC[vol]||"#";
   return `<a class="doctile" href="${url}" target="_blank" rel="noopener"><span class="dt-ico">${ico}</span><span class="dt-b"><b>${titre}</b><span>${desc}</span></span><span class="dt-go">Ouvrir →</span></a>`;
 }
-function bindDashboard(){
+function bindLegacyDashboard(){
   document.querySelectorAll("[data-jump]").forEach(el=>el.onclick=()=>{
-    const v=el.dataset.jump;const tb=document.querySelector(`.tab[data-v="${v}"]`);if(tb)tb.click();
+    const v=el.dataset.jump;const tb=document.querySelector(`.tab[data-v="${v}"]`);if(tb)tb.click();else openOperationalView(v);
   });
 }
-function railJalon(t,date,iso,kind){const j=daysTo(iso);return `<div class="rj ${kind}" data-jump="planning"><span class="rjd"></span><span class="rjt">${t}<span>${date}</span></span><span class="rjc">J−${j}</span></div>`;}
+
+/* ====================== VUES OPÉRATIONNELLES SIMPLIFIÉES ====================== */
+const OPDONE=new Set(["fait","valide"]);
+const OPLABEL={a_faire:"À faire",en_cours:"En cours",fait:"Terminé",bloque:"Bloqué",valide:"Validé"};
+const OPSTATUSORDER=["a_faire","en_cours","fait","bloque"];
+const OPDECISIONNEXT={a_faire:"en_cours",en_cours:"valide",valide:"a_faire",bloque:"a_faire"};
+const OPPERIODS=["18 au 31 août","Septembre","Octobre","Novembre","Décembre","Janvier à mars 2027"];
+function opDone(r){return OPDONE.has(r.statut)}
+function opProgress(rows){rows=rows||OPROWS;return rows.length?Math.round(rows.filter(opDone).length/rows.length*100):0}
+function opDue(v){if(!v)return"—";return fmtDate(String(v).slice(0,10))}
+function opPending(rows){return rows.filter(r=>!opDone(r)).sort((a,b)=>String(a.echeance).localeCompare(String(b.echeance)))}
+function opStatusButton(r){return `<button class="opstatus ${r.statut}" data-opstatus="${r.pilotage_id}" title="Changer uniquement le statut">${OPLABEL[r.statut]||r.statut}</button>`}
+function opRow(r){
+  return `<article class="oprow"><div class="oprowhead"><span class="opid">${r.pilotage_id}</span><h3>${r.titre}</h3>${opStatusButton(r)}</div>
+    <div class="opfields">
+      ${r.retour_brut?`<div class="opfield full opraw"><b>Retour brut de Linda</b>${r.retour_brut}</div>`:""}
+      ${r.decision?`<div class="opfield full opdecision"><b>Décision</b>${r.decision}</div>`:""}
+      <div class="opfield"><b>Responsable</b>${r.responsable}</div><div class="opfield"><b>Échéance</b>${opDue(r.echeance)}</div>
+      <div class="opfield full"><b>Blocage éventuel</b>${r.blocage||"Aucun blocage signalé"}</div>
+      <div class="opfield full"><b>Prochaine action unique</b>${r.prochaine_action}</div>
+    </div></article>`;
+}
+function opPeriod(title,rows,open){
+  const pending=rows.filter(r=>!opDone(r)).length,pct=opProgress(rows),next=opPending(rows)[0];
+  return `<details class="opperiod" ${open?"open":""}><summary><div><h2>${title}</h2><p>${pending} action(s) ouverte(s) · progression ${pct}%${next?` · prochaine : ${next.prochaine_action}`:""}</p></div><span class="count">${rows.length} lignes</span></summary><div class="oprows">${rows.map(opRow).join("")}</div></details>`;
+}
+function openOperationalView(v){
+  VIEW=v;document.querySelectorAll(".tab").forEach(t=>t.classList.toggle("active",t.dataset.v===v));
+  document.querySelectorAll("[data-navview]").forEach(t=>t.classList.toggle("active",t.dataset.navview===v));
+  render();window.scrollTo({top:0,behavior:"smooth"});
+}
+function renderDashboard(){
+  const blockers=OPROWS.filter(r=>r.type==="bloquant"),openBlockers=blockers.filter(r=>!opDone(r));
+  const decisions=OPROWS.filter(r=>r.type==="decision_retour"),pendingDecisions=decisions.filter(r=>!opDone(r));
+  const after=OPROWS.filter(r=>r.type==="action_post_lancement"),next=opPending(OPROWS)[0];
+  const go=OPROWS.find(r=>r.pilotage_id==="BLOC-015"),pct=opProgress();
+  return `<div class="ops">
+    <div class="opshero"><div><div class="k">Cockpit de commercialisation</div><h2>Ce qui bloque, qui agit et quelle est la prochaine action.</h2><p>Commercialisation le 18 août uniquement si tous les éléments bloquants sont validés.</p></div><div class="opsgo"><div class="k">Go / no-go</div><b>15 août · ${OPLABEL[go.statut]}</b><span>Décision Linda + Laurence</span></div></div>
+    <div class="opsstats">
+      <div class="opsstat alert" data-opview="avant"><span class="n">${openBlockers.length}</span><span class="l">bloquants encore ouverts</span></div>
+      <div class="opsstat" data-opview="decisions"><span class="n">${pendingDecisions.length}</span><span class="l">décisions à traiter</span></div>
+      <div class="opsstat" data-opview="apres"><span class="n">${after.length}</span><span class="l">actions post-lancement</span></div>
+      <div class="opsstat" data-opview="avant"><span class="n">${pct}%</span><span class="l">progression globale</span><div class="opsprogress"><i style="width:${pct}%"></i></div></div>
+    </div>
+    <div class="opsgrid">
+      <div class="opsummary" data-opview="avant"><h3>Avant le 18 août</h3><p>15 prérequis détaillés, avec décision go / no-go le 15 août.</p><div class="opmeta"><span><b>Priorité :</b> ${openBlockers[0]?openBlockers[0].titre:"Tous les bloquants sont validés"}</span><span><b>Prochaine action :</b> ${openBlockers[0]?openBlockers[0].prochaine_action:"Préparer la commercialisation"}</span><span><b>Échéance :</b> ${openBlockers[0]?opDue(openBlockers[0].echeance):"18 août"}</span></div></div>
+      <div class="opsummary" data-opview="apres"><h3>Après le 18 août</h3><p>37 actions conservées et regroupées par période jusqu'en mars 2027.</p><div class="opmeta"><span><b>Première période :</b> 18 au 31 août</span><span><b>Responsables :</b> Linda + Laurence</span><span><b>Progression :</b> ${opProgress(after)}%</span></div></div>
+      <div class="opsummary" data-opview="decisions"><h3>Décisions et retours</h3><p>Les 6 retours de Linda et leur décision opérationnelle, sans reformulation du retour brut.</p><div class="opmeta"><span><b>Validées :</b> ${decisions.filter(opDone).length}/${decisions.length}</span><span><b>Prochaine action :</b> ${pendingDecisions[0]?pendingDecisions[0].prochaine_action:"Toutes les décisions sont traitées"}</span></div></div>
+      <div class="opsummary" data-opview="documents"><h3>Documents</h3><p>Accès à tous les plans détaillés, conservés intégralement hors de la navigation principale.</p><div class="opmeta"><span><b>Plan de communication :</b> validé par Linda, inchangé</span><span><b>Plan opérationnel :</b> contenu détaillé conservé</span></div></div>
+    </div>
+    ${next?`<div class="opsnote"><b>Prochaine action globale — ${next.responsable}, échéance ${opDue(next.echeance)} :</b> ${next.prochaine_action}</div>`:""}
+  </div>`;
+}
+function renderAvant(){
+  const rows=OPROWS.filter(r=>r.type==="bloquant");
+  return `<div class="ops"><h1>Bloquants avant commercialisation</h1><p class="opslead">Les 15 lignes détaillées sont conservées. Ouvre le bloc pour consulter ou mettre à jour uniquement leur statut.</p>${opPeriod("Avant le 18 août",rows,true)}</div>`;
+}
+function renderApres(){
+  const actions=OPROWS.filter(r=>r.type==="action_post_lancement");
+  return `<div class="ops"><h1>Après le 18 août</h1><p class="opslead">Feuille de route complète, regroupée par période sans supprimer aucune action.</p>${OPPERIODS.map((p,i)=>opPeriod(p,actions.filter(r=>r.periode===p),i===0)).join("")}</div>`;
+}
+function renderDecisions(){
+  const rows=OPROWS.filter(r=>r.type==="decision_retour");
+  return `<div class="ops"><h1>Décisions et retours</h1><p class="opslead">Retour brut, décision, responsable, prochaine action et statut sont visibles pour chacune des 6 décisions.</p>${opPeriod("Retours validés de Linda",rows,true)}</div>`;
+}
+function renderDocuments(){
+  return `<div class="ops"><h1>Documents</h1><p class="opslead">Les pages détaillées restent intégrales et accessibles ici, sans surcharger la navigation principale.</p>
+    <div class="opsdocs">
+      <a class="opsdoc" href="lila-plan-operationnel.html"><b>Plan opérationnel détaillé</b><span>Ordre, dépendances et actions complètes.</span></a>
+      <a class="opsdoc" href="lila-plan-route-developpement.html"><b>Plan de route — développement</b><span>Les 10 modules techniques détaillés.</span></a>
+      <a class="opsdoc" href="lila-plan-communication.html"><b>Plan de communication</b><span>Document validé par Linda, conservé sans modification.</span></a>
+      <a class="opsdoc" href="lila-contenus.html"><b>Kit de contenus</b><span>Les 29 posts et leurs visuels.</span></a>
+      <a class="opsdoc" href="lila-business-plan.html"><b>Business plan</b><span>Offres, coûts et scénarios détaillés.</span></a>
+      <a class="opsdoc" href="lila-veille-prospection.html"><b>Veille et prospection</b><span>Cibles, méthode, concurrence et démonstrations.</span></a>
+      <a class="opsdoc" href="lila-charges.html"><b>Charges et économie</b><span>Suivi économique détaillé.</span></a>
+      <button class="opsdoc" data-legacy="planning"><b>Planning détaillé du cockpit</b><span>Ancien planning conservé dans le fichier.</span></button>
+      <button class="opsdoc" data-legacy="technique"><b>Détail développement</b><span>Toutes les tâches techniques historiques.</span></button>
+      <button class="opsdoc" data-legacy="plan"><b>Détail business et cadre</b><span>Toutes les actions du volet business plan.</span></button>
+      <button class="opsdoc" data-legacy="business"><b>Détail prospection</b><span>Toutes les actions de prospection et veille.</span></button>
+      <button class="opsdoc" data-legacy="com"><b>Détail communication du cockpit</b><span>Le suivi détaillé historique, distinct du document validé.</span></button>
+      <button class="opsdoc" data-legacy="reperes"><b>Repères complets</b><span>Offres, architecture, décisions et annexes historiques.</span></button>
+      <button class="opsdoc" data-legacy="legacy-dashboard"><b>Ancienne vue d'ensemble détaillée</b><span>Contenu précédent conservé pour référence.</span></button>
+    </div><div class="opsnote"><b>Règle :</b> le plan de communication reste strictement inchangé. Aucun document détaillé n'a été supprimé ou condensé.</div></div>`;
+}
+async function cyclePilotageStatut(id){
+  const row=OPROWS.find(r=>r.pilotage_id===id);if(!row)return;
+  if(row.type==="decision_retour")row.statut=OPDECISIONNEXT[row.statut]||"a_faire";
+  else row.statut=OPSTATUSORDER[(OPSTATUSORDER.indexOf(row.statut)+1)%OPSTATUSORDER.length];
+  render();
+  const sauvegarde=await api.savePilotageStatut(id,row.statut);
+  const sync=document.getElementById("sync"),txt=document.getElementById("syncTxt");
+  if(sauvegarde.ok){sync.className="sync ok";txt.textContent="Synchronisé";toast(`Statut synchronisé : ${OPLABEL[row.statut]}`,row.statut==="fait"||row.statut==="valide");}
+  else{sync.className="sync local";txt.textContent="Local — non synchronisé";toast(`Statut enregistré uniquement sur cet appareil · ${sauvegarde.error}`,false);}
+}
+function bindOperationalViews(){
+  document.querySelectorAll("[data-opview]").forEach(el=>el.onclick=()=>openOperationalView(el.dataset.opview));
+  document.querySelectorAll("[data-opstatus]").forEach(el=>el.onclick=e=>{e.preventDefault();e.stopPropagation();cyclePilotageStatut(el.dataset.opstatus)});
+  document.querySelectorAll("[data-legacy]").forEach(el=>el.onclick=()=>openOperationalView(el.dataset.legacy));
+}
 function renderRail(){
+  const next=opPending(OPROWS)[0],go=OPROWS.find(r=>r.pilotage_id==="BLOC-015"),pct=opProgress();
+  return `<div class="railbox"><div class="rk">Pilotage opérationnel</div><div class="rcd"><span class="rcdn">${pct}%</span><small>progression des<br>58 lignes</small></div>
+    <div class="rnext" data-opview="${next&&next.type==="bloquant"?"avant":"apres"}">Prochaine action<b>${next?next.prochaine_action:"Tout est terminé"}</b><span>${next?next.responsable+" · "+opDue(next.echeance):""}</span></div>
+    <div class="rjalons"><div class="rj launch" data-opview="avant"><span class="rjd"></span><span class="rjt">Go / no-go<span>15 août · ${OPLABEL[go.statut]}</span></span></div><div class="rj go" data-opview="apres"><span class="rjd"></span><span class="rjt">Commercialisation<span>18 août si go</span></span></div></div>
+    <div class="rprog"><span>Global</span><span class="rbar"><i style="width:${pct}%"></i></span><b>${pct}%</b></div></div>`;
+}
+function railJalon(t,date,iso,kind){const j=daysTo(iso);return `<div class="rj ${kind}" data-jump="planning"><span class="rjd"></span><span class="rjt">${t}<span>${date}</span></span><span class="rjc">J−${j}</span></div>`;}
+function renderLegacyRail(){
   const g=globalProgress(),s=modulesStats(),cd=daysTo("2026-08-18");
   const nx=s.next?`${s.next.m.code} · ${s.next.m.nom}`:"Tout est fait";
   const nd=s.next?fmtDate(s.next.due):"";
@@ -1040,7 +1259,7 @@ function renderRail(){
     <div class="rcd"><span class="rcdn">${cd}</span><small>jours avant le<br>lancement · 18 août</small></div>
     <div class="rnext" data-jump="planning">Prochaine échéance<b>${nx}</b><span>${nd||""}</span></div>
     <div class="rjalons">
-      ${railJalon("Li·La disponible","31 juil.","2026-07-31","go")}
+      ${railJalon("Office + Carnet testeurs","31 juil.","2026-07-31","go")}
       ${railJalon("Lancement commercial","18 août","2026-08-18","launch")}
       ${railJalon("Événement officiel","17 sept.","2026-09-17","event")}
     </div>
@@ -1048,24 +1267,22 @@ function renderRail(){
   </div>`;
 }
 function bindRail(){
-  document.querySelectorAll("#rail [data-jump]").forEach(el=>el.onclick=()=>{
-    const v=el.dataset.jump;const tb=document.querySelector(`.tab[data-v="${v}"]`);if(tb)tb.click();
-  });
+  document.querySelectorAll("#rail [data-opview]").forEach(el=>el.onclick=()=>openOperationalView(el.dataset.opview));
 }
 
 function renderReperes(){
   return `<div class="rep">
-    <section><h3>Ce qu'est Li·La</h3><p>Un assistant IA spécialisé pour les agents immobiliers, co-créé par Linda (réseau, terrain, vente) et Laurence (technique, IA, bibliothèque de prompts). Objectif : faire gagner du temps, organiser le quotidien et garantir la confidentialité des données clients (souveraineté).</p></section>
+    <section><h3>Ce qu'est Li·La</h3><p><b>Li.La</b> est l'application générique commercialisable destinée aux professionnels de l'immobilier. <b>Li.La by La Maison d'AVA</b> est le Hub collectif réservé aux membres. Les deux accès sont distincts et peuvent être cumulés. Objectif : faire gagner du temps, organiser le quotidien et garantir la confidentialité des données clients (souveraineté).</p></section>
     <section><h3>Les offres</h3>
       <div class="repmods">
-        <div class="rm now"><b>Adhésion AVA</b><span>Hub collectif, mémo vocal, veille ALUR, éducation IA</span><i>129€/an</i></div>
-        <div class="rm now"><b>Essentiel</b><span>Office (mails/tâches/agenda) + Carnet (contacts/biens/suivi)</span><i>19€/mois</i></div>
-        <div class="rm now"><b>Pro</b><span>Essentiel + Com' (création de contenu réseaux sociaux)</span><i>39€/mois</i></div>
-        <div class="rm later"><b>Business</b><span>Pro + Studio+ (visuels avancés, prompts immo/BTP)</span><i>59€/mois</i></div>
+        <div class="rm now"><b>Adhésion à La Maison d'AVA</b><span>Hub collectif réservé aux membres ; n'inclut pas automatiquement Li.La Essentiel</span><i>Accès indépendant</i></div>
+        <div class="rm now"><b>Li.La Essentiel</b><span>Office (mails/tâches/agenda) + Carnet (contacts/biens/suivi), cumulable avec l'adhésion AVA</span><i>19€/mois</i></div>
+        <div class="rm later"><b>Niveau avec Com'</b><span>Essentiel + création de contenu réseaux sociaux</span><i>Hypothèse 39€/mois</i></div>
+        <div class="rm later"><b>Niveau avec Studio+</b><span>Com' + visuels avancés et prompts immo/BTP</span><i>Hypothèse 59€/mois</i></div>
       </div></section>
     <section><h3>Architecture & données</h3>
       <ul class="points">
-        <li><span class="b">1</span><span><b>Freemium</b> : interface verrouillée pour les non-abonnés, vitrines factices, déblocage par identification mail.</span></li>
+        <li><span class="b">1</span><span><b>Accès distincts</b> : identification par mail, droits du Hub liés à l'adhésion AVA et droits de l'application générique liés à l'abonnement Li.La souscrit.</span></li>
         <li><span class="b">2</span><span><b>Proxy IA à quotas</b> (Apps Script) : la clé reste côté serveur, jamais dans le front ; décompte par membre + plafond global.</span></li>
         <li><span class="b">3</span><span><b>Base</b> : Google Sheets (base partagée, proxy Apps Script côté serveur).</span></li>
       </ul></section>
@@ -1078,9 +1295,10 @@ function renderReperes(){
       </ul></section>
     <section><h3>Calendrier</h3>
       <ul class="points">
-        <li><span class="b">·</span><span><b>31 juillet</b> : Li·La by La Maison d'AVA LIVE + Essentiel vendable.</span></li>
-        <li><span class="b">·</span><span><b>1 → 16 août</b> : développement Pro (Com') et Business (Studio+).</span></li>
-        <li><span class="b">·</span><span><b>18 août</b> : lancement public (Pro + Business, hors AVA).</span></li>
+        <li><span class="b">·</span><span><b>Autour du 20 juillet</b> : ouverture de Li.La by La Maison d'AVA au premier cercle.</span></li>
+        <li><span class="b">·</span><span><b>31 juillet</b> : Office et Carnet accessibles au premier cercle testeur.</span></li>
+        <li><span class="b">·</span><span><b>1 → 16 août</b> : stabilisation de Com' et Studio+, avec niveaux tarifaires encore hypothétiques.</span></li>
+        <li><span class="b">·</span><span><b>18 août</b> : ouverture commerciale de Li.La générique aux professionnels extérieurs.</span></li>
         <li><span class="b">·</span><span><b>17 septembre</b> : événement officiel de présentation.</span></li>
         <li><span class="b">·</span><span><b>Prochaine étape</b> : cadre juridique (accord 50/50) — fil dédié.</span></li>
       </ul></section>
@@ -1137,18 +1355,24 @@ function render(){
   filt.style.visibility=detail?"visible":"hidden";
   let html="";
   if(VIEW==="dash")html=renderDashboard();
+  else if(VIEW==="avant")html=renderAvant();
+  else if(VIEW==="apres")html=renderApres();
+  else if(VIEW==="decisions")html=renderDecisions();
+  else if(VIEW==="documents")html=renderDocuments();
+  else if(VIEW==="legacy-dashboard")html=renderLegacyDashboard();
   else if(VIEW==="planning")html=renderPlanning();
   else if(VIEW==="reperes")html=renderReperes();
   else html=voletBlock(VIEW);
   app.innerHTML=html||`<p style="color:var(--gris);padding:30px 0">Rien à afficher pour ce filtre.</p>`;
   if(VIEW==="reperes")fillAnnexes();
   if(detail) app.querySelectorAll(".mod").forEach(el=>el.classList.add("open"));
-  const g=globalProgress();
+  const g=opProgress();
   document.getElementById("gfill").style.width=g+"%";
   document.getElementById("gpct").textContent=g+"%";
   const rail=document.getElementById("rail");
   if(rail){rail.innerHTML=renderRail();bindRail();}
-  if(VIEW==="dash")bindDashboard();
+  bindOperationalViews();
+  if(VIEW==="legacy-dashboard")bindLegacyDashboard();
   else if(VIEW==="planning")bindPlanning();
   else if(detail)bindRows();
 }
@@ -1244,8 +1468,7 @@ function burst(){
 /* tabs + filtres */
 document.getElementById("tabs").addEventListener("click",e=>{
   const b=e.target.closest(".tab");if(!b)return;
-  document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
-  b.classList.add("active");VIEW=b.dataset.v;render();
+  openOperationalView(b.dataset.v);
 });
 document.getElementById("filters").addEventListener("click",e=>{
   const b=e.target.closest(".fbtn");if(!b)return;
@@ -1259,15 +1482,16 @@ document.getElementById("drawerOv").onclick=closeDrawer;
 document.addEventListener("keydown",e=>{if(e.key==="Escape")closeDrawer();});
 async function refreshFromBackend(manual){
   const btn=document.getElementById("rfbtn"), sync=document.getElementById("sync"), txt=document.getElementById("syncTxt");
-  const ok = !!BACKEND_URL;
   if(manual && btn) btn.classList.add("spin");
-  STATE = await api.load();
+  const donnees=await Promise.all([api.load(),api.loadPilotage()]);
+  STATE=donnees[0];OPROWS=donnees[1];
+  const ok=!!BACKEND_URL&&api.lastLoadOk&&api.lastPilotageLoadOk;
   if(ok){sync.className="sync ok";txt.textContent="Synchronisé";var _bt=document.getElementById("bntxt");if(_bt)_bt.innerHTML="<b>Back-end branché</b> — synchronisé avec le compte partagé. ";}
-  else{sync.className="sync local";txt.textContent="Local";}
+  else{sync.className="sync local";txt.textContent=BACKEND_URL?"Local — non synchronisé":"Local";}
   render();
   if(manual && btn){
-    txt.textContent="Actualisé";
-    setTimeout(()=>{btn.classList.remove("spin");if(ok)txt.textContent="Synchronisé";},650);
+    txt.textContent=ok?"Actualisé":"Local — non synchronisé";
+    setTimeout(()=>{btn.classList.remove("spin");txt.textContent=ok?"Synchronisé":(BACKEND_URL?"Local — non synchronisé":"Local");},650);
   }
 }
 document.getElementById("rfbtn").addEventListener("click",()=>refreshFromBackend(true));
@@ -1282,7 +1506,9 @@ refreshFromBackend(false);
   if(b)b.addEventListener('click',function(){body.classList.toggle('sbopen');});
   if(ov)ov.addEventListener('click',close);
   document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
-  document.querySelectorAll('.sbnav a').forEach(function(a){a.addEventListener('click',close);});
+  document.querySelectorAll('.sbnav a').forEach(function(a){a.addEventListener('click',function(e){
+    if(a.dataset.navview){e.preventDefault();openOperationalView(a.dataset.navview);}close();
+  });});
 })();
 </script>
 <script>
